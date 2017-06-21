@@ -529,23 +529,21 @@ UIStatusBarStyleBlackOpaque      NS_ENUM_DEPRECATED_IOS(2_0, 7_0, &quot;Use UISt
 
       
         
-          
-            <h2 id="Code-Review"><a href="#Code-Review" class="headerlink" title="Code Review"></a>Code Review</h2><h3 id="代码审查清单"><a href="#代码审查清单" class="headerlink" title="代码审查清单"></a>代码审查清单</h3><h4 id="常规项"><a href="#常规项" class="headerlink" title="常规项"></a>常规项</h4><pre><code>1.代码能够工作吗？它有没有实现预期的功能，逻辑是否正确等。
+          <h2 id="Code-Review"><a href="#Code-Review" class="headerlink" title="Code Review"></a>Code Review</h2><h3 id="代码审查清单"><a href="#代码审查清单" class="headerlink" title="代码审查清单"></a>代码审查清单</h3><h4 id="常规项"><a href="#常规项" class="headerlink" title="常规项"></a>常规项</h4><pre><code>1.代码能够工作吗？它有没有实现预期的功能，逻辑是否正确等。
 2.代码符合你遵循的编程规范吗？通常包括大括号的位置，变量名和函数名，行的长度，缩进，格式和注释。
 3.是否存在多余的或是重复的代码？
 4.代码是否尽可能的模块化了？
 5.是否有可以被替换的全局变量？
 6.是否有被注释掉的代码？
 7.健壮性：是否考虑线程安全；边界处理是否完整；数据的越界处理；有没有内存泄漏；逻辑是否健壮；循环引用（block中的self和weakSelf）
-</code></pre><h4 id="安全"><a href="#安全" class="headerlink" title="安全"></a>安全</h4><pre><code>1.所有的数据输入是否都进行了检查（检测正确的类型，长度，格式和范围）并且进行了编码？
-2.在哪里使用了第三方工具，返回的错误是否被捕获？
-3.输入的值是够进行了检查和编码？
-4.无效的参数值是否能够处理？
-</code></pre><h4 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h4><pre><code>把使用清单作为你的起点，针对特定的使用案例，你需要对其进行优化。一个比较棒的方式就是让你的团队记录下那些在代码审查过程中临时发现的问题，有了这些数据，你就能够确定你的团队常犯的错误，然后你就可以量身定制一个审查清单。确保你删除了那些没有出现过的错误。
-</code></pre><h4 id="获取认可并且保持更新"><a href="#获取认可并且保持更新" class="headerlink" title="获取认可并且保持更新"></a>获取认可并且保持更新</h4><pre><code>基本规则是，清单上的人和条目都必须明确，而且，如果可能的话，对于一些条目你可以对其进行二元判断。这样可以防止判断的不一致。和你的团队分享这份清单并且让他们认同你的清单的内容是个好主意。同样的，要定期检查你的清单，以确保各条目仍然是有意义的。
-</code></pre><p>最后： 代码审查的流程<br><a href="http://www.cnblogs.com/IT-Bear/archive/2012/07/04/2576367.html" target="_blank" rel="external">http://www.cnblogs.com/IT-Bear/archive/2012/07/04/2576367.html</a></p>
-
-          
+</code></pre>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/05/22/04-代码审查清单/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -684,7 +682,15 @@ UIStatusBarStyleBlackOpaque      NS_ENUM_DEPRECATED_IOS(2_0, 7_0, &quot;Use UISt
           <h3 id="Mac上安装oh-my-zsh"><a href="#Mac上安装oh-my-zsh" class="headerlink" title="Mac上安装oh-my-zsh"></a>Mac上安装oh-my-zsh</h3><ul>
 <li><p>1 克隆项目本地(Mac默认已经安装git) </p>
 <pre><code>git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
-</code></pre>
+</code></pre></li>
+<li><p>2 创建一个zsh的配置文件 </p>
+<pre><code>cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+</code></pre><p>  备注:~ 代表:你的/home/用户名的目录,假设你的用户名是user,那么~/就是/home/user/. .是代表此目录本身,但是一般可以不写,所以cd ~/. 和 cd ~ 和cd ~/效果是一样的.但是.后面有东西又是另外一个问题,点在文件名头部,代表一个隐藏文件. ~/.local是你的主目录下下一个.local的文件夹的路径,并且从.可以看出,这是一个隐藏文件,使用ls -a显示.</p>
+</li>
+<li><p>3 设置zsh为默认的shell</p>
+<pre><code>chsh -s /bin/zsh
+</code></pre></li>
+<li><p>4 重启终端生效</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/03/06/02-mac上安装oh-my-zsh以及应用/#more" rel="contents">
@@ -827,8 +833,7 @@ UIStatusBarStyleBlackOpaque      NS_ENUM_DEPRECATED_IOS(2_0, 7_0, &quot;Use UISt
 
       
         
-          
-            <ul>
+          <ul>
 <li><p>SVN: 集中式的版本控制系统. 本地只有文件,没有版本库,所有的代码只在服务器上有版本记录,如果要进行版本的回退,和一些tag操作,必须经过服务器</p>
 </li>
 <li><p>Git: 分布式版本控制系统,每个人电脑就有版本库.写完代码,先提交到本地的版本,让后提交到服务器上,最后每个电脑都有一个最新的代码</p>
@@ -845,82 +850,14 @@ git有机器强大的分支管理,把SVN等远远抛在了后面
 <li><p>1.3 登录GitHub,打开”Account settings”,”SSH Key”页面,添加Key,把id_rea.pub内容添加进去.</p>
 <pre><code>git需要在GitHup,OsChina,GitLabel中添加自己的公钥
 由于你的本地Git仓库和GitHub仓库之间的传输是通过SSH加密的,GitHub只要知道了你的公钥,就可以在每台电脑上往GitHub推送了.
-</code></pre></li>
-<li><p>1.4 添加远程库</p>
-<pre><code>在GitHub上创建仓库,使用下面命令,把这个远程的仓库与本地已有的仓库进行关联,之后就可以把本地仓库的内容推送到GitHub仓库了,注意是SSH的,传输相比http稳定
-
-cd 到本地文件        
-$ git remote add origin git@github.com:WayThought/blog.git
-</code></pre></li>
-</ul>
-<p>git remote  查看远程库的信息</p>
-<pre><code>$ git remote origin或者，用git remote -v显示更详细的信息：
-</code></pre><ul>
-<li><p>1.5 从远程库克隆(当你从远程仓库克隆时，实际上Git自动把本地的master分支和远程的master分支对应起来了，并且，远程仓库的默认名称是origin。)</p>
-<pre><code> cd 到本地文件        
-$ git clone git@github.com:WayThought/blog.git
-</code></pre><p>这样就把远程的仓库克隆到了本地</p>
-</li>
-</ul>
-<h4 id="2-本地分支管理"><a href="#2-本地分支管理" class="headerlink" title="2.本地分支管理"></a>2.本地分支管理</h4><p>git status: 查看文件的状态</p>
-<p>git add : 提交有修改的文件,由工作区到暂存区</p>
-<pre><code>git add 文件名  添加指定修改的文件到暂存区
-git add .  添加当前目录所有有修改的文件到暂存区
-</code></pre><p>git commit : 提交暂存区的文件到本地版本库</p>
-<pre><code>git commit -m &quot;注释&quot; 文件名  提交指定的文件到本地仓库
-git commit -m &quot;注释&quot;        提交所有的文件到本地仓库
-</code></pre><p>(需要提交的改动文件,必须先add加到缓存区,再commit到版本区)</p>
-<p>git pull和push命令是本地仓库和远程仓库(服务器)打交道的,一般在push之前都会先pull下代码,如果有冲突,解决完冲突再push</p>
-<pre><code>git pull 从服务器上更新代码到本地仓库,切换到本地需要提交的分支(dev)
-git pull origin dev  把服务器远程仓库更新的代码拉到本地仓库
-
-git push origin dev  把本地仓库的代码更新推送到服务器上
-</code></pre><p>创建与合并分支(当前分支为master)</p>
-<pre><code>git branch  查看当前分支
-git branch dev origin/dev 切换到分支dev
-git checkout dev    切换到分支dev
-git checkout -b dev   创建dev分支,然后切换到dev分支
-git merge dev  把dev的工作内容合并到master上(分支A合并分支B,与分支B合并分支A是一样的)
-</code></pre><h4 id="3-版本回退"><a href="#3-版本回退" class="headerlink" title="3.版本回退"></a>3.版本回退</h4><pre><code>git log  显示历史记录(写周报或者查看版本号)
-git reflog 来记录你的每一次命令(版本回退后,可以找到上一个版本的commit id )
-git reset --hard HEAD^ 回退到上一个版本
-git reset --hard HEAD^^ 回退到上上个版本
-git reset --hard HEAD 版本号 回退到指定的版本
-</code></pre><h4 id="4-补充"><a href="#4-补充" class="headerlink" title="4.补充:"></a>4.补充:</h4><p>4.1 常用命令:<br>    git config –global user.name “Your Name”  提交名字<br>    git config –global user.email you@example.com  提交邮箱</p>
-<pre><code>git co  -- &lt;file&gt;   # 抛弃工作区修改
-git co  .           # 抛弃工作区修改
-git rm &lt;file&gt;       # 从版本库中删除文件
-git rm &lt;file&gt; --cached  # 从版本库中删除文件，但不删除文件
-
-git reset &lt;file&gt;    # 从暂存区恢复到工作文件
-git reset -- .      # 从暂存区恢复到工作文件
-git reset --hard    # 恢复最近一次提交过的状态，即放弃上次提交后的所有本次修改
-
-git stash list
-git stash pop  恢复的同时把stash内容也删了
-
-git checkout -- readme.txt意思就是，把readme.txt文件在工作区的修改全部撤销
-</code></pre><p>4.2 常见问题:</p>
-<p>4.2.1 git pull也失败了，原因是没有指定本地dev分支与远程origin/dev分支的链接，根据提示，设置dev和origin/dev的链接：</p>
-<pre><code>$ git branch --set-upstream dev origin/dev
-</code></pre><p> 4.2.2解决冲突:<br>    常见冲突:<br>    第一种: 项目可以打开,报错-&gt;直接去找,对别人的改动要进行沟通决定是否要保留<br>    第二种: 项目打开失败<br>    git status 查看哪个文件冲突(一般是配置文件)<br>    open 路径 搜索”===“,删除后没有恢复的话 说明删除错误了 -&gt;重新删除</p>
-<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
-Creating a new branch is quick &amp; simple.
-=======
-Creating a new branch is quick AND simple.
-&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature1
-</code></pre><p>上面那个是HEAD分支的,下面这个是feature1分支,沟通后决定保留或删除</p>
-<p>4.2.3 将本地项目添加到远程的仓库</p>
-<pre><code>1.远程建立仓库,并克隆到本地(例如:storeHouse)
-2.将本地的项目拷贝到storeHouse文件中
-3.使用 git init 命令
-4.使用 $ git remote add origin git@github.com:WayThought/blog.git 
-5. git add . 
-6. git commit 
-7. git push 
-</code></pre><p>学习资料:<br><a href="http://www.runoob.com/git/git-tutorial.html" target="_blank" rel="external">http://www.runoob.com/git/git-tutorial.html</a><br><a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/" target="_blank" rel="external">http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/</a></p>
-
-          
+</code></pre>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/01/01-git教程/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

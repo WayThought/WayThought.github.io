@@ -105,7 +105,7 @@
 5.是否有可以被替换的全局变量？
 6.是否有被注释掉的代码？
 7.健壮性：是否考虑线程安全；边界处理是否完整；数据的越界处理；有没">
-<meta property="og:updated_time" content="2017-05-22T05:38:57.000Z">
+<meta property="og:updated_time" content="2017-06-21T07:03:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Code Review">
 <meta name="twitter:description" content="Code Review代码审查清单常规项1.代码能够工作吗？它有没有实现预期的功能，逻辑是否正确等。
@@ -397,7 +397,8 @@
 5.是否有可以被替换的全局变量？
 6.是否有被注释掉的代码？
 7.健壮性：是否考虑线程安全；边界处理是否完整；数据的越界处理；有没有内存泄漏；逻辑是否健壮；循环引用（block中的self和weakSelf）
-</code></pre><h4 id="安全"><a href="#安全" class="headerlink" title="安全"></a>安全</h4><pre><code>1.所有的数据输入是否都进行了检查（检测正确的类型，长度，格式和范围）并且进行了编码？
+</code></pre><a id="more"></a>
+<h4 id="安全"><a href="#安全" class="headerlink" title="安全"></a>安全</h4><pre><code>1.所有的数据输入是否都进行了检查（检测正确的类型，长度，格式和范围）并且进行了编码？
 2.在哪里使用了第三方工具，返回的错误是否被捕获？
 3.输入的值是够进行了检查和编码？
 4.无效的参数值是否能够处理？
