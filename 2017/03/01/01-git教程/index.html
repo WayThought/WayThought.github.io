@@ -101,7 +101,7 @@ git有机器强大的分">
 Git: 分布式版本控制系统,每个人电脑就有版本库.写完代码,先提交到本地的版本,让后提交到服务器上,最后每个电脑都有一个最新的代码
 git也要配置服务器, 但是服务器的作用, 只是作为一个中间桥梁供开发人员去同步代码用的.
 git有机器强大的分">
-<meta property="og:updated_time" content="2017-06-21T07:02:19.000Z">
+<meta property="og:updated_time" content="2017-06-21T08:47:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git教程">
 <meta name="twitter:description" content="SVN: 集中式的版本控制系统. 本地只有文件,没有版本库,所有的代码只在服务器上有版本记录,如果要进行版本的回退,和一些tag操作,必须经过服务器
@@ -456,6 +456,7 @@ git stash list
 git stash pop  恢复的同时把stash内容也删了
 
 git checkout -- readme.txt意思就是，把readme.txt文件在工作区的修改全部撤销
+(版本相同的两个分支)未add和commit的内容如果checkout另一个分支会带过去 可以来回切换
 </code></pre><p>4.2 常见问题:</p>
 <p>4.2.1 git pull也失败了，原因是没有指定本地dev分支与远程origin/dev分支的链接，根据提示，设置dev和origin/dev的链接：</p>
 <pre><code>$ git branch --set-upstream dev origin/dev
