@@ -339,7 +339,7 @@
                   <i class="fa fa-comment-o"></i>
                 </span>
                 <a href="/2017/07/07/01-git教程/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/07/07/01-git教程/" itemprop="commentCount"></span>
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/07/07/01-git教程/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -499,7 +499,7 @@ git有机器强大的分支管理,把SVN等远远抛在了后面
                   <i class="fa fa-comment-o"></i>
                 </span>
                 <a href="/2017/06/21/04-代码审查清单/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/06/21/04-代码审查清单/" itemprop="commentCount"></span>
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/21/04-代码审查清单/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -649,7 +649,7 @@ git有机器强大的分支管理,把SVN等远远抛在了后面
                   <i class="fa fa-comment-o"></i>
                 </span>
                 <a href="/2017/06/21/02-mac上安装oh-my-zsh以及应用/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/06/21/02-mac上安装oh-my-zsh以及应用/" itemprop="commentCount"></span>
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/21/02-mac上安装oh-my-zsh以及应用/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -803,7 +803,7 @@ git有机器强大的分支管理,把SVN等远远抛在了后面
                   <i class="fa fa-comment-o"></i>
                 </span>
                 <a href="/2017/05/22/03-状态栏/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/05/22/03-状态栏/" itemprop="commentCount"></span>
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/05/22/03-状态栏/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -983,29 +983,25 @@ UIStatusBarStyleBlackOpaque      NS_ENUM_DEPRECATED_IOS(2_0, 7_0, &quot;Use UISt
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <% if ((page.layout == 'post' || page.layout == 'page') && config.disqus_shortname && page.comments){ %>
-<script type="text/javascript">
-var disqus_shortname = '<%= config.disqus_shortname %>';
-var disqus_config = function () {
-this.page.url = '<%= config.url %>/<%= page.path %>';
-this.page.identifier = '/<%= page.path %>';
-this.page.title = '<%= page.title %>';
-};
-(function(){
-var d = document;
-var dsq = d.createElement('script');
-dsq.type = 'text/javascript';
-dsq.async = true;
-dsq.src = '//' + disqus_shortname + '.disqus.com/<% if (page.comments){ %>embed.js<% } else { %>count.js<% } %>';
-(d.head || d.body).appendChild(dsq);
-})();
-</script>
-<% } %>
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Qian.G.j</span>
 
-作者：为何是Hex的昵称
-链接：http://www.jianshu.com/p/c4f65ebe23ad
-來源：简书
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.0</div>
+
 
         
 
@@ -1085,36 +1081,31 @@ dsq.src = '//' + disqus_shortname + '.disqus.com/<% if (page.comments){ %>embed.
 
   
 
-  
-    
-  
 
-  <script type="text/javascript">
-    var duoshuoQuery = {short_name:"waythought"};
-    (function() {
-      var ds = document.createElement('script');
-      ds.type = 'text/javascript';ds.async = true;
-      ds.id = 'duoshuo-script';
-      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-      ds.charset = 'UTF-8';
-      (document.getElementsByTagName('head')[0]
-      || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-  </script>
 
   
-    
+
+    <script type="text/javascript">
+      var disqus_shortname = 'waythought';
+      var disqus_identifier = 'index.html';
+
+      var disqus_title = "";
+
+
+      function run_disqus_script(disqus_script) {
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+
       
-      <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
-      <script src="/js/src/hook-duoshuo.js?v=5.1.0"></script>
-    
-    
-    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
-    <script src="/js/src/hook-duoshuo.js"></script>
+
+    </script>
   
-
-
-
 
 
 
