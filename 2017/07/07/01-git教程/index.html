@@ -101,7 +101,7 @@ git有机器强大的分">
 Git: 分布式版本控制系统,每个人电脑就有版本库.写完代码,先提交到本地的版本,让后提交到服务器上,最后每个电脑都有一个最新的代码
 git也要配置服务器, 但是服务器的作用, 只是作为一个中间桥梁供开发人员去同步代码用的.
 git有机器强大的分">
-<meta property="og:updated_time" content="2017-08-25T01:54:58.000Z">
+<meta property="og:updated_time" content="2017-08-25T06:16:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git教程">
 <meta name="twitter:description" content="SVN: 集中式的版本控制系统. 本地只有文件,没有版本库,所有的代码只在服务器上有版本记录,如果要进行版本的回退,和一些tag操作,必须经过服务器
@@ -456,6 +456,7 @@ git stash list
 git stash pop  恢复的同时把stash内容也删了
 
 git checkout -- readme.txt意思就是，把readme.txt文件在工作区的修改全部撤销
+git checkout -- . 把工作区的修改全部撤销
 (版本相同的两个分支)未add和commit的内容如果checkout另一个分支会带过去 可以来回切换
 </code></pre><p>4.2 常见问题:</p>
 <p>4.2.1 git pull也失败了，原因是没有指定本地dev分支与远程origin/dev分支的链接，根据提示，设置dev和origin/dev的链接：</p>
@@ -476,8 +477,8 @@ Creating a new branch is quick AND simple.
 6. git commit 
 7. git push 
 </code></pre><p>4.2.4 将本地分支推送到远程分支:(如果远程分支不存在则会自动创建分支)<br>git push origin 本地分支名:远程分支名</p>
-<p>4.3 补充：<br>查看本地分支与远端分支的差异：<br>git diff master..远程仓库名字/master</p>
-<p>本地分支推送到远端服务器：<br>git push 远程仓库名字 分支名字</p>
+<p>4.3 补充：<br>查看本地分支与远端分支的差异：<br>git diff master..远程仓库名字/master<br>4.4 将本地分支推送到远端服务器：<br>git push 远程仓库名字 分支名字<br>4.4 寻找回退的commit-id(后悔药)<br>git reflog</p>
+<p>ea34578 HEAD@{0}: reset: moving to HEAD^<br>3628164 HEAD@{1}: commit: append GPL<br>ea34578 HEAD@{2}: commit: add distributed<br>做完后面的操作的形成前面的commit-id</p>
 <p>学习资料:<br><a href="http://www.runoob.com/git/git-tutorial.html" target="_blank" rel="external">http://www.runoob.com/git/git-tutorial.html</a><br><a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/" target="_blank" rel="external">http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/</a></p>
 
       
