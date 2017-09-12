@@ -101,7 +101,7 @@ git有机器强大的分">
 Git: 分布式版本控制系统,每个人电脑就有版本库.写完代码,先提交到本地的版本,让后提交到服务器上,最后每个电脑都有一个最新的代码
 git也要配置服务器, 但是服务器的作用, 只是作为一个中间桥梁供开发人员去同步代码用的.
 git有机器强大的分">
-<meta property="og:updated_time" content="2017-09-04T02:28:21.000Z">
+<meta property="og:updated_time" content="2017-09-12T06:05:47.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git教程">
 <meta name="twitter:description" content="SVN: 集中式的版本控制系统. 本地只有文件,没有版本库,所有的代码只在服务器上有版本记录,如果要进行版本的回退,和一些tag操作,必须经过服务器
@@ -461,14 +461,7 @@ git checkout -- . 把工作区的修改全部撤销
 </code></pre><p>4.2 常见问题:</p>
 <p>4.2.1 git pull也失败了，原因是没有指定本地dev分支与远程origin/dev分支的链接，根据提示，设置dev和origin/dev的链接：</p>
 <pre><code>$ git branch --set-upstream dev origin/dev
-</code></pre><p> 4.2.2解决冲突:<br>    常见冲突:<br>    第一种: 项目可以打开,报错-&gt;直接去找,对别人的改动要进行沟通决定是否要保留<br>    第二种: 项目打开失败<br>    git status 查看哪个文件冲突(一般是配置文件)<br>    open 路径 搜索”===“,删除后没有恢复的话 说明删除错误了 -&gt;重新删除</p>
-<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
-Creating a new branch is quick &amp; simple.
-=======
-Creating a new branch is quick AND simple.
-&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature1
-</code></pre><p>上面那个是HEAD分支的,下面这个是feature1分支,沟通后决定保留或删除</p>
-<p>4.2.3 将本地项目添加到远程的仓库</p>
+</code></pre><p>4.2.2 将本地项目添加到远程的仓库</p>
 <pre><code>1.远程建立仓库,并克隆到本地(例如:storeHouse)
 2.将本地的项目拷贝到storeHouse文件中
 3.使用 git init 命令
@@ -476,12 +469,27 @@ Creating a new branch is quick AND simple.
 5. git add . 
 6. git commit 
 7. git push 
-</code></pre><p>4.2.4 将本地分支推送到远程分支:(如果远程分支不存在则会自动创建分支)<br>git push origin 本地分支名:远程分支名<br>4.2.5 远程分支版本的回退</p>
+</code></pre><p>4.2.3 将本地分支推送到远程分支:(如果远程分支不存在则会自动创建分支)<br>git push origin 本地分支名:远程分支名<br>4.2.4 远程分支版本的回退</p>
 <pre><code>切换到本地分支对应着的远程分支
 git push origin HEAD --force #远程提交回退
 </code></pre><p>4.3 补充：<br>查看本地分支与远端分支的差异：<br>git diff master..远程仓库名字/master<br>4.4 将本地分支推送到远端服务器：<br>git push 远程仓库名字 分支名字<br>4.4 寻找回退的commit-id(后悔药)<br>git reflog</p>
 <p>ea34578 HEAD@{0}: reset: moving to HEAD^<br>3628164 HEAD@{1}: commit: append GPL<br>ea34578 HEAD@{2}: commit: add distributed<br>做完后面的操作的形成前面的commit-id</p>
-<p>学习资料:<br><a href="http://www.runoob.com/git/git-tutorial.html" target="_blank" rel="external">http://www.runoob.com/git/git-tutorial.html</a><br><a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/" target="_blank" rel="external">http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/</a></p>
+<h3 id="5-0冲突"><a href="#5-0冲突" class="headerlink" title="5.0冲突"></a>5.0冲突</h3><p>####5.1常见冲突:<br>    第一种: 项目可以打开,报错-&gt;直接去找,对别人的改动要进行沟通决定是否要保留<br>    第二种: 项目打开失败<br>    git status 查看哪个文件冲突(一般是配置文件)<br>    open 路径 搜索”===“,删除后没有恢复的话 说明删除错误了 -&gt;重新删除</p>
+<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+Creating a new branch is quick &amp; simple.
+=======
+Creating a new branch is quick AND simple.
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature1
+</code></pre><p>上面那个是HEAD分支的,下面这个是feature1分支,沟通后决定保留或删除</p>
+<p>####5.2 pbxproj文件冲突<br>比较麻烦的一种冲突,企业开发经常会遇到project.pbxproj文件冲突的问题,project.pbxproj文件主要包含了以下几项主要信息:</p>
+<pre><code>1.工程文件关联信息, 如PBXBuildFile PBXFileReference
+2.组织结构分类信息, 如PBXGroup
+3.项目工程配置信息, 如XCBuildConfiguration XCConfigurationList
+</code></pre><p>解决办法:</p>
+<pre><code>1.笨方法: 由于删除自己的修改的部分还是没有办法打开工程,所以要将上一个版本的project.pbxproj文件导出来，替换掉现有的project.pbxproj文件,但是添加到工程中的文件不见了,后来其实在工程里面看不到了而已,在对应文件目录还是能找到的,只要将这些文件拖一遍到工程里就ok了,(注意看下工程的Compile Sources,有时候会不显示添加的类)
+2.预防:需要增加文件时先增加完空文件后立刻check一次，让别人每次改动 pbxproj的时候改动之前check一次，保证有交叉时间是可能性最小
+3.将不同分支导致的对象进行重新排序,先排序冲突里面相同的对象,然后是重命名或移动了的对象,最后是两边各自新增的对象,(根据sourceCode进行排序)
+</code></pre><p>学习资料:<br><a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/" target="_blank" rel="external">http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/</a></p>
 
       
     </div>
@@ -512,8 +520,8 @@ git push origin HEAD --force #远程提交回退
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/21/04-代码审查清单/" rel="next" title="Code Review">
-                <i class="fa fa-chevron-left"></i> Code Review
+              <a href="/2017/06/21/05-iOS单元测试/" rel="next" title="iOS单元测试">
+                <i class="fa fa-chevron-left"></i> iOS单元测试
               </a>
             
           </div>
@@ -631,7 +639,7 @@ git push origin HEAD --force #远程提交回退
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-远程仓库"><span class="nav-number">1.</span> <span class="nav-text">1.远程仓库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-本地分支管理"><span class="nav-number">2.</span> <span class="nav-text">2.本地分支管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-版本回退"><span class="nav-number">3.</span> <span class="nav-text">3.版本回退</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-补充"><span class="nav-number">4.</span> <span class="nav-text">4.补充:</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-远程仓库"><span class="nav-number">1.</span> <span class="nav-text">1.远程仓库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-本地分支管理"><span class="nav-number">2.</span> <span class="nav-text">2.本地分支管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-版本回退"><span class="nav-number">3.</span> <span class="nav-text">3.版本回退</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-补充"><span class="nav-number">4.</span> <span class="nav-text">4.补充:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-0冲突"><span class="nav-number"></span> <span class="nav-text">5.0冲突</span></a></div>
             
 
           </div>
