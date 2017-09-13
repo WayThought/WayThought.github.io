@@ -101,7 +101,7 @@ git有机器强大的分">
 Git: 分布式版本控制系统,每个人电脑就有版本库.写完代码,先提交到本地的版本,让后提交到服务器上,最后每个电脑都有一个最新的代码
 git也要配置服务器, 但是服务器的作用, 只是作为一个中间桥梁供开发人员去同步代码用的.
 git有机器强大的分">
-<meta property="og:updated_time" content="2017-09-12T06:05:47.000Z">
+<meta property="og:updated_time" content="2017-09-13T12:44:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git教程">
 <meta name="twitter:description" content="SVN: 集中式的版本控制系统. 本地只有文件,没有版本库,所有的代码只在服务器上有版本记录,如果要进行版本的回退,和一些tag操作,必须经过服务器
@@ -474,14 +474,18 @@ git checkout -- . 把工作区的修改全部撤销
 git push origin HEAD --force #远程提交回退
 </code></pre><p>4.3 补充：<br>查看本地分支与远端分支的差异：<br>git diff master..远程仓库名字/master<br>4.4 将本地分支推送到远端服务器：<br>git push 远程仓库名字 分支名字<br>4.4 寻找回退的commit-id(后悔药)<br>git reflog</p>
 <p>ea34578 HEAD@{0}: reset: moving to HEAD^<br>3628164 HEAD@{1}: commit: append GPL<br>ea34578 HEAD@{2}: commit: add distributed<br>做完后面的操作的形成前面的commit-id</p>
-<h3 id="5-0冲突"><a href="#5-0冲突" class="headerlink" title="5.0冲突"></a>5.0冲突</h3><p>####5.1常见冲突:<br>    第一种: 项目可以打开,报错-&gt;直接去找,对别人的改动要进行沟通决定是否要保留<br>    第二种: 项目打开失败<br>    git status 查看哪个文件冲突(一般是配置文件)<br>    open 路径 搜索”===“,删除后没有恢复的话 说明删除错误了 -&gt;重新删除</p>
-<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+<h3 id="5-0冲突"><a href="#5-0冲突" class="headerlink" title="5.0冲突"></a>5.0冲突</h3><h4 id="5-1常见冲突"><a href="#5-1常见冲突" class="headerlink" title="5.1常见冲突:"></a>5.1常见冲突:</h4><pre><code>第一种: 项目可以打开,报错-&gt;直接去找,对别人的改动要进行沟通决定是否要保留
+第二种: 项目打开失败
+git status 查看哪个文件冲突(一般是配置文件)
+open 路径 搜索&quot;===“,删除后没有恢复的话 说明删除错误了 -&gt;重新删除
+
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
 Creating a new branch is quick &amp; simple.
 =======
 Creating a new branch is quick AND simple.
 &gt;&gt;&gt;&gt;&gt;&gt;&gt; feature1
 </code></pre><p>上面那个是HEAD分支的,下面这个是feature1分支,沟通后决定保留或删除</p>
-<p>####5.2 pbxproj文件冲突<br>比较麻烦的一种冲突,企业开发经常会遇到project.pbxproj文件冲突的问题,project.pbxproj文件主要包含了以下几项主要信息:</p>
+<h4 id="5-2-pbxproj文件冲突"><a href="#5-2-pbxproj文件冲突" class="headerlink" title="5.2 pbxproj文件冲突"></a>5.2 pbxproj文件冲突</h4><p>比较麻烦的一种冲突,企业开发经常会遇到project.pbxproj文件冲突的问题,project.pbxproj文件主要包含了以下几项主要信息:</p>
 <pre><code>1.工程文件关联信息, 如PBXBuildFile PBXFileReference
 2.组织结构分类信息, 如PBXGroup
 3.项目工程配置信息, 如XCBuildConfiguration XCConfigurationList
@@ -520,8 +524,8 @@ Creating a new branch is quick AND simple.
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/21/05-iOS单元测试/" rel="next" title="iOS单元测试">
-                <i class="fa fa-chevron-left"></i> iOS单元测试
+              <a href="/2017/06/21/04-代码审查清单/" rel="next" title="Code Review">
+                <i class="fa fa-chevron-left"></i> Code Review
               </a>
             
           </div>
@@ -639,7 +643,7 @@ Creating a new branch is quick AND simple.
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-远程仓库"><span class="nav-number">1.</span> <span class="nav-text">1.远程仓库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-本地分支管理"><span class="nav-number">2.</span> <span class="nav-text">2.本地分支管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-版本回退"><span class="nav-number">3.</span> <span class="nav-text">3.版本回退</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-补充"><span class="nav-number">4.</span> <span class="nav-text">4.补充:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-0冲突"><span class="nav-number"></span> <span class="nav-text">5.0冲突</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-远程仓库"><span class="nav-number">1.</span> <span class="nav-text">1.远程仓库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-本地分支管理"><span class="nav-number">2.</span> <span class="nav-text">2.本地分支管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-版本回退"><span class="nav-number">3.</span> <span class="nav-text">3.版本回退</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-补充"><span class="nav-number">4.</span> <span class="nav-text">4.补充:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-0冲突"><span class="nav-number"></span> <span class="nav-text">5.0冲突</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1常见冲突"><span class="nav-number">1.</span> <span class="nav-text">5.1常见冲突:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-pbxproj文件冲突"><span class="nav-number">2.</span> <span class="nav-text">5.2 pbxproj文件冲突</span></a></li></ol></div>
             
 
           </div>
