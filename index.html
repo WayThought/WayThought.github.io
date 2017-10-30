@@ -77,6 +77,8 @@
 
 
 
+  <link rel="alternate" href="/atom.xml" title="钱多多的博客" type="application/atom+xml" />
+
 
 
 
@@ -303,7 +305,7 @@
               
                 
                 <a class="post-title-link" href="/2017/10/27/07.gitignore/" itemprop="url">
-                  未命名
+                  .gitignore相关
                 </a>
               
             
@@ -347,7 +349,7 @@
 
           
           
-             <span id="/2017/10/27/07.gitignore/" class="leancloud_visitors" data-flag-title="">
+             <span id="/2017/10/27/07.gitignore/" class="leancloud_visitors" data-flag-title=".gitignore相关">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -378,8 +380,7 @@
       
         
           
-            <hr>
-<h2 id="title-gitignore相关"><a href="#title-gitignore相关" class="headerlink" title="title = .gitignore相关"></a>title = .gitignore相关</h2><h4 id="1-作用"><a href="#1-作用" class="headerlink" title="1.作用:"></a>1.作用:</h4><p>利用.gitignore过滤文件，如编译过程中的中间文件，等等，这些文件不需要被追踪管理。<br><a href="https://github.com/github/gitignore" target="_blank" rel="external">内容参考gitHub</a></p>
+            <h4 id="1-作用"><a href="#1-作用" class="headerlink" title="1.作用:"></a>1.作用:</h4><p>利用.gitignore过滤文件，如编译过程中的中间文件，等等，这些文件不需要被追踪管理。<br><a href="https://github.com/github/gitignore" target="_blank" rel="external">内容参考gitHub</a></p>
 <h4 id="2-gitignore无效，不能过滤某些文件"><a href="#2-gitignore无效，不能过滤某些文件" class="headerlink" title="2.gitignore无效，不能过滤某些文件"></a>2.gitignore无效，不能过滤某些文件</h4><ul>
 <li>现象：<br>在.gitignore添加file1文件，以过滤该文件，但是通过git status查看仍显示file1文件的状态。</li>
 <li>原因：<br>在git库中已存在了这个文件，之前push提交过该文件。<br>.gitignore文件只对还没有加入版本管理的文件起作用，如果之前已经用git把这些文件纳入了版本库，就不起作用了</li>
@@ -736,156 +737,6 @@ git有机器强大的分支管理,把SVN等远远抛在了后面
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://waythought.duoshuo.com/2017/06/21/04-代码审查清单/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qian.G.j">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="钱多多的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/06/21/04-代码审查清单/" itemprop="url">
-                  Code Review
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-21T15:03:43+08:00">
-                2017-06-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/06/21/04-代码审查清单/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/21/04-代码审查清单/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2017/06/21/04-代码审查清单/" class="leancloud_visitors" data-flag-title="Code Review">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="Code-Review"><a href="#Code-Review" class="headerlink" title="Code Review"></a>Code Review</h2><h3 id="代码审查清单"><a href="#代码审查清单" class="headerlink" title="代码审查清单"></a>代码审查清单</h3><h4 id="常规项"><a href="#常规项" class="headerlink" title="常规项"></a>常规项</h4><pre><code>1.代码能够工作吗？它有没有实现预期的功能，逻辑是否正确等。
-2.代码符合你遵循的编程规范吗？通常包括大括号的位置，变量名和函数名，行的长度，缩进，格式和注释。
-3.是否存在多余的或是重复的代码？
-4.代码是否尽可能的模块化了？
-5.是否有可以被替换的全局变量？
-6.是否有被注释掉的代码？
-7.健壮性：是否考虑线程安全；边界处理是否完整；数据的越界处理；有没有内存泄漏；逻辑是否健壮；循环引用（block中的self和weakSelf）
-</code></pre>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/06/21/04-代码审查清单/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://waythought.duoshuo.com/2017/06/21/05-iOS单元测试/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -994,6 +845,156 @@ git有机器强大的分支管理,把SVN等远远抛在了后面
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/06/21/05-iOS单元测试/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://waythought.duoshuo.com/2017/06/21/04-代码审查清单/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qian.G.j">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="钱多多的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/06/21/04-代码审查清单/" itemprop="url">
+                  Code Review
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-21T15:03:43+08:00">
+                2017-06-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/06/21/04-代码审查清单/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/21/04-代码审查清单/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/06/21/04-代码审查清单/" class="leancloud_visitors" data-flag-title="Code Review">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="Code-Review"><a href="#Code-Review" class="headerlink" title="Code Review"></a>Code Review</h2><h3 id="代码审查清单"><a href="#代码审查清单" class="headerlink" title="代码审查清单"></a>代码审查清单</h3><h4 id="常规项"><a href="#常规项" class="headerlink" title="常规项"></a>常规项</h4><pre><code>1.代码能够工作吗？它有没有实现预期的功能，逻辑是否正确等。
+2.代码符合你遵循的编程规范吗？通常包括大括号的位置，变量名和函数名，行的长度，缩进，格式和注释。
+3.是否存在多余的或是重复的代码？
+4.代码是否尽可能的模块化了？
+5.是否有可以被替换的全局变量？
+6.是否有被注释掉的代码？
+7.健壮性：是否考虑线程安全；边界处理是否完整；数据的越界处理；有没有内存泄漏；逻辑是否健壮；循环引用（block中的self和weakSelf）
+</code></pre>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/06/21/04-代码审查清单/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1390,6 +1391,13 @@ UIStatusBarStyleBlackOpaque      NS_ENUM_DEPRECATED_IOS(2_0, 7_0, &quot;Use UISt
 
         </nav>
 
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
         
 
         <div class="links-of-author motion-element">
