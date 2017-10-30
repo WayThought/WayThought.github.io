@@ -95,7 +95,7 @@
 <meta property="og:site_name" content="钱多多的博客">
 <meta property="og:description" content="Objectview-C 中变量采用@property的各个关键字的含义1.@property的本质是什么?@property = ivar + getter + setter“属性”(property) = 实例变量 + 存取方法OC2.0开始,系统提供了自动生成设置变量值得方法或获取变量值得方法,让我们有更多的精力放在程序的业务逻辑上
 2.ARC下,不显示指定任何属性性关键字时,默认的关键字有">
-<meta property="og:updated_time" content="2017-10-17T07:45:10.000Z">
+<meta property="og:updated_time" content="2017-10-17T07:48:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Objectview-C 中变量采用@property的各个关键字的含义">
 <meta name="twitter:description" content="Objectview-C 中变量采用@property的各个关键字的含义1.@property的本质是什么?@property = ivar + getter + setter“属性”(property) = 实例变量 + 存取方法OC2.0开始,系统提供了自动生成设置变量值得方法或获取变量值得方法,让我们有更多的精力放在程序的业务逻辑上
@@ -387,6 +387,7 @@
 </code></pre><h4 id="4-weak-关键字"><a href="#4-weak-关键字" class="headerlink" title="4. weak 关键字"></a>4. weak 关键字</h4><pre><code>4.1 在ARC中,有可能出现循环引用的时候,往往要通过让其中一端使用weak来解决,比如delegate代理
 4.2 自身已经对它进行一次强引用,没有必要再强引用一次,此时也会使用weak,自定义IBOutlet控件的属性一般也使用weak。
 </code></pre><h4 id="5-assign"><a href="#5-assign" class="headerlink" title="5. assign"></a>5. assign</h4><pre><code>只会执行基本类型的简单赋值操作,既不保留新值,也不释放旧值。
+</code></pre><h4 id="6-retain"><a href="#6-retain" class="headerlink" title="6/ retain"></a>6/ retain</h4><pre><code>释放旧的对象，将旧对象的值赋予输入对象，再提高输入对象的索引计数为1
 </code></pre>
       
     </div>
@@ -426,6 +427,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/27/07.gitignore/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -497,7 +502,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -536,7 +541,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Objectview-C-中变量采用-property的各个关键字的含义"><span class="nav-number">1.</span> <span class="nav-text">Objectview-C 中变量采用@property的各个关键字的含义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-property的本质是什么"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.@property的本质是什么?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-ARC下-不显示指定任何属性性关键字时-默认的关键字有哪些"><span class="nav-number">1.0.2.</span> <span class="nav-text">2.ARC下,不显示指定任何属性性关键字时,默认的关键字有哪些?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-copy关键字"><span class="nav-number">1.0.3.</span> <span class="nav-text">3.copy关键字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-weak-关键字"><span class="nav-number">1.0.4.</span> <span class="nav-text">4. weak 关键字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-assign"><span class="nav-number">1.0.5.</span> <span class="nav-text">5. assign</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Objectview-C-中变量采用-property的各个关键字的含义"><span class="nav-number">1.</span> <span class="nav-text">Objectview-C 中变量采用@property的各个关键字的含义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-property的本质是什么"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.@property的本质是什么?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-ARC下-不显示指定任何属性性关键字时-默认的关键字有哪些"><span class="nav-number">1.0.2.</span> <span class="nav-text">2.ARC下,不显示指定任何属性性关键字时,默认的关键字有哪些?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-copy关键字"><span class="nav-number">1.0.3.</span> <span class="nav-text">3.copy关键字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-weak-关键字"><span class="nav-number">1.0.4.</span> <span class="nav-text">4. weak 关键字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-assign"><span class="nav-number">1.0.5.</span> <span class="nav-text">5. assign</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-retain"><span class="nav-number">1.0.6.</span> <span class="nav-text">6/ retain</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
