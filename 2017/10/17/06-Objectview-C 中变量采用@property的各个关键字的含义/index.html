@@ -97,7 +97,7 @@
 <meta property="og:site_name" content="钱多多的博客">
 <meta property="og:description" content="Objectview-C 中变量采用@property的各个关键字的含义1.@property的本质是什么?@property = ivar + getter + setter“属性”(property) = 实例变量 + 存取方法OC2.0开始,系统提供了自动生成设置变量值得方法或获取变量值得方法,让我们有更多的精力放在程序的业务逻辑上
 2.ARC下,不显示指定任何属性性关键字时,默认的关键字有">
-<meta property="og:updated_time" content="2017-10-17T07:48:23.000Z">
+<meta property="og:updated_time" content="2017-10-31T05:44:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Objectview-C 中变量采用@property的各个关键字的含义">
 <meta name="twitter:description" content="Objectview-C 中变量采用@property的各个关键字的含义1.@property的本质是什么?@property = ivar + getter + setter“属性”(property) = 实例变量 + 存取方法OC2.0开始,系统提供了自动生成设置变量值得方法或获取变量值得方法,让我们有更多的精力放在程序的业务逻辑上
@@ -377,7 +377,7 @@
       
 
       
-        <h2 id="Objectview-C-中变量采用-property的各个关键字的含义"><a href="#Objectview-C-中变量采用-property的各个关键字的含义" class="headerlink" title="Objectview-C 中变量采用@property的各个关键字的含义"></a>Objectview-C 中变量采用@property的各个关键字的含义</h2><h4 id="1-property的本质是什么"><a href="#1-property的本质是什么" class="headerlink" title="1.@property的本质是什么?"></a>1.@property的本质是什么?</h4><p>@property = ivar + getter + setter<br>“属性”(property) = 实例变量 + 存取方法<br>OC2.0开始,系统提供了自动生成设置变量值得方法或获取变量值得方法,让我们有更多的精力放在程序的业务逻辑上</p>
+        <h3 id="Objectview-C-中变量采用-property的各个关键字的含义"><a href="#Objectview-C-中变量采用-property的各个关键字的含义" class="headerlink" title="Objectview-C 中变量采用@property的各个关键字的含义"></a>Objectview-C 中变量采用@property的各个关键字的含义</h3><h4 id="1-property的本质是什么"><a href="#1-property的本质是什么" class="headerlink" title="1.@property的本质是什么?"></a>1.@property的本质是什么?</h4><p>@property = ivar + getter + setter<br>“属性”(property) = 实例变量 + 存取方法<br>OC2.0开始,系统提供了自动生成设置变量值得方法或获取变量值得方法,让我们有更多的精力放在程序的业务逻辑上</p>
 <h4 id="2-ARC下-不显示指定任何属性性关键字时-默认的关键字有哪些"><a href="#2-ARC下-不显示指定任何属性性关键字时-默认的关键字有哪些" class="headerlink" title="2.ARC下,不显示指定任何属性性关键字时,默认的关键字有哪些?"></a>2.ARC下,不显示指定任何属性性关键字时,默认的关键字有哪些?</h4><pre><code>对于基本数据类型默认关键字是:atomic,readwrite,assign
 对于普通的OC对象:atomic,readwrite,strong
 </code></pre><h4 id="3-copy关键字"><a href="#3-copy关键字" class="headerlink" title="3.copy关键字"></a>3.copy关键字</h4><pre><code>3.1 NSString,NSArray,NSDictionary等等经常使用copy关键字,是因为他们有对应的可变类型:NSMutableString、NSMutableArray、NSMutableDictionary；是对应的子类,他们之间可能进行赋值操作,为确保对象中的字符串值不会无意间变动,应该在设置新属性值时拷贝一份
@@ -389,7 +389,23 @@
 </code></pre><h4 id="4-weak-关键字"><a href="#4-weak-关键字" class="headerlink" title="4. weak 关键字"></a>4. weak 关键字</h4><pre><code>4.1 在ARC中,有可能出现循环引用的时候,往往要通过让其中一端使用weak来解决,比如delegate代理
 4.2 自身已经对它进行一次强引用,没有必要再强引用一次,此时也会使用weak,自定义IBOutlet控件的属性一般也使用weak。
 </code></pre><h4 id="5-assign"><a href="#5-assign" class="headerlink" title="5. assign"></a>5. assign</h4><pre><code>只会执行基本类型的简单赋值操作,既不保留新值,也不释放旧值。
-</code></pre><h4 id="6-retain"><a href="#6-retain" class="headerlink" title="6/ retain"></a>6/ retain</h4><pre><code>释放旧的对象，将旧对象的值赋予输入对象，再提高输入对象的索引计数为1
+</code></pre><h4 id="6-retain"><a href="#6-retain" class="headerlink" title="6. retain"></a>6. retain</h4><pre><code>释放旧的对象，将旧对象的值赋予输入对象，再提高输入对象的索引计数为1
+</code></pre><h4 id="7-nonnull"><a href="#7-nonnull" class="headerlink" title="7.nonnull:"></a>7.nonnull:</h4><pre><code>不能为空,用来修饰属性,或者方法的参数,方法的返回值,不适用于assign属性,因为他是专门用来修饰指针的
+ @property (nonatomic, copy, nonnull) NSString *name;
+  @property (nonatomic, copy) NSString * _Nonnull name;
+   @property (nonatomic, copy) NSString * __nonnull name;
+</code></pre><h4 id="8-nullable"><a href="#8-nullable" class="headerlink" title="8.nullable:"></a>8.nullable:</h4><pre><code>表示可以为空,代码提示会告诉你这个谁能够是可以为空的
+@property (nonatomic, copy, nullable) NSString *name;
+@property (nonatomic, copy) NSString *_Nullable name;
+@property (nonatomic, copy) NSString *__nullable name;
+</code></pre><h4 id="9-null-resettable"><a href="#9-null-resettable" class="headerlink" title="9.null_resettable:"></a>9.null_resettable:</h4><pre><code>表示get方法不能返回为空,set方法可以为空 
+⚠️⚠️⚠️ 必须重写该属性的get方法,保证返回值不为空
+tan
+ @property(nonatomic,strong,null_resettable) NSNumber * number;(只有这一种方式)
+</code></pre><h4 id="10-null-unspecified"><a href="#10-null-unspecified" class="headerlink" title="10.null_unspecified"></a>10.null_unspecified</h4><pre><code>表示不确定是否为空,使用方式有三种:
+ @property(nonatomic,strong) NSNumber *_Null_unspecified height;
+ @property(nonatomic,strong) NSNumber *__null_unspecified height;
+  @property(nonatomic,strong,null_unspecified) NSNumber * height;
 </code></pre>
       
     </div>
@@ -550,7 +566,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Objectview-C-中变量采用-property的各个关键字的含义"><span class="nav-number">1.</span> <span class="nav-text">Objectview-C 中变量采用@property的各个关键字的含义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-property的本质是什么"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.@property的本质是什么?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-ARC下-不显示指定任何属性性关键字时-默认的关键字有哪些"><span class="nav-number">1.0.2.</span> <span class="nav-text">2.ARC下,不显示指定任何属性性关键字时,默认的关键字有哪些?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-copy关键字"><span class="nav-number">1.0.3.</span> <span class="nav-text">3.copy关键字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-weak-关键字"><span class="nav-number">1.0.4.</span> <span class="nav-text">4. weak 关键字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-assign"><span class="nav-number">1.0.5.</span> <span class="nav-text">5. assign</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-retain"><span class="nav-number">1.0.6.</span> <span class="nav-text">6/ retain</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Objectview-C-中变量采用-property的各个关键字的含义"><span class="nav-number">1.</span> <span class="nav-text">Objectview-C 中变量采用@property的各个关键字的含义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-property的本质是什么"><span class="nav-number">1.1.</span> <span class="nav-text">1.@property的本质是什么?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-ARC下-不显示指定任何属性性关键字时-默认的关键字有哪些"><span class="nav-number">1.2.</span> <span class="nav-text">2.ARC下,不显示指定任何属性性关键字时,默认的关键字有哪些?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-copy关键字"><span class="nav-number">1.3.</span> <span class="nav-text">3.copy关键字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-weak-关键字"><span class="nav-number">1.4.</span> <span class="nav-text">4. weak 关键字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-assign"><span class="nav-number">1.5.</span> <span class="nav-text">5. assign</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-retain"><span class="nav-number">1.6.</span> <span class="nav-text">6. retain</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-nonnull"><span class="nav-number">1.7.</span> <span class="nav-text">7.nonnull:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-nullable"><span class="nav-number">1.8.</span> <span class="nav-text">8.nullable:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-null-resettable"><span class="nav-number">1.9.</span> <span class="nav-text">9.null_resettable:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-null-unspecified"><span class="nav-number">1.10.</span> <span class="nav-text">10.null_unspecified</span></a></li></ol></li></ol></div>
             
 
           </div>

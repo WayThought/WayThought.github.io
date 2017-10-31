@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://waythought.duoshuo.com/"/>
-  <updated>2017-10-30T09:55:51.000Z</updated>
+  <updated>2017-10-30T10:08:34.000Z</updated>
   <id>http://waythought.duoshuo.com/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="http://waythought.duoshuo.com/2017/10/27/07.gitignore/"/>
     <id>http://waythought.duoshuo.com/2017/10/27/07.gitignore/</id>
     <published>2017-10-27T00:59:59.000Z</published>
-    <updated>2017-10-30T09:55:51.000Z</updated>
+    <updated>2017-10-30T10:08:34.000Z</updated>
     
-    <content type="html"><![CDATA[<h4 id="1-作用"><a href="#1-作用" class="headerlink" title="1.作用:"></a>1.作用:</h4><p>利用.gitignore过滤文件，如编译过程中的中间文件，等等，这些文件不需要被追踪管理。<br><a href="https://github.com/github/gitignore" target="_blank" rel="external">内容参考gitHub</a></p><h4 id="2-gitignore无效，不能过滤某些文件"><a href="#2-gitignore无效，不能过滤某些文件" class="headerlink" title="2.gitignore无效，不能过滤某些文件"></a>2.gitignore无效，不能过滤某些文件</h4><ul><li>现象：<br>在.gitignore添加file1文件，以过滤该文件，但是通过git status查看仍显示file1文件的状态。</li><li>原因：<br>在git库中已存在了这个文件，之前push提交过该文件。<br>.gitignore文件只对还没有加入版本管理的文件起作用，如果之前已经用git把这些文件纳入了版本库，就不起作用了</li><li>解决：<br>需要在git库中删除该文件，并更新。<br>然后再次git status查看状态，file1文件不再显示状态。</li></ul>]]></content>
+    <content type="html"><![CDATA[<h4 id="1-作用"><a href="#1-作用" class="headerlink" title="1.作用:"></a>1.作用:</h4><p>利用.gitignore过滤文件，如编译过程中的中间文件，等等，这些文件不需要被追踪管理。<br><a href="https://github.com/github/gitignore" target="_blank" rel="external"><font size="3">内容参考gitHub</font></a></p><h4 id="2-gitignore无效，不能过滤某些文件"><a href="#2-gitignore无效，不能过滤某些文件" class="headerlink" title="2.gitignore无效，不能过滤某些文件"></a>2.gitignore无效，不能过滤某些文件</h4><ul><li>现象：<br>在.gitignore添加file1文件，以过滤该文件，但是通过git status查看仍显示file1文件的状态。</li><li>原因：<br>在git库中已存在了这个文件，之前push提交过该文件。<br>.gitignore文件只对还没有加入版本管理的文件起作用，如果之前已经用git把这些文件纳入了版本库，就不起作用了</li><li>解决：<br>需要在git库中删除该文件，并更新。<br>然后再次git status查看状态，file1文件不再显示状态。</li></ul>]]></content>
     
     <summary type="html">
     
@@ -42,15 +42,15 @@
     <link href="http://waythought.duoshuo.com/2017/10/17/06-Objectview-C%20%E4%B8%AD%E5%8F%98%E9%87%8F%E9%87%87%E7%94%A8@property%E7%9A%84%E5%90%84%E4%B8%AA%E5%85%B3%E9%94%AE%E5%AD%97%E7%9A%84%E5%90%AB%E4%B9%89/"/>
     <id>http://waythought.duoshuo.com/2017/10/17/06-Objectview-C 中变量采用@property的各个关键字的含义/</id>
     <published>2017-10-17T07:44:24.000Z</published>
-    <updated>2017-10-17T07:48:23.000Z</updated>
+    <updated>2017-10-31T05:44:38.000Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="Objectview-C-中变量采用-property的各个关键字的含义"><a href="#Objectview-C-中变量采用-property的各个关键字的含义" class="headerlink" title="Objectview-C 中变量采用@property的各个关键字的含义"></a>Objectview-C 中变量采用@property的各个关键字的含义</h2><h4 id="1-property的本质是什么"><a href="#1-property的本质是什么" class="headerlink" title="1.@property的本质是什么?"></a>1.@property的本质是什么?</h4><p>@property = ivar + getter + setter<br>“属性”(property) = 实例变量 + 存取方法<br>OC2.0开始,系统提供了自动生成设置变量值得方法或获取变量值得方法,让我们有更多的精力放在程序的业务逻辑上</p><h4 id="2-ARC下-不显示指定任何属性性关键字时-默认的关键字有哪些"><a href="#2-ARC下-不显示指定任何属性性关键字时-默认的关键字有哪些" class="headerlink" title="2.ARC下,不显示指定任何属性性关键字时,默认的关键字有哪些?"></a>2.ARC下,不显示指定任何属性性关键字时,默认的关键字有哪些?</h4><pre><code>对于基本数据类型默认关键字是:atomic,readwrite,assign对于普通的OC对象:atomic,readwrite,strong</code></pre><h4 id="3-copy关键字"><a href="#3-copy关键字" class="headerlink" title="3.copy关键字"></a>3.copy关键字</h4><pre><code>3.1 NSString,NSArray,NSDictionary等等经常使用copy关键字,是因为他们有对应的可变类型:NSMutableString、NSMutableArray、NSMutableDictionary；是对应的子类,他们之间可能进行赋值操作,为确保对象中的字符串值不会无意间变动,应该在设置新属性值时拷贝一份3.2 block 也经常使用copy关键字,这是从MRC遗留下的&quot;传统&quot;,在MRC中,方法内部的block是在栈区的,使用copy可以把它放在堆区;ARC中写不写都行: 对于block使用copy还是strong效果是一样的,但写上copy能够提醒我们:编译器自动对block进行了copy操作。3.3 小试牛刀:    这个写法会出什么问题 @property (copy) NSMutableArray *array;    3.3.1 添加,删除,修改数组内的元素的时候,程序会因为找不到对应的方法而崩溃,因为copy是复制的一个不可变的NSArray的对象    3.3.2 默认关键字是atomic属性会严重影响性能</code></pre><h4 id="4-weak-关键字"><a href="#4-weak-关键字" class="headerlink" title="4. weak 关键字"></a>4. weak 关键字</h4><pre><code>4.1 在ARC中,有可能出现循环引用的时候,往往要通过让其中一端使用weak来解决,比如delegate代理4.2 自身已经对它进行一次强引用,没有必要再强引用一次,此时也会使用weak,自定义IBOutlet控件的属性一般也使用weak。</code></pre><h4 id="5-assign"><a href="#5-assign" class="headerlink" title="5. assign"></a>5. assign</h4><pre><code>只会执行基本类型的简单赋值操作,既不保留新值,也不释放旧值。</code></pre><h4 id="6-retain"><a href="#6-retain" class="headerlink" title="6/ retain"></a>6/ retain</h4><pre><code>释放旧的对象，将旧对象的值赋予输入对象，再提高输入对象的索引计数为1</code></pre>]]></content>
+    <content type="html"><![CDATA[<h3 id="Objectview-C-中变量采用-property的各个关键字的含义"><a href="#Objectview-C-中变量采用-property的各个关键字的含义" class="headerlink" title="Objectview-C 中变量采用@property的各个关键字的含义"></a>Objectview-C 中变量采用@property的各个关键字的含义</h3><h4 id="1-property的本质是什么"><a href="#1-property的本质是什么" class="headerlink" title="1.@property的本质是什么?"></a>1.@property的本质是什么?</h4><p>@property = ivar + getter + setter<br>“属性”(property) = 实例变量 + 存取方法<br>OC2.0开始,系统提供了自动生成设置变量值得方法或获取变量值得方法,让我们有更多的精力放在程序的业务逻辑上</p><h4 id="2-ARC下-不显示指定任何属性性关键字时-默认的关键字有哪些"><a href="#2-ARC下-不显示指定任何属性性关键字时-默认的关键字有哪些" class="headerlink" title="2.ARC下,不显示指定任何属性性关键字时,默认的关键字有哪些?"></a>2.ARC下,不显示指定任何属性性关键字时,默认的关键字有哪些?</h4><pre><code>对于基本数据类型默认关键字是:atomic,readwrite,assign对于普通的OC对象:atomic,readwrite,strong</code></pre><h4 id="3-copy关键字"><a href="#3-copy关键字" class="headerlink" title="3.copy关键字"></a>3.copy关键字</h4><pre><code>3.1 NSString,NSArray,NSDictionary等等经常使用copy关键字,是因为他们有对应的可变类型:NSMutableString、NSMutableArray、NSMutableDictionary；是对应的子类,他们之间可能进行赋值操作,为确保对象中的字符串值不会无意间变动,应该在设置新属性值时拷贝一份3.2 block 也经常使用copy关键字,这是从MRC遗留下的&quot;传统&quot;,在MRC中,方法内部的block是在栈区的,使用copy可以把它放在堆区;ARC中写不写都行: 对于block使用copy还是strong效果是一样的,但写上copy能够提醒我们:编译器自动对block进行了copy操作。3.3 小试牛刀:    这个写法会出什么问题 @property (copy) NSMutableArray *array;    3.3.1 添加,删除,修改数组内的元素的时候,程序会因为找不到对应的方法而崩溃,因为copy是复制的一个不可变的NSArray的对象    3.3.2 默认关键字是atomic属性会严重影响性能</code></pre><h4 id="4-weak-关键字"><a href="#4-weak-关键字" class="headerlink" title="4. weak 关键字"></a>4. weak 关键字</h4><pre><code>4.1 在ARC中,有可能出现循环引用的时候,往往要通过让其中一端使用weak来解决,比如delegate代理4.2 自身已经对它进行一次强引用,没有必要再强引用一次,此时也会使用weak,自定义IBOutlet控件的属性一般也使用weak。</code></pre><h4 id="5-assign"><a href="#5-assign" class="headerlink" title="5. assign"></a>5. assign</h4><pre><code>只会执行基本类型的简单赋值操作,既不保留新值,也不释放旧值。</code></pre><h4 id="6-retain"><a href="#6-retain" class="headerlink" title="6. retain"></a>6. retain</h4><pre><code>释放旧的对象，将旧对象的值赋予输入对象，再提高输入对象的索引计数为1</code></pre><h4 id="7-nonnull"><a href="#7-nonnull" class="headerlink" title="7.nonnull:"></a>7.nonnull:</h4><pre><code>不能为空,用来修饰属性,或者方法的参数,方法的返回值,不适用于assign属性,因为他是专门用来修饰指针的 @property (nonatomic, copy, nonnull) NSString *name;  @property (nonatomic, copy) NSString * _Nonnull name;   @property (nonatomic, copy) NSString * __nonnull name;</code></pre><h4 id="8-nullable"><a href="#8-nullable" class="headerlink" title="8.nullable:"></a>8.nullable:</h4><pre><code>表示可以为空,代码提示会告诉你这个谁能够是可以为空的@property (nonatomic, copy, nullable) NSString *name;@property (nonatomic, copy) NSString *_Nullable name;@property (nonatomic, copy) NSString *__nullable name;</code></pre><h4 id="9-null-resettable"><a href="#9-null-resettable" class="headerlink" title="9.null_resettable:"></a>9.null_resettable:</h4><pre><code>表示get方法不能返回为空,set方法可以为空 ⚠️⚠️⚠️ 必须重写该属性的get方法,保证返回值不为空tan @property(nonatomic,strong,null_resettable) NSNumber * number;(只有这一种方式)</code></pre><h4 id="10-null-unspecified"><a href="#10-null-unspecified" class="headerlink" title="10.null_unspecified"></a>10.null_unspecified</h4><pre><code>表示不确定是否为空,使用方式有三种: @property(nonatomic,strong) NSNumber *_Null_unspecified height; @property(nonatomic,strong) NSNumber *__null_unspecified height;  @property(nonatomic,strong,null_unspecified) NSNumber * height;</code></pre>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;h2 id=&quot;Objectview-C-中变量采用-property的各个关键字的含义&quot;&gt;&lt;a href=&quot;#Objectview-C-中变量采用-property的各个关键字的含义&quot; class=&quot;headerlink&quot; title=&quot;Objectview-C 中变量采用@p
+        &lt;h3 id=&quot;Objectview-C-中变量采用-property的各个关键字的含义&quot;&gt;&lt;a href=&quot;#Objectview-C-中变量采用-property的各个关键字的含义&quot; class=&quot;headerlink&quot; title=&quot;Objectview-C 中变量采用@p
       
     
     </summary>
@@ -94,31 +94,6 @@ git有机器强大的分支管理,把SVN等远远抛在了后面
   </entry>
   
   <entry>
-    <title>iOS单元测试</title>
-    <link href="http://waythought.duoshuo.com/2017/06/21/05-iOS%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/"/>
-    <id>http://waythought.duoshuo.com/2017/06/21/05-iOS单元测试/</id>
-    <published>2017-06-21T07:03:43.000Z</published>
-    <updated>2017-09-04T15:59:32.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h1><p>我是从去年开始写单元测试的,平常也只是使用测试一下接口的测试,最近有时间网上查找下了资料总结一下,也是有个归纳吧</p><h2 id="单元测试简介"><a href="#单元测试简介" class="headerlink" title="单元测试简介"></a>单元测试简介</h2><p>单元测试是指开发者编写代码,检测代码。合理的利用单元测试可以提高软件的质量</p><h2 id="苹果自带的XCTest"><a href="#苹果自带的XCTest" class="headerlink" title="苹果自带的XCTest"></a>苹果自带的XCTest</h2><pre><code>/** 单元测试开始前调用 */- (void)setUp {[supersetUp];// Put setup code here. This method is called before the invocation of each test method in the class.}</code></pre><a id="more"></a><pre><code>/** 单元测试结束前调用 */- (void)tearDown {// Put teardown code here. This method is called after the invocation of each test method in the class.[supertearDown];}/** 测试代码可以写到以test开头的方法中 并且test开头的方法左边会生成一个菱形图标，点击即可运行检测当前test方法内的代码 */- (void)testExample {// This is an example of a functional test case.// Use XCTAssert and related functions to verify your tests produce the correct results.}/** 测试性能 */- (void)testPerformanceExample {// This is an example of a performance test case.[selfmeasureBlock:^{// 测量执行时间的代码放到这里// Put the code you want to measure the time of here.}];}</code></pre><h2 id="断言命令"><a href="#断言命令" class="headerlink" title="断言命令"></a>断言命令</h2><p>XCTFail(format…) 生成一个失败的测试；</p><p>XCTAssertNil(a1, format…)为空判断，a1为空时通过，反之不通过；</p><p>XCTAssertNotNil(a1, format…)不为空判断，a1不为空时通过，反之不通过；</p><p>XCTAssert(expression, format…)当expression求值为TRUE时通过；</p><p>XCTAssertTrue(expression, format…)当expression求值为TRUE时通过；</p><p>XCTAssertFalse(expression, format…)当expression求值为False时通过；</p><p>XCTAssertEqualObjects(a1, a2, format…)判断相等，[a1 isEqual:a2]值为TRUE时通过，其中一个不为空时，不通过；</p><p>XCTAssertNotEqualObjects(a1, a2, format…)判断不等，[a1 isEqual:a2]值为False时通过，</p><p>XCTAssertEqual(a1, a2, format…)判断相等（当a1和a2是 C语言标量、结构体或联合体时使用,实际测试发现NSString也可以）；</p><p>XCTAssertNotEqual(a1, a2, format…)判断不等（当a1和a2是 C语言标量、结构体或联合体时使用）；</p><p>XCTAssertEqualWithAccuracy(a1, a2, accuracy, format…)判断相等，（double或float类型）提供一个误差范围，当在误差范围（+/-accuracy）以内相等时通过测试；</p><p>XCTAssertNotEqualWithAccuracy(a1, a2, accuracy, format…) 判断不等，（double或float类型）提供一个误差范围，当在误差范围以内不等时通过测试；</p><p>XCTAssertThrows(expression, format…)异常测试，当expression发生异常时通过；反之不通过；（很变态）</p><p>XCTAssertThrowsSpecific(expression, specificException, format…) 异常测试，当expression发生specificException异常时通过；反之发生其他异常或不发生异常均不通过；</p><p>XCTAssertThrowsSpecificNamed(expression, specificException, exception_name, format…)异常测试，当expression发生具体异常、具体异常名称的异常时通过测试，反之不通过；</p><p>XCTAssertNoThrow(expression, format…)异常测试，当expression没有发生异常时通过测试；</p><h2 id="单元测试的适用情况以及覆盖率"><a href="#单元测试的适用情况以及覆盖率" class="headerlink" title="单元测试的适用情况以及覆盖率"></a>单元测试的适用情况以及覆盖率</h2><p>对于测试用例覆盖度多少合适这个话题,也是仁者见仁智者见智,其实一个软件覆盖度在50%以上就可以成为一个健壮的软件了,要达到70%,80%这些已经非常难了,不过我们常见的一些第三方开源框架的测试用例覆盖率还是非常高的,例如AFNNetWorking的覆盖率高达87%,SDWebImage的覆盖率高达77%</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;单元测试&quot;&gt;&lt;a href=&quot;#单元测试&quot; class=&quot;headerlink&quot; title=&quot;单元测试&quot;&gt;&lt;/a&gt;单元测试&lt;/h1&gt;&lt;p&gt;我是从去年开始写单元测试的,平常也只是使用测试一下接口的测试,最近有时间网上查找下了资料总结一下,也是有个归纳吧&lt;/p&gt;
-&lt;h2 id=&quot;单元测试简介&quot;&gt;&lt;a href=&quot;#单元测试简介&quot; class=&quot;headerlink&quot; title=&quot;单元测试简介&quot;&gt;&lt;/a&gt;单元测试简介&lt;/h2&gt;&lt;p&gt;单元测试是指开发者编写代码,检测代码。合理的利用单元测试可以提高软件的质量&lt;/p&gt;
-&lt;h2 id=&quot;苹果自带的XCTest&quot;&gt;&lt;a href=&quot;#苹果自带的XCTest&quot; class=&quot;headerlink&quot; title=&quot;苹果自带的XCTest&quot;&gt;&lt;/a&gt;苹果自带的XCTest&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;/** 单元测试开始前调用 */
-- (void)setUp {
-[supersetUp];
-// Put setup code here. This method is called before the invocation of each test method in the class.
-}
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
     <title>Code Review</title>
     <link href="http://waythought.duoshuo.com/2017/06/21/04-%E4%BB%A3%E7%A0%81%E5%AE%A1%E6%9F%A5%E6%B8%85%E5%8D%95/"/>
     <id>http://waythought.duoshuo.com/2017/06/21/04-代码审查清单/</id>
@@ -136,6 +111,31 @@ git有机器强大的分支管理,把SVN等远远抛在了后面
 5.是否有可以被替换的全局变量？
 6.是否有被注释掉的代码？
 7.健壮性：是否考虑线程安全；边界处理是否完整；数据的越界处理；有没有内存泄漏；逻辑是否健壮；循环引用（block中的self和weakSelf）
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>iOS单元测试</title>
+    <link href="http://waythought.duoshuo.com/2017/06/21/05-iOS%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/"/>
+    <id>http://waythought.duoshuo.com/2017/06/21/05-iOS单元测试/</id>
+    <published>2017-06-21T07:03:43.000Z</published>
+    <updated>2017-09-04T15:59:32.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h1><p>我是从去年开始写单元测试的,平常也只是使用测试一下接口的测试,最近有时间网上查找下了资料总结一下,也是有个归纳吧</p><h2 id="单元测试简介"><a href="#单元测试简介" class="headerlink" title="单元测试简介"></a>单元测试简介</h2><p>单元测试是指开发者编写代码,检测代码。合理的利用单元测试可以提高软件的质量</p><h2 id="苹果自带的XCTest"><a href="#苹果自带的XCTest" class="headerlink" title="苹果自带的XCTest"></a>苹果自带的XCTest</h2><pre><code>/** 单元测试开始前调用 */- (void)setUp {[supersetUp];// Put setup code here. This method is called before the invocation of each test method in the class.}</code></pre><a id="more"></a><pre><code>/** 单元测试结束前调用 */- (void)tearDown {// Put teardown code here. This method is called after the invocation of each test method in the class.[supertearDown];}/** 测试代码可以写到以test开头的方法中 并且test开头的方法左边会生成一个菱形图标，点击即可运行检测当前test方法内的代码 */- (void)testExample {// This is an example of a functional test case.// Use XCTAssert and related functions to verify your tests produce the correct results.}/** 测试性能 */- (void)testPerformanceExample {// This is an example of a performance test case.[selfmeasureBlock:^{// 测量执行时间的代码放到这里// Put the code you want to measure the time of here.}];}</code></pre><h2 id="断言命令"><a href="#断言命令" class="headerlink" title="断言命令"></a>断言命令</h2><p>XCTFail(format…) 生成一个失败的测试；</p><p>XCTAssertNil(a1, format…)为空判断，a1为空时通过，反之不通过；</p><p>XCTAssertNotNil(a1, format…)不为空判断，a1不为空时通过，反之不通过；</p><p>XCTAssert(expression, format…)当expression求值为TRUE时通过；</p><p>XCTAssertTrue(expression, format…)当expression求值为TRUE时通过；</p><p>XCTAssertFalse(expression, format…)当expression求值为False时通过；</p><p>XCTAssertEqualObjects(a1, a2, format…)判断相等，[a1 isEqual:a2]值为TRUE时通过，其中一个不为空时，不通过；</p><p>XCTAssertNotEqualObjects(a1, a2, format…)判断不等，[a1 isEqual:a2]值为False时通过，</p><p>XCTAssertEqual(a1, a2, format…)判断相等（当a1和a2是 C语言标量、结构体或联合体时使用,实际测试发现NSString也可以）；</p><p>XCTAssertNotEqual(a1, a2, format…)判断不等（当a1和a2是 C语言标量、结构体或联合体时使用）；</p><p>XCTAssertEqualWithAccuracy(a1, a2, accuracy, format…)判断相等，（double或float类型）提供一个误差范围，当在误差范围（+/-accuracy）以内相等时通过测试；</p><p>XCTAssertNotEqualWithAccuracy(a1, a2, accuracy, format…) 判断不等，（double或float类型）提供一个误差范围，当在误差范围以内不等时通过测试；</p><p>XCTAssertThrows(expression, format…)异常测试，当expression发生异常时通过；反之不通过；（很变态）</p><p>XCTAssertThrowsSpecific(expression, specificException, format…) 异常测试，当expression发生specificException异常时通过；反之发生其他异常或不发生异常均不通过；</p><p>XCTAssertThrowsSpecificNamed(expression, specificException, exception_name, format…)异常测试，当expression发生具体异常、具体异常名称的异常时通过测试，反之不通过；</p><p>XCTAssertNoThrow(expression, format…)异常测试，当expression没有发生异常时通过测试；</p><h2 id="单元测试的适用情况以及覆盖率"><a href="#单元测试的适用情况以及覆盖率" class="headerlink" title="单元测试的适用情况以及覆盖率"></a>单元测试的适用情况以及覆盖率</h2><p>对于测试用例覆盖度多少合适这个话题,也是仁者见仁智者见智,其实一个软件覆盖度在50%以上就可以成为一个健壮的软件了,要达到70%,80%这些已经非常难了,不过我们常见的一些第三方开源框架的测试用例覆盖率还是非常高的,例如AFNNetWorking的覆盖率高达87%,SDWebImage的覆盖率高达77%</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;单元测试&quot;&gt;&lt;a href=&quot;#单元测试&quot; class=&quot;headerlink&quot; title=&quot;单元测试&quot;&gt;&lt;/a&gt;单元测试&lt;/h1&gt;&lt;p&gt;我是从去年开始写单元测试的,平常也只是使用测试一下接口的测试,最近有时间网上查找下了资料总结一下,也是有个归纳吧&lt;/p&gt;
+&lt;h2 id=&quot;单元测试简介&quot;&gt;&lt;a href=&quot;#单元测试简介&quot; class=&quot;headerlink&quot; title=&quot;单元测试简介&quot;&gt;&lt;/a&gt;单元测试简介&lt;/h2&gt;&lt;p&gt;单元测试是指开发者编写代码,检测代码。合理的利用单元测试可以提高软件的质量&lt;/p&gt;
+&lt;h2 id=&quot;苹果自带的XCTest&quot;&gt;&lt;a href=&quot;#苹果自带的XCTest&quot; class=&quot;headerlink&quot; title=&quot;苹果自带的XCTest&quot;&gt;&lt;/a&gt;苹果自带的XCTest&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;/** 单元测试开始前调用 */
+- (void)setUp {
+[supersetUp];
+// Put setup code here. This method is called before the invocation of each test method in the class.
+}
 &lt;/code&gt;&lt;/pre&gt;
     
     </summary>
