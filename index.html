@@ -459,6 +459,177 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://waythought.duoshuo.com/2017/10/21/08-JavaScript && iOS原生交互/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qian.G.j">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="钱多多的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/10/21/08-JavaScript && iOS原生交互/" itemprop="url">
+                  未命名
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-21T16:33:40+08:00">
+                2017-10-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/10/21/08-JavaScript && iOS原生交互/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/10/21/08-JavaScript && iOS原生交互/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/10/21/08-JavaScript && iOS原生交互/" class="leancloud_visitors" data-flag-title="">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <hr>
+<h2 id="title-JavaScript-amp-amp-iOS原生交互"><a href="#title-JavaScript-amp-amp-iOS原生交互" class="headerlink" title="title: JavaScript &amp;&amp; iOS原生交互"></a>title: JavaScript &amp;&amp; iOS原生交互</h2><h3 id="JavaScript-amp-amp-iOS原生交互"><a href="#JavaScript-amp-amp-iOS原生交互" class="headerlink" title="JavaScript &amp;&amp; iOS原生交互"></a>JavaScript &amp;&amp; iOS原生交互</h3><p><img src="https://cl.ly/2d2u0Y1C1a0r" alt="图片"><br>JavaScript &amp;&amp; iOS原生交互第三方框架:<br><a href="https://github.com/marcuswestin/WebViewJavascriptBridge" target="_blank" rel="external">WebViewJavascriptBridge</a></p>
+<h4 id="1-简单用法-OC执行JS"><a href="#1-简单用法-OC执行JS" class="headerlink" title="1. 简单用法(OC执行JS)"></a>1. 简单用法(OC执行JS)</h4><pre><code>UIWebView在webViewDidFinishLoad里使用 - (nullable NSString *)stringByEvaluatingJavaScriptFromString:(NSString *)script;
+// 获取当前页面的title
+NSString *title = [webview stringByEvaluatingJavaScriptFromString:@&quot;document.title&quot;];
+
+// 获取当前页面的url
+NSString *url = [webview stringByEvaluatingJavaScriptFromString:@&quot;document.location.href&quot;];
+</code></pre><h4 id="2-OC执行JS-amp-amp-JS执行OC"><a href="#2-OC执行JS-amp-amp-JS执行OC" class="headerlink" title="2. OC执行JS &amp;&amp; JS执行OC"></a>2. OC执行JS &amp;&amp; JS执行OC</h4><pre><code>2.1 JavaScriptCore:iOS7后引用,里面包含常见的对象及协议如下:
+JSContext：给JavaScript提供运行的上下文环境,通过-evaluateScript:方法就可以执行一JS代码
+JSValue：JavaScript和Objective-C数据和方法的桥梁,封装了JS与ObjC中的对应的类型，以及调用JS的API等
+JSManagedValue：管理数据和方法的类
+JSVirtualMachine：处理线程相关，使用较少
+JSExport：这是一个协议，如果采用协议的方法交互，自己定义的协议必须遵守此协议
+</code></pre><p>注:</p>
+<blockquote>
+<p>JSContext 和 JSValue : JSVirtualMachine 为JavaScript的运行提供了底层资源,JSContext就是为其提供着运行环境,通过evaluateScript方法就可以执行一段JavaScript脚本,并且如果其中有方法,变量等信息都会被存储在其中以便在需要的时候使用。而JSContext的创建都是基于JSVirtualMachine(initwithVirtualMachine:),如果使用init进行初始化,那么在其内部会自动创建一个新的JSVirtualMachine对象然后调用前边的初始化方法。<br>JSValue是封装了JS与ObjC中的对应的类型,可以方便的在两种类型之间转换。</p>
+</blockquote>
+<pre><code>// 一个JSContext对象
+self.jsContext = [[JSContext alloc] init];
+
+//  jscontext可以直接执行JS代码。
+[self.jsContext evaluateScript:@&quot;var num = 10&quot;];
+[self.jsContext evaluateScript:@&quot;var squareFunc = function(value) { return value * 2 }&quot;];
+// 计算正方形的面积
+JSValue *square = [self.jsContext evaluateScript:@&quot;squareFunc(num)&quot;];
+
+// 也可以通过下标的方式获取到方法
+JSValue *squareFunc = self.jsContext[@&quot;squareFunc&quot;];
+JSValue *value = [squareFunc callWithArguments:@[@&quot;20&quot;]];
+NSLog(@&quot;%@&quot;, square.toNumber);
+NSLog(@&quot;%@&quot;, value.toNumber);
+</code></pre><p><a href="http://www.jianshu.com/p/fad8c7844d3e" target="_blank" rel="external">http://www.jianshu.com/p/fad8c7844d3e</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://waythought.duoshuo.com/2017/10/17/06-Objectview-C 中变量采用@property的各个关键字的含义/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1428,7 +1599,7 @@ UIStatusBarStyleBlackOpaque      NS_ENUM_DEPRECATED_IOS(2_0, 7_0, &quot;Use UISt
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

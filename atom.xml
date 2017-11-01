@@ -38,6 +38,28 @@
   </entry>
   
   <entry>
+    <title></title>
+    <link href="http://waythought.duoshuo.com/2017/10/21/08-JavaScript%20&amp;&amp;%20iOS%E5%8E%9F%E7%94%9F%E4%BA%A4%E4%BA%92/"/>
+    <id>http://waythought.duoshuo.com/2017/10/21/08-JavaScript &amp;&amp; iOS原生交互/</id>
+    <published>2017-10-21T08:33:40.000Z</published>
+    <updated>2017-11-01T02:44:25.000Z</updated>
+    
+    <content type="html"><![CDATA[<hr><h2 id="title-JavaScript-amp-amp-iOS原生交互"><a href="#title-JavaScript-amp-amp-iOS原生交互" class="headerlink" title="title: JavaScript &amp;&amp; iOS原生交互"></a>title: JavaScript &amp;&amp; iOS原生交互</h2><h3 id="JavaScript-amp-amp-iOS原生交互"><a href="#JavaScript-amp-amp-iOS原生交互" class="headerlink" title="JavaScript &amp;&amp; iOS原生交互"></a>JavaScript &amp;&amp; iOS原生交互</h3><p><img src="https://cl.ly/2d2u0Y1C1a0r" alt="图片"><br>JavaScript &amp;&amp; iOS原生交互第三方框架:<br><a href="https://github.com/marcuswestin/WebViewJavascriptBridge" target="_blank" rel="external">WebViewJavascriptBridge</a></p><h4 id="1-简单用法-OC执行JS"><a href="#1-简单用法-OC执行JS" class="headerlink" title="1. 简单用法(OC执行JS)"></a>1. 简单用法(OC执行JS)</h4><pre><code>UIWebView在webViewDidFinishLoad里使用 - (nullable NSString *)stringByEvaluatingJavaScriptFromString:(NSString *)script;// 获取当前页面的titleNSString *title = [webview stringByEvaluatingJavaScriptFromString:@&quot;document.title&quot;];// 获取当前页面的urlNSString *url = [webview stringByEvaluatingJavaScriptFromString:@&quot;document.location.href&quot;];</code></pre><h4 id="2-OC执行JS-amp-amp-JS执行OC"><a href="#2-OC执行JS-amp-amp-JS执行OC" class="headerlink" title="2. OC执行JS &amp;&amp; JS执行OC"></a>2. OC执行JS &amp;&amp; JS执行OC</h4><pre><code>2.1 JavaScriptCore:iOS7后引用,里面包含常见的对象及协议如下:JSContext：给JavaScript提供运行的上下文环境,通过-evaluateScript:方法就可以执行一JS代码JSValue：JavaScript和Objective-C数据和方法的桥梁,封装了JS与ObjC中的对应的类型，以及调用JS的API等JSManagedValue：管理数据和方法的类JSVirtualMachine：处理线程相关，使用较少JSExport：这是一个协议，如果采用协议的方法交互，自己定义的协议必须遵守此协议</code></pre><p>注:</p><blockquote><p>JSContext 和 JSValue : JSVirtualMachine 为JavaScript的运行提供了底层资源,JSContext就是为其提供着运行环境,通过evaluateScript方法就可以执行一段JavaScript脚本,并且如果其中有方法,变量等信息都会被存储在其中以便在需要的时候使用。而JSContext的创建都是基于JSVirtualMachine(initwithVirtualMachine:),如果使用init进行初始化,那么在其内部会自动创建一个新的JSVirtualMachine对象然后调用前边的初始化方法。<br>JSValue是封装了JS与ObjC中的对应的类型,可以方便的在两种类型之间转换。</p></blockquote><pre><code>// 一个JSContext对象self.jsContext = [[JSContext alloc] init];//  jscontext可以直接执行JS代码。[self.jsContext evaluateScript:@&quot;var num = 10&quot;];[self.jsContext evaluateScript:@&quot;var squareFunc = function(value) { return value * 2 }&quot;];// 计算正方形的面积JSValue *square = [self.jsContext evaluateScript:@&quot;squareFunc(num)&quot;];// 也可以通过下标的方式获取到方法JSValue *squareFunc = self.jsContext[@&quot;squareFunc&quot;];JSValue *value = [squareFunc callWithArguments:@[@&quot;20&quot;]];NSLog(@&quot;%@&quot;, square.toNumber);NSLog(@&quot;%@&quot;, value.toNumber);</code></pre><p><a href="http://www.jianshu.com/p/fad8c7844d3e" target="_blank" rel="external">http://www.jianshu.com/p/fad8c7844d3e</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;hr&gt;
+&lt;h2 id=&quot;title-JavaScript-amp-amp-iOS原生交互&quot;&gt;&lt;a href=&quot;#title-JavaScript-amp-amp-iOS原生交互&quot; class=&quot;headerlink&quot; title=&quot;title: JavaScript &amp;amp;
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
     <title>06-Objectview-C 中变量采用@property的各个关键字的含义</title>
     <link href="http://waythought.duoshuo.com/2017/10/17/06-Objectview-C%20%E4%B8%AD%E5%8F%98%E9%87%8F%E9%87%87%E7%94%A8@property%E7%9A%84%E5%90%84%E4%B8%AA%E5%85%B3%E9%94%AE%E5%AD%97%E7%9A%84%E5%90%AB%E4%B9%89/"/>
     <id>http://waythought.duoshuo.com/2017/10/17/06-Objectview-C 中变量采用@property的各个关键字的含义/</id>
