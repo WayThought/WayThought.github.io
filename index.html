@@ -1204,9 +1204,16 @@ git有机器强大的分支管理,把SVN等远远抛在了后面
 
       
         
-          <h1 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h1><p>我是从去年开始写单元测试的,平常也只是使用测试一下接口的测试,最近有时间网上查找下了资料总结一下,也是有个归纳吧</p>
-<h2 id="单元测试简介"><a href="#单元测试简介" class="headerlink" title="单元测试简介"></a>单元测试简介</h2><p>单元测试是指开发者编写代码,检测代码。合理的利用单元测试可以提高软件的质量</p>
-<h2 id="苹果自带的XCTest"><a href="#苹果自带的XCTest" class="headerlink" title="苹果自带的XCTest"></a>苹果自带的XCTest</h2><pre><code>/** 单元测试开始前调用 */
+          <h2 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h2><p>我是从去年开始写单元测试的,平常也只是使用测试一下接口的测试,最近有时间网上查找下了资料总结一下,也是有个归纳吧</p>
+<h2 id="单元测试简介"><a href="#单元测试简介" class="headerlink" title="单元测试简介"></a>单元测试简介</h2><blockquote>
+<p>单元测试是指开发者编写代码,检测代码。合理的利用单元测试可以提高软件的质量</p>
+<p>代码检测通常需要预先设置边界条件,因为UI测试的时候,很多边界条件不容易满足。主要针对<font color=#0099ff size=3 face="黑体">业务逻辑</font>进行测试,不适合做UI的测试。</p>
+<p>MVVM的设计模式,把几乎所有重要的业务逻辑全部封装在视图模型中,通过单元测试就很方便检测条件以及代码质量。</p>
+</blockquote>
+<h2 id="什么方法或者函数需要测试"><a href="#什么方法或者函数需要测试" class="headerlink" title="什么方法或者函数需要测试"></a>什么方法或者函数需要测试</h2><pre><code>1.私有方法不需要测试,面向对象有一个原则:开闭原则! 暴露在.h中的方法需要测试,
+2. 所有跟UI有关的都不需要测试,有UI的交互。MVVM 把小的业务逻辑封装出来,变成可以测试的代码,让程序更加健壮。
+3.一般而言,代码的覆盖度大概在50% ~ 70%
+</code></pre><h2 id="苹果自带的XCTest"><a href="#苹果自带的XCTest" class="headerlink" title="苹果自带的XCTest"></a>苹果自带的XCTest</h2><pre><code>/** 单元测试开始前调用 */
 - (void)setUp {
 [supersetUp];
 // Put setup code here. This method is called before the invocation of each test method in the class.

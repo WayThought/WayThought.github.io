@@ -90,30 +90,27 @@
 
 
 <meta name="description" content="单元测试我是从去年开始写单元测试的,平常也只是使用测试一下接口的测试,最近有时间网上查找下了资料总结一下,也是有个归纳吧
-单元测试简介单元测试是指开发者编写代码,检测代码。合理的利用单元测试可以提高软件的质量
-苹果自带的XCTest/** 单元测试开始前调用 */
-- (void)setUp {
-[supersetUp];
-// Put setup code here. This method i">
+单元测试简介
+单元测试是指开发者编写代码,检测代码。合理的利用单元测试可以提高软件的质量
+代码检测通常需要预先设置边界条件,因为UI测试的时候,很多边界条件不容易满足。主要针对业务逻辑进行测试,不适合做UI的测试。
+MVVM的设计模式,把几乎所有重要的业务逻辑全部封装在视图模型">
 <meta property="og:type" content="article">
 <meta property="og:title" content="05-iOS单元测试">
 <meta property="og:url" content="http://waythought.duoshuo.com/2017/06/21/05-iOS单元测试/index.html">
 <meta property="og:site_name" content="钱多多的博客">
 <meta property="og:description" content="单元测试我是从去年开始写单元测试的,平常也只是使用测试一下接口的测试,最近有时间网上查找下了资料总结一下,也是有个归纳吧
-单元测试简介单元测试是指开发者编写代码,检测代码。合理的利用单元测试可以提高软件的质量
-苹果自带的XCTest/** 单元测试开始前调用 */
-- (void)setUp {
-[supersetUp];
-// Put setup code here. This method i">
-<meta property="og:updated_time" content="2017-10-31T12:45:41.000Z">
+单元测试简介
+单元测试是指开发者编写代码,检测代码。合理的利用单元测试可以提高软件的质量
+代码检测通常需要预先设置边界条件,因为UI测试的时候,很多边界条件不容易满足。主要针对业务逻辑进行测试,不适合做UI的测试。
+MVVM的设计模式,把几乎所有重要的业务逻辑全部封装在视图模型">
+<meta property="og:updated_time" content="2017-11-01T07:00:05.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="05-iOS单元测试">
 <meta name="twitter:description" content="单元测试我是从去年开始写单元测试的,平常也只是使用测试一下接口的测试,最近有时间网上查找下了资料总结一下,也是有个归纳吧
-单元测试简介单元测试是指开发者编写代码,检测代码。合理的利用单元测试可以提高软件的质量
-苹果自带的XCTest/** 单元测试开始前调用 */
-- (void)setUp {
-[supersetUp];
-// Put setup code here. This method i">
+单元测试简介
+单元测试是指开发者编写代码,检测代码。合理的利用单元测试可以提高软件的质量
+代码检测通常需要预先设置边界条件,因为UI测试的时候,很多边界条件不容易满足。主要针对业务逻辑进行测试,不适合做UI的测试。
+MVVM的设计模式,把几乎所有重要的业务逻辑全部封装在视图模型">
 
 
 
@@ -421,9 +418,16 @@
       
 
       
-        <h1 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h1><p>我是从去年开始写单元测试的,平常也只是使用测试一下接口的测试,最近有时间网上查找下了资料总结一下,也是有个归纳吧</p>
-<h2 id="单元测试简介"><a href="#单元测试简介" class="headerlink" title="单元测试简介"></a>单元测试简介</h2><p>单元测试是指开发者编写代码,检测代码。合理的利用单元测试可以提高软件的质量</p>
-<h2 id="苹果自带的XCTest"><a href="#苹果自带的XCTest" class="headerlink" title="苹果自带的XCTest"></a>苹果自带的XCTest</h2><pre><code>/** 单元测试开始前调用 */
+        <h2 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h2><p>我是从去年开始写单元测试的,平常也只是使用测试一下接口的测试,最近有时间网上查找下了资料总结一下,也是有个归纳吧</p>
+<h2 id="单元测试简介"><a href="#单元测试简介" class="headerlink" title="单元测试简介"></a>单元测试简介</h2><blockquote>
+<p>单元测试是指开发者编写代码,检测代码。合理的利用单元测试可以提高软件的质量</p>
+<p>代码检测通常需要预先设置边界条件,因为UI测试的时候,很多边界条件不容易满足。主要针对<font color="#0099ff" size="3" face="黑体">业务逻辑</font>进行测试,不适合做UI的测试。</p>
+<p>MVVM的设计模式,把几乎所有重要的业务逻辑全部封装在视图模型中,通过单元测试就很方便检测条件以及代码质量。</p>
+</blockquote>
+<h2 id="什么方法或者函数需要测试"><a href="#什么方法或者函数需要测试" class="headerlink" title="什么方法或者函数需要测试"></a>什么方法或者函数需要测试</h2><pre><code>1.私有方法不需要测试,面向对象有一个原则:开闭原则! 暴露在.h中的方法需要测试,
+2. 所有跟UI有关的都不需要测试,有UI的交互。MVVM 把小的业务逻辑封装出来,变成可以测试的代码,让程序更加健壮。
+3.一般而言,代码的覆盖度大概在50% ~ 70%
+</code></pre><h2 id="苹果自带的XCTest"><a href="#苹果自带的XCTest" class="headerlink" title="苹果自带的XCTest"></a>苹果自带的XCTest</h2><pre><code>/** 单元测试开始前调用 */
 - (void)setUp {
 [supersetUp];
 // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -647,7 +651,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#单元测试"><span class="nav-number">1.</span> <span class="nav-text">单元测试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#单元测试简介"><span class="nav-number">1.1.</span> <span class="nav-text">单元测试简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#苹果自带的XCTest"><span class="nav-number">1.2.</span> <span class="nav-text">苹果自带的XCTest</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#断言命令"><span class="nav-number">1.3.</span> <span class="nav-text">断言命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单元测试的适用情况以及覆盖率"><span class="nav-number">1.4.</span> <span class="nav-text">单元测试的适用情况以及覆盖率</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#单元测试"><span class="nav-number">1.</span> <span class="nav-text">单元测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单元测试简介"><span class="nav-number">2.</span> <span class="nav-text">单元测试简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么方法或者函数需要测试"><span class="nav-number">3.</span> <span class="nav-text">什么方法或者函数需要测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#苹果自带的XCTest"><span class="nav-number">4.</span> <span class="nav-text">苹果自带的XCTest</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#断言命令"><span class="nav-number">5.</span> <span class="nav-text">断言命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单元测试的适用情况以及覆盖率"><span class="nav-number">6.</span> <span class="nav-text">单元测试的适用情况以及覆盖率</span></a></li></ol></div>
             
 
           </div>
