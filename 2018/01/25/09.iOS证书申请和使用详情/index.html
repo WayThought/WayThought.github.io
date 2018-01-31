@@ -89,28 +89,19 @@
 
 
 
-<meta name="description" content="1.作用:利用.gitignore过滤文件，如编译过程中的中间文件，等等，这些文件不需要被追踪管理。内容参考gitHub
-
-2.gitignore无效，不能过滤某些文件
-现象：在.gitignore添加file1文件，以过滤该文件，但是通过git status查看仍显示file1文件的状态。
-原因：在git库中已存在了这个文件，之前push提交过该文件。.gitignore文件只对还没有加入版本管">
+<meta name="description" content="由于公司近期开始接入个推推送,自己也没有详细的总结过iOS证书相关,今天刚好有时间,也就当个记录吧
+一. App ID(bundle idengtifier)App ID一这是每个应用的独立标识,应该是和Xcode中的Bundle Identifier是一致(Explicit)的或匹配(Wildcard)的。App ID字符串通常以反域名格式Company Identifier 例如 “com.a">
 <meta property="og:type" content="article">
-<meta property="og:title" content="08-.gitignore相关">
-<meta property="og:url" content="http://waythought.duoshuo.com/2017/10/27/08.gitignore/index.html">
+<meta property="og:title" content="09- iOS证书申请和使用详情">
+<meta property="og:url" content="http://waythought.duoshuo.com/2018/01/25/09.iOS证书申请和使用详情/index.html">
 <meta property="og:site_name" content="钱多多的博客">
-<meta property="og:description" content="1.作用:利用.gitignore过滤文件，如编译过程中的中间文件，等等，这些文件不需要被追踪管理。内容参考gitHub
-
-2.gitignore无效，不能过滤某些文件
-现象：在.gitignore添加file1文件，以过滤该文件，但是通过git status查看仍显示file1文件的状态。
-原因：在git库中已存在了这个文件，之前push提交过该文件。.gitignore文件只对还没有加入版本管">
-<meta property="og:updated_time" content="2018-01-03T09:31:12.000Z">
+<meta property="og:description" content="由于公司近期开始接入个推推送,自己也没有详细的总结过iOS证书相关,今天刚好有时间,也就当个记录吧
+一. App ID(bundle idengtifier)App ID一这是每个应用的独立标识,应该是和Xcode中的Bundle Identifier是一致(Explicit)的或匹配(Wildcard)的。App ID字符串通常以反域名格式Company Identifier 例如 “com.a">
+<meta property="og:updated_time" content="2018-01-31T06:52:41.605Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="08-.gitignore相关">
-<meta name="twitter:description" content="1.作用:利用.gitignore过滤文件，如编译过程中的中间文件，等等，这些文件不需要被追踪管理。内容参考gitHub
-
-2.gitignore无效，不能过滤某些文件
-现象：在.gitignore添加file1文件，以过滤该文件，但是通过git status查看仍显示file1文件的状态。
-原因：在git库中已存在了这个文件，之前push提交过该文件。.gitignore文件只对还没有加入版本管">
+<meta name="twitter:title" content="09- iOS证书申请和使用详情">
+<meta name="twitter:description" content="由于公司近期开始接入个推推送,自己也没有详细的总结过iOS证书相关,今天刚好有时间,也就当个记录吧
+一. App ID(bundle idengtifier)App ID一这是每个应用的独立标识,应该是和Xcode中的Bundle Identifier是一致(Explicit)的或匹配(Wildcard)的。App ID字符串通常以反域名格式Company Identifier 例如 “com.a">
 
 
 
@@ -138,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="http://waythought.duoshuo.com/2017/10/27/08.gitignore/"/>
+  <link rel="canonical" href="http://waythought.duoshuo.com/2018/01/25/09.iOS证书申请和使用详情/"/>
 
 
 
 
 
-  <title> 08-.gitignore相关 | 钱多多的博客 </title>
+  <title> 09- iOS证书申请和使用详情 | 钱多多的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -325,7 +316,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://waythought.duoshuo.com/2017/10/27/08.gitignore/">
+    <link itemprop="mainEntityOfPage" href="http://waythought.duoshuo.com/2018/01/25/09.iOS证书申请和使用详情/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Qian.G.j">
@@ -346,7 +337,7 @@
             
             
               
-                08-.gitignore相关
+                09- iOS证书申请和使用详情
               
             
           </h1>
@@ -361,8 +352,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-27T08:59:59+08:00">
-                2017-10-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-25T18:11:35+08:00">
+                2018-01-25
               </time>
             
 
@@ -380,8 +371,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/10/27/08.gitignore/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/10/27/08.gitignore/" itemprop="commentCount"></span>
+                <a href="/2018/01/25/09.iOS证书申请和使用详情/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/01/25/09.iOS证书申请和使用详情/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -389,7 +380,7 @@
 
           
           
-             <span id="/2017/10/27/08.gitignore/" class="leancloud_visitors" data-flag-title="08-.gitignore相关">
+             <span id="/2018/01/25/09.iOS证书申请和使用详情/" class="leancloud_visitors" data-flag-title="09- iOS证书申请和使用详情">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -418,13 +409,18 @@
       
 
       
-        <h4 id="1-作用"><a href="#1-作用" class="headerlink" title="1.作用:"></a>1.作用:</h4><p>利用.gitignore过滤文件，如编译过程中的中间文件，等等，这些文件不需要被追踪管理。<br><a href="https://github.com/github/gitignore" target="_blank" rel="external"><font size="3">内容参考gitHub</font>
-</a></p>
-<h4 id="2-gitignore无效，不能过滤某些文件"><a href="#2-gitignore无效，不能过滤某些文件" class="headerlink" title="2.gitignore无效，不能过滤某些文件"></a>2.gitignore无效，不能过滤某些文件</h4><ul>
-<li>现象：<br>在.gitignore添加file1文件，以过滤该文件，但是通过git status查看仍显示file1文件的状态。</li>
-<li>原因：<br>在git库中已存在了这个文件，之前push提交过该文件。<br>.gitignore文件只对还没有加入版本管理的文件起作用，如果之前已经用git把这些文件纳入了版本库，就不起作用了</li>
-<li>解决：<br>需要在git库中删除该文件，并更新。<br>然后再次git status查看状态，file1文件不再显示状态。</li>
-</ul>
+        <pre><code>由于公司近期开始接入个推推送,自己也没有详细的总结过iOS证书相关,今天刚好有时间,也就当个记录吧
+</code></pre><h4 id="一-App-ID-bundle-idengtifier"><a href="#一-App-ID-bundle-idengtifier" class="headerlink" title="一. App ID(bundle idengtifier)"></a>一. App ID(bundle idengtifier)</h4><p>App ID一这是每个应用的独立标识,应该是和Xcode中的Bundle Identifier是一致(Explicit)的或匹配(Wildcard)的。<br>App ID字符串通常以反域名格式Company Identifier 例如 “com.apple.garageband”<br>App ID全名会被追加Application Identifier(一般为TeamID),分为两类:</p>
+<pre><code>* Explicit App ID：唯一的App ID，用于唯一标识一个应用程序。
+* Wildcard App ID：含有通配符的App ID，用于标识一组应用程序。
+</code></pre><h4 id="二-Certification-证书-cer"><a href="#二-Certification-证书-cer" class="headerlink" title="二. Certification 证书 (.cer)"></a>二. Certification 证书 (.cer)</h4><h5 id="1-开发者证书"><a href="#1-开发者证书" class="headerlink" title="1.开发者证书"></a>1.开发者证书</h5><p>证书是对电脑开发资格的认证,每个开发者账号有一套(2两种):</p>
+<p>#####1) Developer Certification(开发证书)<br>安装在电脑上提供权限: 开发人员通过设备进行真机调试。可以生成副本供多台电脑安装;</p>
+<p>#####2) Distribution Certification(发布证书)<br>安装在电脑提供发布iOS程序的权限: 开发人员可以制做测试版和发布版的程序。不可生成副本,仅有配置该证书的电脑才可使用。</p>
+<h5 id="2-推送证书"><a href="#2-推送证书" class="headerlink" title="2.推送证书"></a>2.推送证书</h5><p>推送证书也分为开发和生产两种,类型分别为APNs Development iOS, APNs Production iOS,该证书在appID配置中创建生成,安装在开发者电脑上。</p>
+<h4 id="三-Devices"><a href="#三-Devices" class="headerlink" title="三. Devices"></a>三. Devices</h4><p>苹果的测试证书、发布证书以及推送证书都有对应的Provisioning Profile文件,来验证当前开发者、当前应用、是否能在该真机设备上测试、安装或者运行。所以,需要对该真机设备的UDID进行注册,生成对应的Provisioning Profiles</p>
+<h4 id="四-Provisioning-Profiles-授权证书-PP描述文件"><a href="#四-Provisioning-Profiles-授权证书-PP描述文件" class="headerlink" title="四. Provisioning Profiles(授权证书 PP描述文件)"></a>四. Provisioning Profiles(授权证书 PP描述文件)</h4><p>授权文件是对设备iPhone、iPad、iPod Touch的授权,文件内记录的是设备的UDID和程序的App ID,也就是被授权的设备即Xcode可以安装或者调试Bundle identifier与授权文件中记录的App id对应的程序</p>
+<p>#####1)Developer Provisioning Profile(开发授权文件)<br>在装有开发证书或者开发证书副本的电脑上使用,开发人员选择该授权文件通过电脑将程序安装到授权文件记录的设备中,也就是可以进行真机调试</p>
+<p>#####2)Distribution Provisioning Profile(发布授权文件)<br>在装有发布证书的电脑上制作测试版本和发布版本的程序。</p>
 
       
     </div>
@@ -476,8 +472,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/10/21/07-JavaScript && iOS原生交互/" rel="next" title="07-JavaScript && iOS原生交互">
-                <i class="fa fa-chevron-left"></i> 07-JavaScript && iOS原生交互
+              <a href="/2017/10/27/08.gitignore/" rel="next" title="08-.gitignore相关">
+                <i class="fa fa-chevron-left"></i> 08-.gitignore相关
               </a>
             
           </div>
@@ -485,10 +481,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/01/25/09.iOS证书申请和使用详情/" rel="prev" title="09- iOS证书申请和使用详情">
-                09- iOS证书申请和使用详情 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -606,7 +598,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-作用"><span class="nav-number">1.</span> <span class="nav-text">1.作用:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-gitignore无效，不能过滤某些文件"><span class="nav-number">2.</span> <span class="nav-text">2.gitignore无效，不能过滤某些文件</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一-App-ID-bundle-idengtifier"><span class="nav-number">1.</span> <span class="nav-text">一. App ID(bundle idengtifier)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二-Certification-证书-cer"><span class="nav-number">2.</span> <span class="nav-text">二. Certification 证书 (.cer)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-开发者证书"><span class="nav-number">2.1.</span> <span class="nav-text">1.开发者证书</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-推送证书"><span class="nav-number">2.2.</span> <span class="nav-text">2.推送证书</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三-Devices"><span class="nav-number">3.</span> <span class="nav-text">三. Devices</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四-Provisioning-Profiles-授权证书-PP描述文件"><span class="nav-number">4.</span> <span class="nav-text">四. Provisioning Profiles(授权证书 PP描述文件)</span></a></li></ol></div>
             
 
           </div>
@@ -734,9 +726,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'waythought';
-      var disqus_identifier = '2017/10/27/08.gitignore/';
+      var disqus_identifier = '2018/01/25/09.iOS证书申请和使用详情/';
 
-      var disqus_title = "08-.gitignore相关";
+      var disqus_title = "09- iOS证书申请和使用详情";
 
 
       function run_disqus_script(disqus_script) {
