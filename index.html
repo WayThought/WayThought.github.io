@@ -422,8 +422,8 @@
 <h5 id="2-推送证书"><a href="#2-推送证书" class="headerlink" title="2.推送证书"></a>2.推送证书</h5><p>推送证书也分为开发和生产两种,类型分别为APNs Development iOS, APNs Production iOS,该证书在appID配置中创建生成,安装在开发者电脑上。</p>
 <h4 id="三-Devices"><a href="#三-Devices" class="headerlink" title="三. Devices"></a>三. Devices</h4><p>苹果的测试证书、发布证书以及推送证书都有对应的Provisioning Profile文件,来验证当前开发者、当前应用、是否能在该真机设备上测试、安装或者运行。所以,需要对该真机设备的UDID进行注册,生成对应的Provisioning Profiles</p>
 <h4 id="四-Provisioning-Profiles-授权证书-PP描述文件"><a href="#四-Provisioning-Profiles-授权证书-PP描述文件" class="headerlink" title="四. Provisioning Profiles(授权证书 PP描述文件)"></a>四. Provisioning Profiles(授权证书 PP描述文件)</h4><p>授权文件是对设备iPhone、iPad、iPod Touch的授权,文件内记录的是设备的UDID和程序的App ID,也就是被授权的设备即Xcode可以安装或者调试Bundle identifier与授权文件中记录的App id对应的程序</p>
-<p>#####1)Developer Provisioning Profile(开发授权文件)<br>在装有开发证书或者开发证书副本的电脑上使用,开发人员选择该授权文件通过电脑将程序安装到授权文件记录的设备中,也就是可以进行真机调试</p>
-<p>#####2)Distribution Provisioning Profile(发布授权文件)<br>在装有发布证书的电脑上制作测试版本和发布版本的程序。</p>
+<h5 id="1-Developer-Provisioning-Profile-开发授权文件"><a href="#1-Developer-Provisioning-Profile-开发授权文件" class="headerlink" title="1)Developer Provisioning Profile(开发授权文件)"></a>1)Developer Provisioning Profile(开发授权文件)</h5><p>在装有开发证书或者开发证书副本的电脑上使用,开发人员选择该授权文件通过电脑将程序安装到授权文件记录的设备中,也就是可以进行真机调试</p>
+<h5 id="2-Distribution-Provisioning-Profile-发布授权文件"><a href="#2-Distribution-Provisioning-Profile-发布授权文件" class="headerlink" title="2)Distribution Provisioning Profile(发布授权文件)"></a>2)Distribution Provisioning Profile(发布授权文件)</h5><p>在装有发布证书的电脑上制作测试版本和发布版本的程序。</p>
 
           
         
