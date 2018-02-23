@@ -1679,15 +1679,17 @@ git有机器强大的分支管理,把SVN等远远抛在了后面
 
       
         
-          <h2 id="Code-Review"><a href="#Code-Review" class="headerlink" title="Code Review"></a>Code Review</h2><p>用处:</p>
-<h3 id="代码审查清单"><a href="#代码审查清单" class="headerlink" title="代码审查清单"></a>代码审查清单</h3><h4 id="常规项"><a href="#常规项" class="headerlink" title="常规项"></a>常规项</h4><pre><code>1.代码能够工作吗？它有没有实现预期的功能，逻辑是否正确等。
-2.代码符合你遵循的编程规范吗？通常包括大括号的位置，变量名和函数名，行的长度，缩进，格式和注释等风格是否保持一致。
-3.是否存在多余的或是重复的代码？
-4.代码是否尽可能的模块化了？
-5.是否有可以被替换的全局变量？
-6.是否有被注释掉的代码？所有的注释是否是准确的?
-7.健壮性：是否考虑线程安全；边界处理是否完整；数据的越界处理；被零除,有没有内存泄漏；逻辑是否健壮；循环引用（block中的self和weakSelf）
-</code></pre>
+          <h2 id="Code-Review"><a href="#Code-Review" class="headerlink" title="Code Review"></a>Code Review</h2><h4 id="Code-Review的目的"><a href="#Code-Review的目的" class="headerlink" title="Code Review的目的"></a>Code Review的目的</h4><ul>
+<li>1.在项目早起就能发现代码中的bug</li>
+<li>2.项目统一代码风格,项目代码更容易维护</li>
+<li>3.避免开发人员犯一些很常见,很普通的错误(可预测性检查)<h4 id="常规项"><a href="#常规项" class="headerlink" title="常规项"></a>常规项</h4></li>
+<li>1.代码能够工作吗？它有没有实现预期的功能，逻辑是否正确等。</li>
+<li>2.代码符合你遵循的编程规范吗？通常包括大括号的位置，变量名和函数名，行的长度，缩进，格式和注释等风格是否保持一致。</li>
+<li>3.是否存在多余的或是重复的代码？</li>
+<li>4.代码是否尽可能的模块化了？</li>
+<li>5.是否有可以被替换的全局变量？</li>
+<li>6.是否有被注释掉的代码？所有的注释是否是准确的?</li>
+<li>7.健壮性：是否考虑线程安全；边界处理是否完整；数据的越界处理；被零除,有没有内存泄漏；逻辑是否健壮；循环引用（block中的self和weakSelf）
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/06/21/04-代码审查清单/#more" rel="contents">
