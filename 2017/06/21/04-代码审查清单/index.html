@@ -89,34 +89,37 @@
 
 
 
-<meta name="description" content="Code Review代码审查清单常规项1.代码能够工作吗？它有没有实现预期的功能，逻辑是否正确等。
-2.代码符合你遵循的编程规范吗？通常包括大括号的位置，变量名和函数名，行的长度，缩进，格式和注释。
+<meta name="description" content="Code Review用处:
+代码审查清单常规项1.代码能够工作吗？它有没有实现预期的功能，逻辑是否正确等。
+2.代码符合你遵循的编程规范吗？通常包括大括号的位置，变量名和函数名，行的长度，缩进，格式和注释等风格是否保持一致。
 3.是否存在多余的或是重复的代码？
 4.代码是否尽可能的模块化了？
 5.是否有可以被替换的全局变量？
-6.是否有被注释掉的代码？
-7.健壮性：是否考虑线程安全；边界处理是否完整；数据的越界处理；有没">
+6.是否有被注释掉的代码？所有的注释是否是准确的?
+7.健壮性：是否考">
 <meta property="og:type" content="article">
 <meta property="og:title" content="04-Code Review">
 <meta property="og:url" content="http://waythought.duoshuo.com/2017/06/21/04-代码审查清单/index.html">
 <meta property="og:site_name" content="钱多多的博客">
-<meta property="og:description" content="Code Review代码审查清单常规项1.代码能够工作吗？它有没有实现预期的功能，逻辑是否正确等。
-2.代码符合你遵循的编程规范吗？通常包括大括号的位置，变量名和函数名，行的长度，缩进，格式和注释。
+<meta property="og:description" content="Code Review用处:
+代码审查清单常规项1.代码能够工作吗？它有没有实现预期的功能，逻辑是否正确等。
+2.代码符合你遵循的编程规范吗？通常包括大括号的位置，变量名和函数名，行的长度，缩进，格式和注释等风格是否保持一致。
 3.是否存在多余的或是重复的代码？
 4.代码是否尽可能的模块化了？
 5.是否有可以被替换的全局变量？
-6.是否有被注释掉的代码？
-7.健壮性：是否考虑线程安全；边界处理是否完整；数据的越界处理；有没">
-<meta property="og:updated_time" content="2017-10-31T12:45:33.000Z">
+6.是否有被注释掉的代码？所有的注释是否是准确的?
+7.健壮性：是否考">
+<meta property="og:updated_time" content="2018-02-22T10:09:50.895Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="04-Code Review">
-<meta name="twitter:description" content="Code Review代码审查清单常规项1.代码能够工作吗？它有没有实现预期的功能，逻辑是否正确等。
-2.代码符合你遵循的编程规范吗？通常包括大括号的位置，变量名和函数名，行的长度，缩进，格式和注释。
+<meta name="twitter:description" content="Code Review用处:
+代码审查清单常规项1.代码能够工作吗？它有没有实现预期的功能，逻辑是否正确等。
+2.代码符合你遵循的编程规范吗？通常包括大括号的位置，变量名和函数名，行的长度，缩进，格式和注释等风格是否保持一致。
 3.是否存在多余的或是重复的代码？
 4.代码是否尽可能的模块化了？
 5.是否有可以被替换的全局变量？
-6.是否有被注释掉的代码？
-7.健壮性：是否考虑线程安全；边界处理是否完整；数据的越界处理；有没">
+6.是否有被注释掉的代码？所有的注释是否是准确的?
+7.健壮性：是否考">
 
 
 
@@ -424,13 +427,14 @@
       
 
       
-        <h2 id="Code-Review"><a href="#Code-Review" class="headerlink" title="Code Review"></a>Code Review</h2><h3 id="代码审查清单"><a href="#代码审查清单" class="headerlink" title="代码审查清单"></a>代码审查清单</h3><h4 id="常规项"><a href="#常规项" class="headerlink" title="常规项"></a>常规项</h4><pre><code>1.代码能够工作吗？它有没有实现预期的功能，逻辑是否正确等。
-2.代码符合你遵循的编程规范吗？通常包括大括号的位置，变量名和函数名，行的长度，缩进，格式和注释。
+        <h2 id="Code-Review"><a href="#Code-Review" class="headerlink" title="Code Review"></a>Code Review</h2><p>用处:</p>
+<h3 id="代码审查清单"><a href="#代码审查清单" class="headerlink" title="代码审查清单"></a>代码审查清单</h3><h4 id="常规项"><a href="#常规项" class="headerlink" title="常规项"></a>常规项</h4><pre><code>1.代码能够工作吗？它有没有实现预期的功能，逻辑是否正确等。
+2.代码符合你遵循的编程规范吗？通常包括大括号的位置，变量名和函数名，行的长度，缩进，格式和注释等风格是否保持一致。
 3.是否存在多余的或是重复的代码？
 4.代码是否尽可能的模块化了？
 5.是否有可以被替换的全局变量？
-6.是否有被注释掉的代码？
-7.健壮性：是否考虑线程安全；边界处理是否完整；数据的越界处理；有没有内存泄漏；逻辑是否健壮；循环引用（block中的self和weakSelf）
+6.是否有被注释掉的代码？所有的注释是否是准确的?
+7.健壮性：是否考虑线程安全；边界处理是否完整；数据的越界处理；被零除,有没有内存泄漏；逻辑是否健壮；循环引用（block中的self和weakSelf）
 </code></pre><a id="more"></a>
 <h4 id="安全"><a href="#安全" class="headerlink" title="安全"></a>安全</h4><pre><code>1.所有的数据输入是否都进行了检查（检测正确的类型，长度，格式和范围）并且进行了编码？
 2.在哪里使用了第三方工具，返回的错误是否被捕获？
