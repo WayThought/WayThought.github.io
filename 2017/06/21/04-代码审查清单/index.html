@@ -113,7 +113,7 @@
 2.代码符合你遵循的编程规范吗？通常包括大括号的位置，变量名和函数名，行的长度，缩进，格式和注释等风格是否保持一致。
 3.是否存在多余的或是重复的代码？
 4.代">
-<meta property="og:updated_time" content="2018-02-24T02:24:36.762Z">
+<meta property="og:updated_time" content="2018-03-09T01:43:16.297Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="04-Code Review">
 <meta name="twitter:description" content="Code Review目的
@@ -455,7 +455,6 @@
 <li>4.无效的参数值是否能够处理？</li>
 </ul>
 <h4 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h4><p>把使用清单作为你的起点，针对特定的使用案例，需要对其进行优化。一个比较棒的方式就是记录下那些在代码审查过程中临时发现的问题，有了这些数据，能够明确常犯的错误，然后可以量身定制一个审查清单。确保删除了那些没有出现过的错误。</p>
-<h4 id="获取认可并且保持更新"><a href="#获取认可并且保持更新" class="headerlink" title="获取认可并且保持更新"></a>获取认可并且保持更新</h4><p>基本规则是，清单上的人和条目都必须明确，而且，如果可能的话，对于一些条目你可以对其进行二元判断。这样可以防止判断的不一致。和你的团队分享这份清单并且让他们认同你的清单的内容是个好主意。同样的，要定期检查你的清单，以确保各条目仍然是有意义的。</p>
 <h4 id="代码审查清单"><a href="#代码审查清单" class="headerlink" title="代码审查清单"></a>代码审查清单</h4><ul>
 <li>1.基础: iOS规范指南</li>
 <li>2.控件的创建尽量放到Setter和Getter中进行懒加载,不要写在viewDidLoad中</li>
@@ -464,6 +463,8 @@
 <li>5.base类中已经存在满足需求控件和方法不需要再重新定义(例如UITableView及其分页、刷新)</li>
 <li>6.手动开启线程要谨慎。</li>
 </ul>
+<h4 id="获取认可并且保持更新"><a href="#获取认可并且保持更新" class="headerlink" title="获取认可并且保持更新"></a>获取认可并且保持更新</h4><p>基本规则是，清单上的人和条目都必须明确，而且，如果可能的话，对于一些条目你可以对其进行二元判断。这样可以防止判断的不一致。和你的团队分享这份清单并且让他们认同你的清单的内容是个好主意。同样的，要定期检查你的清单，以确保各条目仍然是有意义的。</p>
+<h4 id="责任："><a href="#责任：" class="headerlink" title="责任："></a>责任：</h4><p>代码编写者，代码审核者共同对代码的质量承担责任。这样才能保证Code Review不是走过场，其中代码编写者承担主要责任，代码审核者承担次要责任。</p>
 
       
     </div>
@@ -515,8 +516,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/21/02-mac上安装oh-my-zsh以及应用/" rel="next" title="02-Mac上安装oh-my-zsh以及iterm2的使用">
-                <i class="fa fa-chevron-left"></i> 02-Mac上安装oh-my-zsh以及iterm2的使用
+              <a href="/2017/06/21/03-iOS单元测试/" rel="next" title="03-iOS单元测试">
+                <i class="fa fa-chevron-left"></i> 03-iOS单元测试
               </a>
             
           </div>
@@ -525,8 +526,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/06/21/03-iOS单元测试/" rel="prev" title="03-iOS单元测试">
-                03-iOS单元测试 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/07/07/05-git教程/" rel="prev" title="05-git教程">
+                05-git教程 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -645,7 +646,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Code-Review"><span class="nav-number">1.</span> <span class="nav-text">Code Review</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#目的"><span class="nav-number">1.0.1.</span> <span class="nav-text">目的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常规项"><span class="nav-number">1.0.2.</span> <span class="nav-text">常规项</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安全"><span class="nav-number">1.0.3.</span> <span class="nav-text">安全</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#优化"><span class="nav-number">1.0.4.</span> <span class="nav-text">优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取认可并且保持更新"><span class="nav-number">1.0.5.</span> <span class="nav-text">获取认可并且保持更新</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码审查清单"><span class="nav-number">1.0.6.</span> <span class="nav-text">代码审查清单</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Code-Review"><span class="nav-number">1.</span> <span class="nav-text">Code Review</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#目的"><span class="nav-number">1.0.1.</span> <span class="nav-text">目的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常规项"><span class="nav-number">1.0.2.</span> <span class="nav-text">常规项</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安全"><span class="nav-number">1.0.3.</span> <span class="nav-text">安全</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#优化"><span class="nav-number">1.0.4.</span> <span class="nav-text">优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码审查清单"><span class="nav-number">1.0.5.</span> <span class="nav-text">代码审查清单</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取认可并且保持更新"><span class="nav-number">1.0.6.</span> <span class="nav-text">获取认可并且保持更新</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#责任："><span class="nav-number">1.0.7.</span> <span class="nav-text">责任：</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

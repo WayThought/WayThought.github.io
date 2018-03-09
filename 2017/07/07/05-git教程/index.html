@@ -103,7 +103,7 @@ git有机器强大的分">
 Git: 分布式版本控制系统,每个人电脑就有版本库.写完代码,先提交到本地的版本,让后提交到服务器上,最后每个电脑都有一个最新的代码
 git也要配置服务器, 但是服务器的作用, 只是作为一个中间桥梁供开发人员去同步代码用的.
 git有机器强大的分">
-<meta property="og:updated_time" content="2018-01-24T08:30:59.922Z">
+<meta property="og:updated_time" content="2018-03-05T02:25:35.218Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="05-git教程">
 <meta name="twitter:description" content="SVN: 集中式的版本控制系统. 本地只有文件,没有版本库,所有的代码只在服务器上有版本记录,如果要进行版本的回退,和一些tag操作,必须经过服务器
@@ -509,7 +509,7 @@ git checkout -- . 把工作区的修改全部撤销
 </code></pre><p>4.2.3 将本地分支推送到远程分支:(如果远程分支不存在则会自动创建分支)<br>git push origin 本地分支名:远程分支名<br>4.2.4 远程分支版本的回退</p>
 <pre><code>切换到本地分支对应着的远程分支
 git push origin HEAD --force #远程提交回退
-</code></pre><p>4.2.5 删除远程分支<br>git push origin - -delete 远程分支名</p>
+</code></pre><p>4.2.5 删除远程分支<br>git push origin –delete 远程分支名</p>
 <p>4.2.6 强制覆盖分支<br>git push origin develop:master -f<br>把本地的 develop 分支强制(-f)推送到远程 master</p>
 <p>4.3 补充：<br>查看本地分支与远端分支的差异：<br>git diff master..远程仓库名字/master<br>4.4 将本地分支推送到远端服务器：<br>git push 远程仓库名字 分支名字<br>4.4 寻找回退的commit-id(后悔药)<br>git reflog</p>
 <p>ea34578 HEAD@{0}: reset: moving to HEAD^<br>3628164 HEAD@{1}: commit: append GPL<br>ea34578 HEAD@{2}: commit: add distributed<br>做完后面的操作的形成前面的commit-id</p>
@@ -595,8 +595,8 @@ fatal: The remote end hung up unexpectedly
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/21/03-iOS单元测试/" rel="next" title="03-iOS单元测试">
-                <i class="fa fa-chevron-left"></i> 03-iOS单元测试
+              <a href="/2017/06/21/04-代码审查清单/" rel="next" title="04-Code Review">
+                <i class="fa fa-chevron-left"></i> 04-Code Review
               </a>
             
           </div>
