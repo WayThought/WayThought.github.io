@@ -606,11 +606,11 @@ lipo CBAiDirectSDK -thin arm64 -output CBAiDirectSDK_arm64
       
         
           
-            <p>这次上线遇到了一个大坑,版本发布上线后,同事的iOS9.1系统的6sp手机运行闪退,而这个手机真机直接跑,扫描二维码安装包,没有问题。</p>
+            <p>这次上线遇到了一个大坑,版本发布上线后,同事的iOS9.1系统的6sp手机运行闪退,而这个手机真机直接跑、扫描二维码安装ipa包,都是没有问题的。</p>
 <p>去友盟错误列表反馈报以下错误提示:</p>
 <pre><code>Application received signal SIGTRAP
 </code></pre><p>最终定位到了P3资源文件的问题上了,图片资源文件里有16位图,显示模式为P3</p>
-<h4 id="⚠️⚠️⚠️"><a href="#⚠️⚠️⚠️" class="headerlink" title="⚠️⚠️⚠️"></a>⚠️⚠️⚠️</h4><p>原理:如果你的app需要支持广色域显示的话，那你必须得把target设置成iOS 9.3+，相反，如果你的app不需要支持广色域且你想兼容 iOS 9.3 之前的项目，你就得把资源文件所有的16位的或者显示模式为’P3’图片全都替换成8位模式的SRGB颜色的图片</p>
+<h4 id="⚠️⚠️⚠️"><a href="#⚠️⚠️⚠️" class="headerlink" title="⚠️⚠️⚠️"></a>⚠️⚠️⚠️</h4><p><strong>原理: </strong><br>如果你的app需要支持广色域显示的话，那你必须得把target设置成iOS 9.3+，相反，如果你的app不需要支持广色域且你想兼容 iOS 9.3 之前的项目，你就得把资源文件所有的16位的或者显示模式为’P3’图片全都替换成8位模式的SRGB颜色的图片</p>
 <ul>
 <li><p>替换16位模式的SRGB颜色的图片步骤:</p>
 <p>  1.打一个ipa包,将该文件后缀名.ipa为.zip</p>
@@ -619,7 +619,7 @@ lipo CBAiDirectSDK -thin arm64 -output CBAiDirectSDK_arm64
 <pre><code>cd ~/路径/appname.app
 </code></pre><p>  4.用find命名定位到Asset.car文件<br>  find . -name ‘Assets.car’<br>  5.使用使用 assetutil 命令导出图片的信息存储到Assets.json文件中<br>  sudo xcrun –sdk iphoneos assetutil –info ./Assets.car &gt; /tmp/Assets.json<br>  6.使用以下命令 打开上步生成的/tmp/Assets.json</p>
 <pre><code>open /tmp/Assets.json
-</code></pre><p>  查找“DisplayGamut”: “P3”,看到”BitsPerComponent” : 16,这个就是要替换的图片</p>
+</code></pre><p>  查找“DisplayGamut”: “P3”,看到”BitsPerComponent” : 16,这个就是要被替换的图片</p>
 </li>
 <li><p>修改图片:</p>
 <p>  使用ColorSync实用工具将这个描述文件修改下<br>  <img src="../images/11_colorSync.png" alt=""><br>  指派它的描述文件为sRGB IEC61966-2.1，保存.</p>
