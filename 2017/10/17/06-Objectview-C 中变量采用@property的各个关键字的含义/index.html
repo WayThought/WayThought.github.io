@@ -97,7 +97,7 @@
 <meta property="og:site_name" content="钱多多的博客">
 <meta property="og:description" content="Objectview-C 中变量采用@property的各个关键字的含义1.@property的本质是什么?@property = ivar + getter + setter“属性”(property) = 实例变量 + 存取方法OC2.0开始,系统提供了自动生成设置变量值得方法或获取变量值得方法,让我们有更多的精力放在程序的业务逻辑上
 2.ARC下,不显示指定任何属性性关键字时,默认的关键字有">
-<meta property="og:updated_time" content="2017-10-31T12:45:48.000Z">
+<meta property="og:updated_time" content="2018-04-04T08:35:44.137Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="06-Objectview-C 中变量采用@property的各个关键字的含义">
 <meta name="twitter:description" content="Objectview-C 中变量采用@property的各个关键字的含义1.@property的本质是什么?@property = ivar + getter + setter“属性”(property) = 实例变量 + 存取方法OC2.0开始,系统提供了自动生成设置变量值得方法或获取变量值得方法,让我们有更多的精力放在程序的业务逻辑上
@@ -412,7 +412,8 @@
         <h3 id="Objectview-C-中变量采用-property的各个关键字的含义"><a href="#Objectview-C-中变量采用-property的各个关键字的含义" class="headerlink" title="Objectview-C 中变量采用@property的各个关键字的含义"></a>Objectview-C 中变量采用@property的各个关键字的含义</h3><h4 id="1-property的本质是什么"><a href="#1-property的本质是什么" class="headerlink" title="1.@property的本质是什么?"></a>1.@property的本质是什么?</h4><p>@property = ivar + getter + setter<br>“属性”(property) = 实例变量 + 存取方法<br>OC2.0开始,系统提供了自动生成设置变量值得方法或获取变量值得方法,让我们有更多的精力放在程序的业务逻辑上</p>
 <h4 id="2-ARC下-不显示指定任何属性性关键字时-默认的关键字有哪些"><a href="#2-ARC下-不显示指定任何属性性关键字时-默认的关键字有哪些" class="headerlink" title="2.ARC下,不显示指定任何属性性关键字时,默认的关键字有哪些?"></a>2.ARC下,不显示指定任何属性性关键字时,默认的关键字有哪些?</h4><pre><code>对于基本数据类型默认关键字是:atomic,readwrite,assign
 对于普通的OC对象:atomic,readwrite,strong
-</code></pre><h4 id="3-copy关键字"><a href="#3-copy关键字" class="headerlink" title="3.copy关键字"></a>3.copy关键字</h4><pre><code>3.1 NSString,NSArray,NSDictionary等等经常使用copy关键字,是因为他们有对应的可变类型:NSMutableString、NSMutableArray、NSMutableDictionary；是对应的子类,他们之间可能进行赋值操作,为确保对象中的字符串值不会无意间变动,应该在设置新属性值时拷贝一份
+</code></pre><a id="more"></a>
+<h4 id="3-copy关键字"><a href="#3-copy关键字" class="headerlink" title="3.copy关键字"></a>3.copy关键字</h4><pre><code>3.1 NSString,NSArray,NSDictionary等等经常使用copy关键字,是因为他们有对应的可变类型:NSMutableString、NSMutableArray、NSMutableDictionary；是对应的子类,他们之间可能进行赋值操作,为确保对象中的字符串值不会无意间变动,应该在设置新属性值时拷贝一份
 3.2 block 也经常使用copy关键字,这是从MRC遗留下的&quot;传统&quot;,在MRC中,方法内部的block是在栈区的,使用copy可以把它放在堆区;ARC中写不写都行: 对于block使用copy还是strong效果是一样的,但写上copy能够提醒我们:编译器自动对block进行了copy操作。
 3.3 小试牛刀:
     这个写法会出什么问题 @property (copy) NSMutableArray *array;

@@ -97,7 +97,7 @@
 <meta property="og:site_name" content="钱多多的博客">
 <meta property="og:description" content="由于公司近期开始接入个推推送,自己也没有详细的总结过iOS证书相关,今天刚好有时间,也就当个记录吧
 一. App ID(bundle idengtifier)App ID一这是每个应用的独立标识,应该是和Xcode中的Bundle Identifier是一致(Explicit)的或匹配(Wildcard)的。App ID字符串通常以反域名格式Company Identifier 例如 “com.a">
-<meta property="og:updated_time" content="2018-01-31T07:00:07.641Z">
+<meta property="og:updated_time" content="2018-04-04T08:33:23.301Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="09- iOS证书申请和使用详情">
 <meta name="twitter:description" content="由于公司近期开始接入个推推送,自己也没有详细的总结过iOS证书相关,今天刚好有时间,也就当个记录吧
@@ -413,7 +413,8 @@
 </code></pre><h4 id="一-App-ID-bundle-idengtifier"><a href="#一-App-ID-bundle-idengtifier" class="headerlink" title="一. App ID(bundle idengtifier)"></a>一. App ID(bundle idengtifier)</h4><p>App ID一这是每个应用的独立标识,应该是和Xcode中的Bundle Identifier是一致(Explicit)的或匹配(Wildcard)的。<br>App ID字符串通常以反域名格式Company Identifier 例如 “com.apple.garageband”<br>App ID全名会被追加Application Identifier(一般为TeamID),分为两类:</p>
 <pre><code>* Explicit App ID：唯一的App ID，用于唯一标识一个应用程序。
 * Wildcard App ID：含有通配符的App ID，用于标识一组应用程序。
-</code></pre><h4 id="二-Certification-证书-cer"><a href="#二-Certification-证书-cer" class="headerlink" title="二. Certification 证书 (.cer)"></a>二. Certification 证书 (.cer)</h4><h5 id="1-开发者证书"><a href="#1-开发者证书" class="headerlink" title="1.开发者证书"></a>1.开发者证书</h5><p>证书是对电脑开发资格的认证,每个开发者账号有一套(2两种):</p>
+</code></pre><a id="more"></a>
+<h4 id="二-Certification-证书-cer"><a href="#二-Certification-证书-cer" class="headerlink" title="二. Certification 证书 (.cer)"></a>二. Certification 证书 (.cer)</h4><h5 id="1-开发者证书"><a href="#1-开发者证书" class="headerlink" title="1.开发者证书"></a>1.开发者证书</h5><p>证书是对电脑开发资格的认证,每个开发者账号有一套(2两种):</p>
 <h5 id="1-Developer-Certification-开发证书"><a href="#1-Developer-Certification-开发证书" class="headerlink" title="1) Developer Certification(开发证书)"></a>1) Developer Certification(开发证书)</h5><p>安装在电脑上提供权限: 开发人员通过设备进行真机调试。可以生成副本供多台电脑安装;</p>
 <h5 id="2-Distribution-Certification-发布证书"><a href="#2-Distribution-Certification-发布证书" class="headerlink" title="2) Distribution Certification(发布证书)"></a>2) Distribution Certification(发布证书)</h5><p>安装在电脑提供发布iOS程序的权限: 开发人员可以制做测试版和发布版的程序。不可生成副本,仅有配置该证书的电脑才可使用。</p>
 <h5 id="2-推送证书"><a href="#2-推送证书" class="headerlink" title="2.推送证书"></a>2.推送证书</h5><p>推送证书也分为开发和生产两种,类型分别为APNs Development iOS, APNs Production iOS,该证书在appID配置中创建生成,安装在开发者电脑上。</p>

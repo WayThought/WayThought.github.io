@@ -98,7 +98,7 @@
 <meta property="og:description" content="JavaScript &amp;amp;&amp;amp; iOS原生交互JavaScript &amp;amp;&amp;amp; iOS原生交互第三方框架:WebViewJavascriptBridge
 1. 简单用法(OC执行JS)UIWebView在webViewDidFinishLoad里使用 - (nullable NSString *)stringByEvaluatingJavaScriptFromString:(">
 <meta property="og:image" content="https://cl.ly/2d2u0Y1C1a0r">
-<meta property="og:updated_time" content="2018-01-04T12:40:43.000Z">
+<meta property="og:updated_time" content="2018-04-04T08:34:19.862Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="07-JavaScript && iOS原生交互">
 <meta name="twitter:description" content="JavaScript &amp;amp;&amp;amp; iOS原生交互JavaScript &amp;amp;&amp;amp; iOS原生交互第三方框架:WebViewJavascriptBridge
@@ -418,7 +418,8 @@ NSString *title = [webview stringByEvaluatingJavaScriptFromString:@&quot;documen
 
 // 获取当前页面的url
 NSString *url = [webview stringByEvaluatingJavaScriptFromString:@&quot;document.location.href&quot;];
-</code></pre><h4 id="2-OC执行JS-amp-amp-JS执行OC"><a href="#2-OC执行JS-amp-amp-JS执行OC" class="headerlink" title="2. OC执行JS &amp;&amp; JS执行OC"></a>2. OC执行JS &amp;&amp; JS执行OC</h4><pre><code>2.1 JavaScriptCore:iOS7后引用,里面包含常见的对象及协议如下:
+</code></pre><a id="more"></a>
+<h4 id="2-OC执行JS-amp-amp-JS执行OC"><a href="#2-OC执行JS-amp-amp-JS执行OC" class="headerlink" title="2. OC执行JS &amp;&amp; JS执行OC"></a>2. OC执行JS &amp;&amp; JS执行OC</h4><pre><code>2.1 JavaScriptCore:iOS7后引用,里面包含常见的对象及协议如下:
 JSContext：给JavaScript提供运行的上下文环境,通过-evaluateScript:方法就可以执行一JS代码
 JSValue：JavaScript和Objective-C数据和方法的桥梁,封装了JS与ObjC中的对应的类型，以及调用JS的API等
 JSManagedValue：管理数据和方法的类
