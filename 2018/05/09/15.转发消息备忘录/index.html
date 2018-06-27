@@ -89,15 +89,22 @@
 
 
 
-<meta name="description" content="搭建这个博客主要是来整理总结自己的知识，也希望将自己的一些见解分享给大家，同时锻炼自己的表达力能。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="钱多多的博客">
-<meta property="og:url" content="http://waythought.duoshuo.com/archives/2017/06/index.html">
+<meta name="description" content="1.消息传递给对象发消息可以这样写:
+id returnValue = [someObject messageName: parameter];
+在本例中, someObject叫做”接收者”(receiver),messageName叫做”选择子”(selector).选择子与参数合起来称为”消息”(message)。编译器看到此消息后,将其转换为一条标准的C语言函数调用,所调用的函数仍是消息传">
+<meta property="og:type" content="article">
+<meta property="og:title" content="15.Object-C 消息传递和转发备忘录">
+<meta property="og:url" content="http://waythought.duoshuo.com/2018/05/09/15.转发消息备忘录/index.html">
 <meta property="og:site_name" content="钱多多的博客">
-<meta property="og:description" content="搭建这个博客主要是来整理总结自己的知识，也希望将自己的一些见解分享给大家，同时锻炼自己的表达力能。">
+<meta property="og:description" content="1.消息传递给对象发消息可以这样写:
+id returnValue = [someObject messageName: parameter];
+在本例中, someObject叫做”接收者”(receiver),messageName叫做”选择子”(selector).选择子与参数合起来称为”消息”(message)。编译器看到此消息后,将其转换为一条标准的C语言函数调用,所调用的函数仍是消息传">
+<meta property="og:updated_time" content="2018-05-09T07:31:53.971Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="钱多多的博客">
-<meta name="twitter:description" content="搭建这个博客主要是来整理总结自己的知识，也希望将自己的一些见解分享给大家，同时锻炼自己的表达力能。">
+<meta name="twitter:title" content="15.Object-C 消息传递和转发备忘录">
+<meta name="twitter:description" content="1.消息传递给对象发消息可以这样写:
+id returnValue = [someObject messageName: parameter];
+在本例中, someObject叫做”接收者”(receiver),messageName叫做”选择子”(selector).选择子与参数合起来称为”消息”(message)。编译器看到此消息后,将其转换为一条标准的C语言函数调用,所调用的函数仍是消息传">
 
 
 
@@ -125,13 +132,13 @@
 
 
 
-  <link rel="canonical" href="http://waythought.duoshuo.com/archives/2017/06/"/>
+  <link rel="canonical" href="http://waythought.duoshuo.com/2018/05/09/15.转发消息备忘录/"/>
 
 
 
 
 
-  <title> 归档 | 钱多多的博客 </title>
+  <title> 15.Object-C 消息传递和转发备忘录 | 钱多多的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -156,7 +163,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  page-archive  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
     <a href="https://github.com/waythought"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/c6625ac1f3ee0a12250227cf83ce904423abf351/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png"></a>
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -302,140 +309,192 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
-
-    <span class="archive-page-counter">
-      
-      
-      
-        
-      
-      嗯..! 目前共计 15 篇日志。 继续努力。
-    </span>
-
+  <div id="posts" class="posts-expand">
     
-
-      
-      
-      
-
-      
-        
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2017">2017</h2>
-        </div>
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/21/03-iOS单元测试/" itemprop="url">
-              
-                <span itemprop="name">03-iOS单元测试</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-21T15:03:43+08:00"
-              content="2017-06-21" >
-          06-21
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/21/04-代码审查清单/" itemprop="url">
-              
-                <span itemprop="name">04-Code Review</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-21T15:03:43+08:00"
-              content="2017-06-21" >
-          06-21
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/21/02-mac上安装oh-my-zsh以及应用/" itemprop="url">
-              
-                <span itemprop="name">02-Mac上安装oh-my-zsh以及iterm2的使用</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-21T15:02:42+08:00"
-              content="2017-06-21" >
-          06-21
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-  </section>
 
   
 
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://waythought.duoshuo.com/2018/05/09/15.转发消息备忘录/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qian.G.j">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="钱多多的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                15.Object-C 消息传递和转发备忘录
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-09T14:34:14+08:00">
+                2018-05-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/05/09/15.转发消息备忘录/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/05/09/15.转发消息备忘录/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/05/09/15.转发消息备忘录/" class="leancloud_visitors" data-flag-title="15.Object-C 消息传递和转发备忘录">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="1-消息传递"><a href="#1-消息传递" class="headerlink" title="1.消息传递"></a>1.消息传递</h4><p>给对象发消息可以这样写:</p>
+<pre><code>id returnValue = [someObject messageName: parameter];
+</code></pre><p>在本例中, someObject叫做”接收者”(receiver),messageName叫做”选择子”(selector).选择子与参数合起来称为”消息”(message)。编译器看到此消息后,将其转换为一条标准的C语言函数调用,所调用的函数仍是消息传递机制中的核心函数,叫做objc_msgSend,其”原型”(prototype)如下:<br>    void objc_msgSend(id self,SEL cmd, …)<br>    这是个”参数个数可变的函数”(variadic function),能接受两个或两个以上的参数。第一个参数代表接受者,第二个参数代表选择子,后续参数就是消息中的那些参数,其顺序不变。选择子指的就是方法的名字。”选择子”与”方法”这两个词经常交替使用。编译器会把刚才那个例子中的消息转换为如下的函数。</p>
+<pre><code>id returnValue = objc_msgSend(someObject,@selector(messageName:),parameter);
+</code></pre><p>objc_msgSend函数会依据接收者与选择子的类型来调用适当的方法。为了完成此操作,该方法需要在接收者所属的类中搜寻其”方法列表”(list of methods),如果能找到与选择子名称相符的方法,就跳至其实现代码。若是找不到,那就沿着继承体系继续向上查找,等找到合适的方法之后再跳转。如果最终还是找不到相符的方法,那就执行”消息转发”(message forwarding)操作。</p>
+<p>objc_msgSend会匹配结果缓存在”快速映射表”(fast map)里面,每个类都有这样一块缓存,若是稍后还向该类发送与选择子相同的消息,那么执行起来的就和快le。</p>
+<h4 id="2-消息转发"><a href="#2-消息转发" class="headerlink" title="2.消息转发"></a>2.消息转发</h4><p>消息转发分为两大阶段。第一阶段先征询接收者,所属的类,看其是否能动态添加方法,以处理当前这个”未知的选择子”(unknown selector),这叫做”动态方法解析”。(dynamic method resolution)。如果运行期系统已经把第一阶段执行完了,那么接收者自己就无法再以动态新增方法的手段来的方法调用。这又分为两小步。首先,请接收者看看有没有其他对象(备援的接收者)能处理这条消息。若有,则运行期系统会把消息转给那个对象,于是消息转发过程结束。若没有”备援的接收者”,则启动完成的消息转发机制,运行期系统会把与消息有关的全部细节都封装到NSInvocation对象中,再给接收者最后一次机会,令其设法解决当前还未处理的这条消息</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat_reward.jpg" alt="Qian.G.j WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/aipay_reward.jpg" alt="Qian.G.j Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/17/13.字符串特辑/" rel="next" title="13.字符串特辑(转载)">
+                <i class="fa fa-chevron-left"></i> 13.字符串特辑(转载)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -443,6 +502,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -462,8 +525,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.png"
@@ -514,6 +586,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-消息传递"><span class="nav-number">1.</span> <span class="nav-text">1.消息传递</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-消息转发"><span class="nav-number">2.</span> <span class="nav-text">2.消息转发</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -616,11 +704,9 @@
   
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
 
 
   
@@ -638,9 +724,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'waythought';
-      var disqus_identifier = 'archives/2017/06/index.html';
+      var disqus_identifier = '2018/05/09/15.转发消息备忘录/';
 
-      var disqus_title = "";
+      var disqus_title = "15.Object-C 消息传递和转发备忘录";
 
 
       function run_disqus_script(disqus_script) {
@@ -653,6 +739,13 @@
 
       run_disqus_script('count.js');
 
+      
+        var disqus_config = function () {
+            this.page.url = disqus_url;
+            this.page.identifier = disqus_identifier;
+            this.page.title = disqus_title;
+        };
+        run_disqus_script('embed.js');
       
 
     </script>
