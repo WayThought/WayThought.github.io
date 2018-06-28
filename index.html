@@ -314,7 +314,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://waythought.duoshuo.com/2018/05/09/15.转发消息备忘录/">
+    <link itemprop="mainEntityOfPage" href="http://waythought.duoshuo.com/2018/05/09/15.rutime系列-消息传递/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Qian.G.j">
@@ -336,7 +336,7 @@
             
               
                 
-                <a class="post-title-link" href="/2018/05/09/15.转发消息备忘录/" itemprop="url">
+                <a class="post-title-link" href="/2018/05/09/15.rutime系列-消息传递/" itemprop="url">
                   15.Object-C Runtime基本介绍和消息传递
                 </a>
               
@@ -372,8 +372,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/05/09/15.转发消息备忘录/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/05/09/15.转发消息备忘录/" itemprop="commentCount"></span>
+                <a href="/2018/05/09/15.rutime系列-消息传递/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/05/09/15.rutime系列-消息传递/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -381,7 +381,7 @@
 
           
           
-             <span id="/2018/05/09/15.转发消息备忘录/" class="leancloud_visitors" data-flag-title="15.Object-C Runtime基本介绍和消息传递">
+             <span id="/2018/05/09/15.rutime系列-消息传递/" class="leancloud_visitors" data-flag-title="15.Object-C Runtime基本介绍和消息传递">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -509,9 +509,7 @@
 <pre><code>id objc_msgSend(id self,SEL cmd, ...)
 </code></pre><p>这是个”参数个数可变的函数”(variadic function),能接受两个或两个以上的参数。第一个参数代表接收者,第二个参数代表”选择器”,后续参数就是消息中的那些参数,其顺序不变。”选择器”指的就是方法的名字。”选择子”与”方法”这两个词经常交替使用。编译器会把刚才那个例子中的消息转换为如下的函数。</p>
 <pre><code>id returnValue = objc_msgSend(someObject,@selector(messageName:),parameter);
-</code></pre><ul>
-<li>objc_msgSendSuper: 如果要给超类发送消息,那么交由此函数处理。</li>
-</ul>
+</code></pre><p>PS: 如果要给超类发送消息,那么交由objc_msgSendSuper:处理。</p>
 <h4 id="id"><a href="#id" class="headerlink" title="id"></a>id</h4><p>id 是一个指向类实例的指针:</p>
 <pre><code>// objc.h中
 
