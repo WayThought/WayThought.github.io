@@ -441,9 +441,8 @@
 </code></pre><p>实例化KNBSon控制台输出:</p>
 <pre><code>2018-06-20 09:37:15.874949+0800 23- 数组的练习[50857:2147245] [self class] --&gt; KNBSon
 2018-06-20 09:37:15.875173+0800 23- 数组的练习[50857:2147245] [super class] --&gt; KNBSon
-</code></pre><p>分析:</p>
-<pre><code>我们想当然的认为self class是son, super class是father。但是输出的却是一样的,都是son。这是因为oc一切方法的本质都是消息的发送和接受,是动态的。具体的等看过第二节我们再探讨。
-</code></pre><h4 id="第二段代码"><a href="#第二段代码" class="headerlink" title="第二段代码"></a>第二段代码</h4><pre><code>#import &lt;Foundation/Foundation.h&gt;
+</code></pre><p>分析:<br>我们想当然的认为self class是son, super class是father。但是输出的却是一样的,都是son。这是因为oc一切方法的本质都是消息的发送和接受,是动态的。具体的等看过第二节我们再探讨。</p>
+<h4 id="第二段代码"><a href="#第二段代码" class="headerlink" title="第二段代码"></a>第二段代码</h4><pre><code>#import &lt;Foundation/Foundation.h&gt;
 
 @interface KNBFather : NSObject
 
@@ -499,8 +498,9 @@
 2018-06-20 09:58:03.162231+0800 23- 数组的练习[51199:2171942] [self class] --&gt; KNBSon
 2018-06-20 09:58:03.162368+0800 23- 数组的练习[51199:2171942] [super class] --&gt; KNBSon
 </code></pre><p>分析:</p>
-<p>我们在父类KNBFather中的init方法中设置了self.name = @””,只是想初始化name的值。</p>
-<p>按道理说,我们在父类使用self.name方法应该调用father的setName方法(以前的理解 self在实例方法中表示的该实例),在子类KNBSon中使用self.name方法也应该调用KNBSon的setName方法。但是实际上我们看到在父类中使用self.name调用的确实是子类的setName方法。</p>
+<p>我们在父类KNBFather中的init方法中设置了self.name = @””,是想初始化name的值。</p>
+<p>按道理说,我们在父类使用self.name方法应该调用father的setName方法,在子类KNBSon中使用self.name方法也应该调用KNBSon的setName方法。(以前的理解 self在实例方法中表示的该实例)</p>
+<p>但是实际上我们看到在父类中使用self.name调用的确实是子类的setName方法。</p>
 <p>我们先看下runtime相关的一些知识,再来解释以上问题。</p>
 <h3 id="2-Runtime基本介绍"><a href="#2-Runtime基本介绍" class="headerlink" title="2.Runtime基本介绍"></a>2.Runtime基本介绍</h3><p>Objective-C是基于C加入了面向对象特性和消息转发机制的动态语言。这意味着不仅需要编译器,还需要一个运行系统来执行编译后的代码。而这个运行系统就是runtime,也就是运行时机制,我理解的就是”中间调度系统”,来控制消息发送、消息转发、查看对象信息等等</p>
 <p>给对象发消息可以这样写:</p>
@@ -547,22 +547,21 @@ struct objc_class {
 } OBJC2_UNAVAILABLE;
 </code></pre><p>objc_class为什么也有个isa?<br>我们知道isa指针指向的是该对象所属的类,对于实例对象的isa指针,我们知道是指向其所属的类,但是实例对象所属的类的isa指针又指向谁呢?</p>
 <p>类对象本身也是对象,类本身所属类是 元类!!!<br>所以实例对象所属的类的isa指针指向的是元类。</p>
-<h3 id="类"><a href="#类" class="headerlink" title="类"></a>类</h3><h4 id="1-类对象的实质"><a href="#1-类对象的实质" class="headerlink" title="1.类对象的实质"></a>1.类对象的实质</h4><p>类对象是由编译器创建的,任何直接或间接机场NSObject的类,它的实例对象(instance object)中都有一个isa指针,指向它的类对象(class object)。这个类对象中存储了关于这个实例对象所属的类的定义的包括变量、方法、遵守的协议等。</p>
-<p>因此,类对象能访问所有关于这个类的信息,利用这些信息可以产生一个新的实例,但是类对象不能访问任何实例对象的内容。222</p>
+<h3 id="类"><a href="#类" class="headerlink" title="类"></a>类</h3><h4 id="1-类对象的实质"><a href="#1-类对象的实质" class="headerlink" title="1.类对象的实质"></a>1.类对象的实质</h4><p>类对象是由编译器创建的,任何直接或间接继承NSObject的类,它的实例对象(instance object)中都有一个isa指针,指向它的类对象(class object)。这个类对象中存储了关于这个实例对象所属的类的定义的包括变量、方法、遵守的协议等。</p>
+<p>因此,类对象能访问所有关于这个类的信息,利用这些信息可以产生一个新的实例,但是类对象不能访问任何实例对象的内容。当调用一个类方法的时候,例如[NSObject alloc]的时候,实际上是发送了一个消息给他的类对象。</p>
 <h4 id="2-类对象和实例对象的区别"><a href="#2-类对象和实例对象的区别" class="headerlink" title="2.类对象和实例对象的区别"></a>2.类对象和实例对象的区别</h4><p>类对象虽然保留了一个该类实例对象的原型,但是不能执行实例方法。然而,类的定义能包括那些特意为类对象准备的方法–类方法。类对象也可以从父类那里继承类方法。</p>
 <p>类对象是一个功能完整的对象,所以也能被动态识别(dynamically typed),接受消息,从其他类继承方法。特殊之处是在于它们由编辑器创建,缺少它们自己的数据结构(实例变量)。</p>
 <h4 id="元类"><a href="#元类" class="headerlink" title="元类"></a>元类</h4><p>实际上,类对象是元类对象的一个实例!!</p>
 <p>元类描述了一个类对象,就像类对象描述了普通的实例变量一样。不同的是元类的方法列表是类方法的集合,由类对象的选择器来响应。当向一个类发送消息时,objc_msgSend会通过类对象的isa指针定位到元类,并检查元类的方法列表来决定调用哪个方法。</p>
 <p>很显然,元类也是对象,也应该是其他类的实例,实际上元类是根类(root class’s metaclass)的实例,而根类是其自身的实例,即根类的isa指针指向自身。</p>
 <p>整个指针链就是类的super_class指向其父类,而元类的super_class则指向父类的元类。元类的super class链与类的super_class链平行,所以类方法的继承于实例方法的继承也是并行的。而根元类的super_class指向根元类。</p>
-<p>当一个消息发送给任何一个对象的时候,方法检测都是从对象的isa指针开始依次去父类方法列表中寻找。实例方法在类中定义,类方法在元类和根类中定义。 (根类的元类就是根类自己)。</p>
+<p>当一个消息发送给任何一个对象的时候,方法检测都是从对象的isa指针开始依次去本类、父类方法列表中寻找。实例方法在类中定义,类方法在元类和根类中定义。 (根类的元类就是根类自己)。</p>
 <p><img src="http://payoeqxrw.bkt.clouddn.com/15_1.jpg" alt=""></p>
 <p>objc_msgSend函数会依据接收者与选择子的类型来调用适当的方法。为了完成此操作,该方法需要在接收者所属的类中搜寻其”方法列表”(list of methods),如果能找到与选择子名称相符的方法,就跳至其实现代码。若是找不到,那就沿着继承体系继续向上查找,等找到合适的方法之后再跳转。如果最终还是找不到相符的方法,那就执行”消息转发”(message forwarding)操作。</p>
-<p>objc_msgSend会匹配结果缓存在”快速映射表”(fast map)里面,每个类都有这样一块缓存,若是稍后还向该类发送与选择子相同的消息,那么执行起来的就和快了。</p>
+<p>objc_msgSend会匹配结果缓存在”快速映射表”(fast map)里面,每个类都有这样一块缓存,若是稍后还向该类发送与选择子相同的消息,那么执行起来的就会快了。</p>
 <h5 id="object-getClass-obj-与-obj-class-的区别"><a href="#object-getClass-obj-与-obj-class-的区别" class="headerlink" title="object_getClass(obj)与[obj class]的区别"></a>object_getClass(obj)与[obj class]的区别</h5><ol>
 <li>object_getClass(obj)返回的是obj中的isa指针;</li>
-<li><p>[obj class]分为两种情况:</p>
-<ul>
+<li>[obj class]分为两种情况:<ul>
 <li>当obj为实例对象时,[obj class]调用的是实例方法: -(Class)class,返回的是isa指针;</li>
 <li>当obj为类对象(包括元类和根类)时,调用的是类方法: +(Class)class,返回的结果为其本身。</li>
 </ul>
@@ -596,9 +595,8 @@ struct objc_class {
 <li>然后内部使用函数objc_msgSend(objc_super -&gt; receiver, @selector(class))去掉用,此时已经和我们用[self class]调用相同了,因为这里的receiver还是KNBSon的实例对象self,所以这里返回的还是实例对象self的isa指针(指向他的类对象),也就是KNBSon。</li>
 </ol>
 <h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>很多人会想当然的认为”super和self类似,应该是指向父类的指针”。这其实是一个误区。</p>
-<p>其实super是一个关键字,他的本质是一个编译器标志符,和self是指向同一个消息接受者!他俩的不同点在于: super会告诉编译器,调用class这个方法(或者其他方法)时,要去父类的方法,而不是本类里的。</p>
-<p>所以当使用self调用的方法时,会从当前类的方法列表中开始找,如果没有,就从父类中再找;而当使用super时,则直接从父类的方法列表中开始找,不在从当前的类的方法列表中寻找了。</p>
-<p>-</p>
+<p>其实super是一个关键字,他的本质是一个编译器标志符,和self是指向同一个消息接受者!他俩的不同点在于: super会告诉编译器,调用class这个方法(或者其他方法)时,要去父类的方法去找,而不是本类里的。</p>
+<p>所以当使用self调用的方法时,会从当前类的方法列表中开始找,如果没有,就从父类中再找;而当使用super时,则直接从父类的方法列表中开始找,不在从当前的类的方法列表中寻找了。<br>-</p>
 <h4 id="第二段代码解析"><a href="#第二段代码解析" class="headerlink" title="第二段代码解析"></a>第二段代码解析</h4><p>第二段代码在KNBFather里面使用self.name = @””调用的是子类的setName方法<br>我们来看下子类实例化的代码</p>
 <pre><code>- (instancetype)init {
     if (self = [super init]) {
@@ -607,8 +605,8 @@ struct objc_class {
     }
     return self;
 }
-</code></pre><p>当调用[super init]的时候,消息的接受者依然是KNBSon的实例对象, 只是去chan父类中调用init方法,在父类执行[self setName]的时候,接受消息的是KNBSon的实例对象,去查询的是KNBSon的方法列表,调用的是KNBSon的 setName方法。</p>
-<p>所以我们要注意,如果自雷重写了父类的方法,那么不管在子类还是在父类调用发方法,如果是子类调用,最终被执行的方法是子类的方法。</p>
+</code></pre><p>当调用[super init]的时候,消息的接受者依然是KNBSon的实例对象, 只是去查父类中调用init方法去了。在父类执行[self setName]的时候,接受消息的是KNBSon的实例对象,去查询的是KNBSon的方法列表,调用的是KNBSon的 setName方法。</p>
+<p>所以我们要注意,如果子类重写了父类的方法,那么不管在子类还是在父类调用发方法,如果是子类调用,最终被执行的方法是子类的方法。</p>
 <h4 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h4><p>我们探讨了一些runtime的特性和机制,由此可见runtime的一些本质,但是也只是管中窥豹,做抛砖引玉之用,欢迎大家探讨。</p>
 <p>参考资料:<br>    <a href="https://www.jianshu.com/p/7b8d834042e4" target="_blank" rel="external">https://www.jianshu.com/p/7b8d834042e4</a><br>    <a href="https://www.jianshu.com/p/1c52810f23d2" target="_blank" rel="external">https://www.jianshu.com/p/1c52810f23d2</a><br>    <a href="https://www.jianshu.com/p/d774ad33d165" target="_blank" rel="external">https://www.jianshu.com/p/d774ad33d165</a><br>    <a href="https://juejin.im/post/57a9516e7db2a2005aba4809" target="_blank" rel="external">https://juejin.im/post/57a9516e7db2a2005aba4809</a></p>
 
@@ -1358,7 +1356,7 @@ ma4 : class = __NSArrayM p = 0x7fd310606dc0 retainCount = 2
           <p>这次上线遇到了一个大坑,版本发布上线后,同事的iOS9.1系统的6sp手机运行闪退,而这个手机真机直接跑、扫描二维码安装ipa包,都是没有问题的。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/04/04/11.关于iOS9.0~9.3 从App Store下载出现不规则奔溃问题/#more" rel="contents">
+            <a class="btn" href="/2018/04/04/11.关于iOS9.0~9.3 从App Store下载出现不规则奔溃问题/#далее" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1505,7 +1503,7 @@ ma4 : class = __NSArrayM p = 0x7fd310606dc0 retainCount = 2
 <li><p>目前iOS移动设备指令集</p></li></ol>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/01/30/10.上传App Store 报错 ERROR ITMS-90087- "Unsupported Architectures 解决办法 /#more" rel="contents">
+            <a class="btn" href="/2018/01/30/10.上传App Store 报错 ERROR ITMS-90087- "Unsupported Architectures 解决办法 /#далее" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1652,7 +1650,7 @@ ma4 : class = __NSArrayM p = 0x7fd310606dc0 retainCount = 2
 </code></pre>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/01/25/09.iOS证书申请和使用详情/#more" rel="contents">
+            <a class="btn" href="/2018/01/25/09.iOS证书申请和使用详情/#далее" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1797,7 +1795,7 @@ ma4 : class = __NSArrayM p = 0x7fd310606dc0 retainCount = 2
 <h4 id="2-gitignore无效，不能过滤某些文件"><a href="#2-gitignore无效，不能过滤某些文件" class="headerlink" title="2.gitignore无效，不能过滤某些文件"></a>2.gitignore无效，不能过滤某些文件</h4>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/10/27/08.gitignore/#more" rel="contents">
+            <a class="btn" href="/2017/10/27/08.gitignore/#далее" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1947,7 +1945,7 @@ NSString *url = [webview stringByEvaluatingJavaScriptFromString:@&quot;document.
 </code></pre>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/10/21/07-JavaScript && iOS原生交互/#more" rel="contents">
+            <a class="btn" href="/2017/10/21/07-JavaScript && iOS原生交互/#далее" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2093,7 +2091,7 @@ NSString *url = [webview stringByEvaluatingJavaScriptFromString:@&quot;document.
 </code></pre>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/10/17/06-Objectview-C 中变量采用@property的各个关键字的含义/#more" rel="contents">
+            <a class="btn" href="/2017/10/17/06-Objectview-C 中变量采用@property的各个关键字的含义/#далее" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
