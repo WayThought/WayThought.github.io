@@ -122,7 +122,7 @@ objc_class结构体及其成员变量定义
 -
 #i">
 <meta property="og:image" content="http://payoeqxrw.bkt.clouddn.com/15_1.jpg">
-<meta property="og:updated_time" content="2018-06-29T02:01:39.546Z">
+<meta property="og:updated_time" content="2018-07-06T05:45:17.294Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="15.Object-C Runtime基本介绍和消息传递">
 <meta name="twitter:description" content="本文内容
@@ -569,15 +569,16 @@ typedef struct objc_class *Class;
 // runtime.h中
 struct objc_class {
     Class _Nonnull isa  OBJC_ISA_AVAILABILITY;
-    Class _Nullable super_class                              OBJC2_UNAVAILABLE;
-    const char * _Nonnull name                               OBJC2_UNAVAILABLE;
+    Class _Nullable super_class                              OBJC2_UNAVAILABLE; // 父类
+
+    const char * _Nonnull name                               OBJC2_UNAVAILABLE; // 类名
     long version                                             OBJC2_UNAVAILABLE;
     long info                                                OBJC2_UNAVAILABLE;
-    long instance_size                                       OBJC2_UNAVAILABLE;
-    struct objc_ivar_list * _Nullable ivars                  OBJC2_UNAVAILABLE;
-    struct objc_method_list * _Nullable * _Nullable methodLists                    OBJC2_UNAVAILABLE;
-    struct objc_cache * _Nonnull cache                       OBJC2_UNAVAILABLE;
-    struct objc_protocol_list * _Nullable protocols          OBJC2_UNAVAILABLE;
+    long instance_size                                       OBJC2_UNAVAILABLE;// 该类的实例变量大小
+    struct objc_ivar_list * _Nullable ivars                  OBJC2_UNAVAILABLE;// 该类的成员变量链表
+    struct objc_method_list * _Nullable * _Nullable methodLists                    OBJC2_UNAVAILABLE;// 方法定义的链表
+    struct objc_cache * _Nonnull cache                       OBJC2_UNAVAILABLE;// 方法缓存，对象接到一个消息会根据isa指针查找消息对象，这时会在method Lists中遍历，如果cache了，常用的方法调用时就能够提高调用的效率。
+    struct objc_protocol_list * _Nullable protocols          OBJC2_UNAVAILABLE;// 协议链表
 
 } OBJC2_UNAVAILABLE;
 </code></pre><p>objc_class为什么也有个isa?<br>我们知道isa指针指向的是该对象所属的类,对于实例对象的isa指针,我们知道是指向其所属的类,但是实例对象所属的类的isa指针又指向谁呢?</p>
@@ -705,6 +706,10 @@ struct objc_class {
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2018/06/30/16.项目启动耗时测试/" rel="prev" title="16.项目启动耗时测试">
+                16.项目启动耗时测试 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -775,7 +780,7 @@ struct objc_class {
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

@@ -314,6 +314,145 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://waythought.duoshuo.com/2018/06/30/16.项目启动耗时测试/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qian.G.j">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="钱多多的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/06/30/16.项目启动耗时测试/" itemprop="url">
+                  16.项目启动耗时测试
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-30T14:34:14+08:00">
+                2018-06-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/06/30/16.项目启动耗时测试/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/06/30/16.项目启动耗时测试/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/06/30/16.项目启动耗时测试/" class="leancloud_visitors" data-flag-title="16.项目启动耗时测试">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>本文内容</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://waythought.duoshuo.com/2018/05/09/15.rutime系列-消息传递/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -534,15 +673,16 @@ typedef struct objc_class *Class;
 // runtime.h中
 struct objc_class {
     Class _Nonnull isa  OBJC_ISA_AVAILABILITY;
-    Class _Nullable super_class                              OBJC2_UNAVAILABLE;
-    const char * _Nonnull name                               OBJC2_UNAVAILABLE;
+    Class _Nullable super_class                              OBJC2_UNAVAILABLE; // 父类
+
+    const char * _Nonnull name                               OBJC2_UNAVAILABLE; // 类名
     long version                                             OBJC2_UNAVAILABLE;
     long info                                                OBJC2_UNAVAILABLE;
-    long instance_size                                       OBJC2_UNAVAILABLE;
-    struct objc_ivar_list * _Nullable ivars                  OBJC2_UNAVAILABLE;
-    struct objc_method_list * _Nullable * _Nullable methodLists                    OBJC2_UNAVAILABLE;
-    struct objc_cache * _Nonnull cache                       OBJC2_UNAVAILABLE;
-    struct objc_protocol_list * _Nullable protocols          OBJC2_UNAVAILABLE;
+    long instance_size                                       OBJC2_UNAVAILABLE;// 该类的实例变量大小
+    struct objc_ivar_list * _Nullable ivars                  OBJC2_UNAVAILABLE;// 该类的成员变量链表
+    struct objc_method_list * _Nullable * _Nullable methodLists                    OBJC2_UNAVAILABLE;// 方法定义的链表
+    struct objc_cache * _Nonnull cache                       OBJC2_UNAVAILABLE;// 方法缓存，对象接到一个消息会根据isa指针查找消息对象，这时会在method Lists中遍历，如果cache了，常用的方法调用时就能够提高调用的效率。
+    struct objc_protocol_list * _Nullable protocols          OBJC2_UNAVAILABLE;// 协议链表
 
 } OBJC2_UNAVAILABLE;
 </code></pre><p>objc_class为什么也有个isa?<br>我们知道isa指针指向的是该对象所属的类,对于实例对象的isa指针,我们知道是指向其所属的类,但是实例对象所属的类的isa指针又指向谁呢?</p>
@@ -1979,152 +2119,6 @@ NSString *url = [webview stringByEvaluatingJavaScriptFromString:@&quot;document.
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://waythought.duoshuo.com/2017/10/17/06-Objectview-C 中变量采用@property的各个关键字的含义/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qian.G.j">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="钱多多的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/10/17/06-Objectview-C 中变量采用@property的各个关键字的含义/" itemprop="url">
-                  06-Objectview-C 中变量采用@property的各个关键字的含义
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-17T15:44:24+08:00">
-                2017-10-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/10/17/06-Objectview-C 中变量采用@property的各个关键字的含义/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/10/17/06-Objectview-C 中变量采用@property的各个关键字的含义/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2017/10/17/06-Objectview-C 中变量采用@property的各个关键字的含义/" class="leancloud_visitors" data-flag-title="06-Objectview-C 中变量采用@property的各个关键字的含义">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="Objectview-C-中变量采用-property的各个关键字的含义"><a href="#Objectview-C-中变量采用-property的各个关键字的含义" class="headerlink" title="Objectview-C 中变量采用@property的各个关键字的含义"></a>Objectview-C 中变量采用@property的各个关键字的含义</h3><h4 id="1-property的本质是什么"><a href="#1-property的本质是什么" class="headerlink" title="1.@property的本质是什么?"></a>1.@property的本质是什么?</h4><p>@property = ivar + getter + setter<br>“属性”(property) = 实例变量 + 存取方法<br>OC2.0开始,系统提供了自动生成设置变量值得方法或获取变量值得方法,让我们有更多的精力放在程序的业务逻辑上</p>
-<h4 id="2-ARC下-不显示指定任何属性性关键字时-默认的关键字有哪些"><a href="#2-ARC下-不显示指定任何属性性关键字时-默认的关键字有哪些" class="headerlink" title="2.ARC下,不显示指定任何属性性关键字时,默认的关键字有哪些?"></a>2.ARC下,不显示指定任何属性性关键字时,默认的关键字有哪些?</h4><pre><code>对于基本数据类型默认关键字是:atomic,readwrite,assign
-对于普通的OC对象:atomic,readwrite,strong
-</code></pre>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/10/17/06-Objectview-C 中变量采用@property的各个关键字的含义/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2174,7 +2168,7 @@ NSString *url = [webview stringByEvaluatingJavaScriptFromString:@&quot;document.
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
