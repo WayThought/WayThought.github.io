@@ -103,7 +103,7 @@ git有机器强大的分">
 Git: 分布式版本控制系统,每个人电脑就有版本库.写完代码,先提交到本地的版本,让后提交到服务器上,最后每个电脑都有一个最新的代码
 git也要配置服务器, 但是服务器的作用, 只是作为一个中间桥梁供开发人员去同步代码用的.
 git有机器强大的分">
-<meta property="og:updated_time" content="2018-09-19T02:03:09.007Z">
+<meta property="og:updated_time" content="2018-09-19T08:57:50.370Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="05-git教程">
 <meta name="twitter:description" content="SVN: 集中式的版本控制系统. 本地只有文件,没有版本库,所有的代码只在服务器上有版本记录,如果要进行版本的回退,和一些tag操作,必须经过服务器
@@ -478,6 +478,9 @@ git reset --hard HEAD 版本号 回退到指定的版本
 注: 如何找回删除的分支
     3.1 通过git reflog 命令找到我们需要恢复的信息对应的commit_id (根据log 提交的日期时间)
     3.2 通过git branch 新分支名字 对应的commit_id 来建立一个新的分支,吧丢失的东西恢复到新分支上
+    如何临时修复bug
+    git stash 把工作区的内容暂时隐藏
+    git stash pop 把工作区的内容显示到当前分支
 </code></pre><h4 id="4-补充"><a href="#4-补充" class="headerlink" title="4.补充:"></a>4.补充:</h4><p>4.1 常用命令:※</p>
 <pre><code>git config user.name 查看用户名
 git config user.email 查看邮箱地址
