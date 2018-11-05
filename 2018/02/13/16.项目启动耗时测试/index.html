@@ -103,7 +103,7 @@ main()函数调用之前的加载过">
 T1: 加载系统dylib和可执行文件的时间
 T2: 从mian函数到applicationWillFinishLaunching结束的时间,构建第一个界面,并完成渲染展示
 main()函数调用之前的加载过">
-<meta property="og:updated_time" content="2018-08-28T13:41:05.068Z">
+<meta property="og:updated_time" content="2018-11-05T01:43:37.428Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="16.项目启动耗时性能优化">
 <meta name="twitter:description" content="近期项目线下反应app启动时间较长,本着对用户体验的追求,我们希望在业务扩张的同时优化启动时间。
@@ -422,7 +422,8 @@ main()函数调用之前的加载过">
 <h3 id="启动时间"><a href="#启动时间" class="headerlink" title="启动时间"></a>启动时间</h3><p>总时间 = T1(main函数之前的加载时间) + T2(main函数之后的加载时间)</p>
 <p>T1: 加载系统dylib和可执行文件的时间</p>
 <p>T2: 从mian函数到applicationWillFinishLaunching结束的时间,构建第一个界面,并完成渲染展示</p>
-<h4 id="main-函数调用之前的加载过程"><a href="#main-函数调用之前的加载过程" class="headerlink" title="main()函数调用之前的加载过程"></a>main()函数调用之前的加载过程</h4><p>App开始启动后,系统首先加载可执行文件(自身App的所有的.o文件的集合),然后加载动态链接库dyld,dyld是一个专门用来加载动态链接库的库。执行从dyld开始,dyld从可执行文件的依赖开始,递归加载所有的依赖动态链接库。</p>
+<h4 id="main-函数调用之前的加载过程"><a href="#main-函数调用之前的加载过程" class="headerlink" title="main()函数调用之前的加载过程"></a>main()函数调用之前的加载过程</h4><a id="more"></a>
+<p>App开始启动后,系统首先加载可执行文件(自身App的所有的.o文件的集合),然后加载动态链接库dyld,dyld是一个专门用来加载动态链接库的库。执行从dyld开始,dyld从可执行文件的依赖开始,递归加载所有的依赖动态链接库。</p>
 <p>动态链接库包括: iOS中用到的所有系统的framework, 加载OC runtime方法的libobjc,系统级别的libSystem,例如libdispath(GCD)和libsystem_block(Block)。</p>
 <p>其实无论对于系统的动态链接库还是对于App本身的可执行文件而言,他们都算是image(镜像),而每个App都是以image(镜像)为单位进行加载的,那么image究竟是包括哪些呢?</p>
 <p>#####什么是image</p>
