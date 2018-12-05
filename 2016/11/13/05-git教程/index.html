@@ -103,7 +103,7 @@ git有机器强大的分">
 Git: 分布式版本控制系统,每个人电脑就有版本库.写完代码,先提交到本地的版本,让后提交到服务器上,最后每个电脑都有一个最新的代码
 git也要配置服务器, 但是服务器的作用, 只是作为一个中间桥梁供开发人员去同步代码用的.
 git有机器强大的分">
-<meta property="og:updated_time" content="2018-09-19T09:10:46.681Z">
+<meta property="og:updated_time" content="2018-11-19T01:44:40.629Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="05-git教程">
 <meta name="twitter:description" content="SVN: 集中式的版本控制系统. 本地只有文件,没有版本库,所有的代码只在服务器上有版本记录,如果要进行版本的回退,和一些tag操作,必须经过服务器
@@ -523,6 +523,8 @@ git push origin HEAD --force #远程提交回退
 <pre><code>把本地的 develop 分支强制(-f)推送到远程 master
 git push origin develop:master -f
 </code></pre><p>4.3 补充：<br>查看本地分支与远端分支的差异：<br>git diff master..远程仓库名字/master</p>
+<p>git tag 标签名 commitId  添加tag<br>git push origin 标签名  将本地tag推到远程</p>
+<p>git tag -d 标签名 删除本地tag<br>git push origin –delete 标签名  删除远程tag</p>
 <h4 id="5-0冲突"><a href="#5-0冲突" class="headerlink" title="5.0冲突"></a>5.0冲突</h4><h4 id="5-1常见冲突"><a href="#5-1常见冲突" class="headerlink" title="5.1常见冲突:"></a>5.1常见冲突:</h4><pre><code>第一种: 项目可以打开,报错-&gt;直接去找,对别人的改动要进行沟通决定是否要保留
 第二种: 项目打开失败
 git status 查看哪个文件冲突(一般是配置文件)

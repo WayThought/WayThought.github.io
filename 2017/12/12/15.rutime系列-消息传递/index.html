@@ -109,8 +109,8 @@ object_getClass(obj)与[obj class]的区别与[obj class]的区别)
 objc_class结构体及其成员变量定义
 
 1. objc_msgSend的介绍">
-<meta property="og:image" content="http://payoeqxrw.bkt.clouddn.com/15_1.jpg">
-<meta property="og:updated_time" content="2018-08-25T03:20:53.254Z">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0036yjrj20iw0j00sz.jpg">
+<meta property="og:updated_time" content="2018-12-05T09:30:09.444Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="15.Object-C Runtime基本介绍和消息传递">
 <meta name="twitter:description" content="本文内容
@@ -121,7 +121,7 @@ object_getClass(obj)与[obj class]的区别与[obj class]的区别)
 objc_class结构体及其成员变量定义
 
 1. objc_msgSend的介绍">
-<meta name="twitter:image" content="http://payoeqxrw.bkt.clouddn.com/15_1.jpg">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0036yjrj20iw0j00sz.jpg">
 
 
 
@@ -575,7 +575,7 @@ struct objc_class {
 <p>很显然,元类也是对象,也应该是其他类的实例,实际上元类是根类(root class’s metaclass)的实例,而根类是其自身的实例,即根类的isa指针指向自身。</p>
 <p>整个指针链就是类的super_class指向其父类,而元类的super_class则指向父类的元类。元类的super class链与类的super_class链平行,所以类方法的继承于实例方法的继承也是并行的。而根元类的super_class指向根元类。</p>
 <p>当一个消息发送给任何一个对象的时候,方法检测都是从对象的isa指针开始依次去本类、父类方法列表中寻找。实例方法在类中定义,类方法在元类和根类中定义。 (根类的元类就是根类自己)。</p>
-<p><img src="http://payoeqxrw.bkt.clouddn.com/15_1.jpg" alt=""></p>
+<p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0036yjrj20iw0j00sz.jpg" alt=""></p>
 <p>objc_msgSend函数会依据接收者与选择子的类型来调用适当的方法。为了完成此操作,该方法需要在接收者所属的类中搜寻其”方法列表”(list of methods),如果能找到与选择子名称相符的方法,就跳至其实现代码。若是找不到,那就沿着继承体系继续向上查找,等找到合适的方法之后再跳转。如果最终还是找不到相符的方法,那就执行”消息转发”(message forwarding)操作。</p>
 <p>objc_msgSend会匹配结果缓存在”快速映射表”(fast map)里面,每个类都有这样一块缓存,若是稍后还向该类发送与选择子相同的消息,那么执行起来的就会快了。</p>
 <h5 id="object-getClass-obj-与-obj-class-的区别"><a href="#object-getClass-obj-与-obj-class-的区别" class="headerlink" title="object_getClass(obj)与[obj class]的区别"></a>object_getClass(obj)与[obj class]的区别</h5><ol>

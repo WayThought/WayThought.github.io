@@ -107,16 +107,16 @@ Block的使用分为声明、实现、执行
 Block可以定义在方法内部或外部
 
 二、 Block的定义和使用">
-<meta property="og:image" content="http://payoeqxrw.bkt.clouddn.com/17_block1.png">
-<meta property="og:image" content="http://payoeqxrw.bkt.clouddn.com/17_block_2.png">
-<meta property="og:image" content="http://payoeqxrw.bkt.clouddn.com/17_block_3.png">
-<meta property="og:image" content="http://payoeqxrw.bkt.clouddn.com/17_block_4.png">
-<meta property="og:image" content="http://payoeqxrw.bkt.clouddn.com/17_block_5.png">
-<meta property="og:image" content="http://payoeqxrw.bkt.clouddn.com/17_block_6.png">
-<meta property="og:image" content="http://payoeqxrw.bkt.clouddn.com/17_block_7.png">
-<meta property="og:image" content="http://payoeqxrw.bkt.clouddn.com/17_block_8.jpg">
-<meta property="og:image" content="http://payoeqxrw.bkt.clouddn.com/17_block_9.png">
-<meta property="og:updated_time" content="2018-08-25T03:21:29.000Z">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0c0ryozj21bk0mu78c.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0c0ituhj208v04iweb.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0c0ix4wj207003zglf.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0c0ixnbj20ng0a7dfo.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0c0jrp9j20yg0ds0ss.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0c0k0wwj20yg0e9weo.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0c0ln86j20uh0qodga.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0c0m56yj20zk09iaac.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0c0mk9xj20j30e0q36.jpg">
+<meta property="og:updated_time" content="2018-12-05T09:48:38.659Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="17.iOS Block详解">
 <meta name="twitter:description" content="一、概述Block是C语言的扩充功能。可以用一句话来表示Block的扩充功能: 带有自动变量的匿名函数。
@@ -126,7 +126,7 @@ Block的使用分为声明、实现、执行
 Block可以定义在方法内部或外部
 
 二、 Block的定义和使用">
-<meta name="twitter:image" content="http://payoeqxrw.bkt.clouddn.com/17_block1.png">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0c0ryozj21bk0mu78c.jpg">
 
 
 
@@ -441,7 +441,7 @@ Block可以定义在方法内部或外部
 <li>Block可以定义在方法内部或外部</li>
 </ul>
 <h4 id="二、-Block的定义和使用"><a href="#二、-Block的定义和使用" class="headerlink" title="二、 Block的定义和使用"></a>二、 Block的定义和使用</h4><a id="more"></a>
-<p><img src="http://payoeqxrw.bkt.clouddn.com/17_block1.png" alt=""></p>
+<p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0c0ryozj21bk0mu78c.jpg" alt=""></p>
 <p>实际开发中常用typedef 定义Block</p>
 <pre><code>// ^ 代表插入记号 typedef: 起别名  返回值(^名称)(参数列表)
 typedef void(^MyBlock)(int parameter);
@@ -450,7 +450,7 @@ typedef void(^MyBlock)(int parameter);
 </code></pre><h4 id="三、Block与外界变量"><a href="#三、Block与外界变量" class="headerlink" title="三、Block与外界变量"></a>三、Block与外界变量</h4><p>1、截获自动变量(局部变量)值</p>
 <p>1.1 默认情况</p>
 <p>对于block外的变量引用,block默认是将其复制到数据结构中来实现访问的。也就是说block的自动变量截获只针对内部使用的自动变量,不使用则不截获,因为截获的自动变量会存储于block的结构体的内部,会导致block体积变大。</p>
-<p><img src="http://payoeqxrw.bkt.clouddn.com/17_block_2.png" alt=""></p>
+<p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0c0ituhj208v04iweb.jpg" alt=""></p>
 <pre><code>int age = 10;
 myBlock block = ^{
     NSLog(@&quot;age = %d&quot;, age);
@@ -503,7 +503,7 @@ int main() {
 </code></pre><p>由此可知,在block定义时便是将局部变量的值传给block变量所指向的结构体,因此在调用block之前对局部变量进行修改并不会影响block内部的值,同时内部的值也是不可修改的。</p>
 <pre><code>((void (*)(__block_impl *))((__block_impl *)firstBlock)-&gt;FuncPtr)((__block_impl *)firstBlock);
 </code></pre><p>1.2 Block内访问 __block修饰的局部变量<br>在block中不可直接修改局部变量<br>对于用__block修饰的外部变量的引用,block是复制其引用地址来实现访问的。block可以修改__block修饰的外部变量的值。</p>
-<p><img src="http://payoeqxrw.bkt.clouddn.com/17_block_3.png" alt=""></p>
+<p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0c0ix4wj207003zglf.jpg" alt=""></p>
 <pre><code>__block int age = 10;
 myBlock block = ^{
     NSLog(@&quot;age = %d&quot;, age);
@@ -609,14 +609,14 @@ static void __main_block_func_0(struct     __main_block_impl_0 *__cself) {
 <h4 id="四、Block的copy操作"><a href="#四、Block的copy操作" class="headerlink" title="四、Block的copy操作"></a>四、Block的copy操作</h4><p>1.Block的存储域及copy操作</p>
 <p>在开始研究block的copy操作前,先来思考下:Block是存储在栈上还是堆上呢?</p>
 <p>我们先来看看一个由C/C++OBJC编译的程序占用内存分布的结构:</p>
-<p><img src="http://payoeqxrw.bkt.clouddn.com/17_block_4.png" alt=""></p>
+<p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0c0ixnbj20ng0a7dfo.jpg" alt=""></p>
 <p>其实,block有三种类型:</p>
 <ul>
 <li>全局块 (_NSConcreteGlobalBlock)</li>
 <li>栈块 (_NSConcreteStackBlock)</li>
 <li>堆块 (_NSConcreteMallocBlock)</li>
 </ul>
-<p>这三种block各自的存储域如下图:<br><img src="http://payoeqxrw.bkt.clouddn.com/17_block_5.png" alt=""></p>
+<p>这三种block各自的存储域如下图:<br><img src="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0c0jrp9j20yg0ds0ss.jpg" alt=""></p>
 <ul>
 <li>全局块存在于全局内存中,相当于单例.</li>
 <li>栈块存在于栈内存中,超出其作用域则马上销毁</li>
@@ -629,10 +629,10 @@ static void __main_block_func_0(struct     __main_block_impl_0 *__cself) {
 <p>MRC环境下: 访问外界变量中的Block默认存储在栈中。<br>ARC环境下: 访问外界变量中的Block默认存储在堆中。(实际上是放在栈区,然后ARC情况下自动又拷贝到堆区),自动释放。</p>
 <p>注: 1.ARC或者MRC下访问静态变量,Block默认存储在全局区;<br>    2.如果MRC下对block进行copy,block访问的外部变量也会retain一份,无法正常释放,所以要使用__block修饰外部变量</p>
 <p>ARC下,访问外界变量(局部变量和全局变量)的Block为什么要从自动从栈区拷贝到堆区呢?</p>
-<p>栈上的Block,如果其所属的变量作用域结束,该Block就被废弃,如同一般的自动变量。当然,Block中的__block变量也同时被废弃。如下图<br><img src="http://payoeqxrw.bkt.clouddn.com/17_block_6.png" alt=""></p>
+<p>栈上的Block,如果其所属的变量作用域结束,该Block就被废弃,如同一般的自动变量。当然,Block中的__block变量也同时被废弃。如下图<br><img src="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0c0k0wwj20yg0e9weo.jpg" alt=""></p>
 <p>为了解决栈块在其变量作用域结束之后被废弃(释放)的问题,我们需要把Block复制到堆中,延长其生命周期。开启ARC时,大多数情况下编译器会恰当地进行判断是否有需要将Block从栈复制到堆,如果有,自动生成将Block从栈上复制到堆上的代码。Block的复制操作执行的是copy实例方法。Block只要调用了copy方法,栈块就会变成堆块。我认为做的原因是,由于ARC已经能很好地处理对象的生命周期的管理,这样所有对象都放到堆上管理,对于编译器来实现来说,会比较方便。</p>
 <p>如下图:</p>
-<p><img src="http://payoeqxrw.bkt.clouddn.com/17_block_7.png" alt=""></p>
+<p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0c0ln86j20uh0qodga.jpg" alt=""></p>
 <p>例如下面一个返回值为Block类型的函数:</p>
 <pre><code>- (void)viewDidLoad {
     [super viewDidLoad];
@@ -644,10 +644,10 @@ static void __main_block_func_0(struct     __main_block_impl_0 *__cself) {
 </code></pre><p>分析可知道: 在MRC下,上面的函数返回的block是配置在栈上的,所以当viewDidLoad方法执行完成,block变量作用域就结束了,block就会被废弃,所以需要开发者调用copy方法手动复制。但在ARC有效,这种情况编译器会自动完成copy。</p>
 <p>将block从栈上复制到堆上相当消耗CPU,所以当block设置在栈上也能够使用时,就不要复制了,因为此时的复制只是浪费CPU资源。</p>
 <p>Block的复制操作执行的是copy实例方法。不同类型的block使用copy方法的效果如下表:</p>
-<p><img src="http://payoeqxrw.bkt.clouddn.com/17_block_8.jpg" alt=""></p>
+<p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0c0m56yj20zk09iaac.jpg" alt=""></p>
 <p>4.3  __block变量与__forwarding</p>
 <p>在copy操作之后,既然__block变量也被copy到堆上去了,那么访问该变量是访问栈上的还是堆上的呢?这里和__forwarding有关系</p>
-<p><img src="http://payoeqxrw.bkt.clouddn.com/17_block_9.png" alt=""><br>通过__forwarding,无论是在block中还是block外访问__block变量,也不管该变量在栈上或堆上,都能顺利地访问同一个__block变量。</p>
+<p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0c0mk9xj20j30e0q36.jpg" alt=""><br>通过__forwarding,无论是在block中还是block外访问__block变量,也不管该变量在栈上或堆上,都能顺利地访问同一个__block变量。</p>
 <h5 id="五、防止Block循环引用"><a href="#五、防止Block循环引用" class="headerlink" title="五、防止Block循环引用"></a>五、防止Block循环引用</h5><p>block循环引用的情况:<br>某个类将block作为自己的属性变量,然后该类在block的方法体里面又使用了该类本身,如下:</p>
 <pre><code>self.anotherBlock = ^(int parameter) {
     self.name = [NSString stringWithFormat:@&quot;%@&quot;,@(parameter)];

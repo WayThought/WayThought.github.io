@@ -97,15 +97,14 @@ Mac系统对于Php运行非常友好,我们只需要进行简单的配置便可�
 <meta property="og:site_name" content="钱多多的博客">
 <meta property="og:description" content="一、概述近期项目中需要将UIWebView替换成WKWebView,查询到前端口原js调用的方法不在起作用,需要调用新方法window.webkit.messageHandlers..postMessage(),所以本地新建Html测试下,需要设置Apache相关配置
 Mac系统对于Php运行非常友好,我们只需要进行简单的配置便可以开始进行使用。">
-<meta property="og:image" content="http://payoeqxrw.bkt.clouddn.com/18_Apache_1.png">
-<meta property="og:image" content="http://payoeqxrw.bkt.clouddn.com/18_Apache_2.png">
-<meta property="og:image" content="http://payoeqxrw.bkt.clouddn.com/18_Apache_4.png">
-<meta property="og:updated_time" content="2018-08-25T03:21:43.023Z">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0svou6rj20vo0p4tdj.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0sviqpij20r80gomz9.jpg">
+<meta property="og:updated_time" content="2018-12-05T09:57:52.719Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="18.在Mac系统下配置PHP运行环境">
 <meta name="twitter:description" content="一、概述近期项目中需要将UIWebView替换成WKWebView,查询到前端口原js调用的方法不在起作用,需要调用新方法window.webkit.messageHandlers..postMessage(),所以本地新建Html测试下,需要设置Apache相关配置
 Mac系统对于Php运行非常友好,我们只需要进行简单的配置便可以开始进行使用。">
-<meta name="twitter:image" content="http://payoeqxrw.bkt.clouddn.com/18_Apache_1.png">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0svou6rj20vo0p4tdj.jpg">
 
 
 
@@ -428,7 +427,7 @@ Server built:   Jan 17 2017 18:20:31
 <pre><code>http://localhost
 http://127.0.0.1
 </code></pre><p>如果Apache服务启动成功,页面会显示  It works!</p>
-<h5 id="Apache服务部署路径"><a href="#Apache服务部署路径" class="headerlink" title="Apache服务部署路径"></a>Apache服务部署路径</h5><p>Apache服务部署路径在 /资源库/WebServer/Documents/,我们的项目需要放置在该路径下<br><img src="http://payoeqxrw.bkt.clouddn.com/18_Apache_1.png" alt=""></p>
+<h5 id="Apache服务部署路径"><a href="#Apache服务部署路径" class="headerlink" title="Apache服务部署路径"></a>Apache服务部署路径</h5><p>Apache服务部署路径在 /资源库/WebServer/Documents/,我们的项目需要放置在该路径下</p>
 <p>如果想要修改部署路径,可以在/private/etc/apache2目录下找到并打开httpd.conf文件,搜索DocumentRoot并修改部署路径<br>DocumentRoot “/Library/WebServer/Documents”</p>
 <p>Apache服务端口号</p>
 <p>Apache服务端口默认80,如果想要修改端口号,可以在/private/etc/apache2目录下找到并打开httpd.conf文件,搜索Listen 80并修改端口号</p>
@@ -437,10 +436,10 @@ http://127.0.0.1
 <p>其次,搜索#LoadModule php7_module libexec/apache2/libphp7.so,将前方的#删除,由于php版本不同,全局搜索libexec/apache2/libphp就可以找到<br>再次,重启Apache服务即可</p>
 <p>最后我们把我们创建好的项目tmp.html放入/资源库/WebServer/Documents/路径下</p>
 <p>在终端输入以下命令得到本机ip()</p>
-<pre><code>ifconfig
-</code></pre><p><img src="http://payoeqxrw.bkt.clouddn.com/18_Apache_2.png" alt=""></p>
+<pre><code>ifconfig en0
+</code></pre><p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0svou6rj20vo0p4tdj.jpg" alt=""></p>
 <p>外网访问我们项目地址就是: 172.50.10.239/tmp.html</p>
-<p><img src="http://payoeqxrw.bkt.clouddn.com/18_Apache_4.png" alt=""></p>
+<p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0sviqpij20r80gomz9.jpg" alt=""></p>
 <h5 id="至此-我们创建的项目能够正常访问了"><a href="#至此-我们创建的项目能够正常访问了" class="headerlink" title="至此,我们创建的项目能够正常访问了"></a>至此,我们创建的项目能够正常访问了</h5><h4 id="Apache的其他配置"><a href="#Apache的其他配置" class="headerlink" title="Apache的其他配置"></a>Apache的其他配置</h4><p>在终端中输入如下命令,关闭Apache服务</p>
 <pre><code>sudo apachectl stop
 </code></pre><p>在终端中输入如下命令,重启Apache服务</p>
