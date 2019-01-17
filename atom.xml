@@ -170,6 +170,24 @@
   </entry>
   
   <entry>
+    <title>19.RequestToModel的使用</title>
+    <link href="http://waythought.duoshuo.com/2017/08/17/19.python%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90model%E5%92%8Capi%E8%84%9A%E6%9C%AC/"/>
+    <id>http://waythought.duoshuo.com/2017/08/17/19.python自动生成model和api脚本/</id>
+    <published>2017-08-17T07:12:15.000Z</published>
+    <updated>2019-01-17T07:29:33.829Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="19-RequestToModel的使用"><a href="#19-RequestToModel的使用" class="headerlink" title="19.RequestToModel的使用"></a>19.RequestToModel的使用</h3><p>第一步、进入RequestToModel路径<br><a id="more"></a></p><p>第二步、执行</p><pre><code>python3 main.py start</code></pre><p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1fxw1w3fz1rj213g0r00zq.jpg" alt=""><br>网络请求的样子<br><img src="http://ww1.sinaimg.cn/large/8af26a6dly1fxw1xpqs30j20l20h7mzb.jpg" alt=""><br>第三步、输入需要的Json值对应着key,输入对应转的模型和网络请求的api<br><img src="http://ww1.sinaimg.cn/large/8af26a6dly1fxw1w3tml9j225k1cqtj2.jpg" alt=""><br>第四步、查看结果<br><img src="http://ww1.sinaimg.cn/large/8af26a6dly1fxw1w3591qj20yo0nqjtv.jpg" alt=""></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;19-RequestToModel的使用&quot;&gt;&lt;a href=&quot;#19-RequestToModel的使用&quot; class=&quot;headerlink&quot; title=&quot;19.RequestToModel的使用&quot;&gt;&lt;/a&gt;19.RequestToModel的使用&lt;/h3&gt;&lt;p&gt;第一步、进入RequestToModel路径&lt;br&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
     <title>11.关于iOS9.0 ~ iOS9.3 从App Store下载出现不规则奔溃问题</title>
     <link href="http://waythought.duoshuo.com/2017/07/15/11.%E5%85%B3%E4%BA%8EiOS9.0~9.3%20%E4%BB%8EApp%20Store%E4%B8%8B%E8%BD%BD%E5%87%BA%E7%8E%B0%E4%B8%8D%E8%A7%84%E5%88%99%E5%A5%94%E6%BA%83%E9%97%AE%E9%A2%98/"/>
     <id>http://waythought.duoshuo.com/2017/07/15/11.关于iOS9.0~9.3 从App Store下载出现不规则奔溃问题/</id>
