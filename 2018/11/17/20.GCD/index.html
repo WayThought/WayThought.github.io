@@ -110,7 +110,7 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fz2rmaxssij21g810ctc0.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fz62icb3m2j21520qygne.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fz8hrhsef7j21a00swwgi.jpg">
-<meta property="og:updated_time" content="2019-01-24T00:56:44.899Z">
+<meta property="og:updated_time" content="2019-01-24T00:59:45.661Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="20.多线程编程-GCD">
 <meta name="twitter:description" content="在实际开项目开发中为了能够给用户更好的体验，有些延时操作我们都会放在子线程中进行。今天我们就来聊聊多线程在实际项目中的运用。
@@ -452,10 +452,10 @@ int main()
     return 0
 }
 </code></pre><p> Mac或iphone中执行OC源代码, 该源代码通过编译器转换为如下CPU命令列(二进制代码)</p>
-<pre><code>000001ac:     b590 push {r4, r7, 1r}
-000001ae: f240019c movw r1, :lower16:0x260-0x1c0+0xfffffffc
-000001b2:     af01 add      r7, sp, #4
-000001b4: f2c00100 movt r1, :upper16:0x260-0x1c0+0xfffffffc
+<pre><code>000001ac:     b590  push  {r4, r7, 1r}
+000001ae: f240019c  movw r1, :lower16:0x260-0x1c0+0xfffffffc
+000001b2:     af01  add     r7, sp, #4
+000001b4: f2c00100  movt  r1, :upper16:0x260-0x1c0+0xfffffffc
 ...
 </code></pre><p> 汇集CPU命令列和数据,将其作为一个应用程序安装到Mac或iPhone上。</p>
 <p> Mac、iPhone的操作系统OS X、iOS根据用户的指示启动该应用程序后,首先便将包含在应用程序中的CPU命令列配置到内存中。CPU从应用程序指定的地址开始,一个一个地执行CPU命令列。先执行1ac的命令列push,接着向后移动,执行地址lae的命令movw,再次向后移动,不断循环下去</p>
