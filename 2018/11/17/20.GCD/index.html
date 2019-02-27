@@ -92,8 +92,8 @@
 <meta name="description" content="在实际开项目开发中为了能够给用户更好的体验，有些延时操作我们都会放在子线程中进行。今天我们就来聊聊多线程在实际项目中的运用。
 基本知识进程(process)
 进程是一个具有一定独立功能的程序关于某次数据集合的一次运行活动,它是操作系统分配资源的基本单元
-每个进程之间是相互独立的,每个进程均运行在其专用且受保护的内存空间内。
-进程状态: 进程有三个状态,就绪、运行和阻塞。就绪状态其实就是获取了除cp">
+一个软件启动就是一个进程,每个进程之间是相互独立的,每个进程均运行在其专用且受保护的内存空间内。
+进程状态: 进程有三个状态,就绪、运行和阻塞。就">
 <meta property="og:type" content="article">
 <meta property="og:title" content="20.多线程编程-GCD">
 <meta property="og:url" content="http://waythought.duoshuo.com/2018/11/17/20.GCD/index.html">
@@ -101,23 +101,24 @@
 <meta property="og:description" content="在实际开项目开发中为了能够给用户更好的体验，有些延时操作我们都会放在子线程中进行。今天我们就来聊聊多线程在实际项目中的运用。
 基本知识进程(process)
 进程是一个具有一定独立功能的程序关于某次数据集合的一次运行活动,它是操作系统分配资源的基本单元
-每个进程之间是相互独立的,每个进程均运行在其专用且受保护的内存空间内。
-进程状态: 进程有三个状态,就绪、运行和阻塞。就绪状态其实就是获取了除cp">
+一个软件启动就是一个进程,每个进程之间是相互独立的,每个进程均运行在其专用且受保护的内存空间内。
+进程状态: 进程有三个状态,就绪、运行和阻塞。就">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fyz6lpjp30j207v0aqjrp.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fyz89ex30jj21am0j23ze.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fyz9g4kxlcj215i0giab9.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fz2qtp4hzej21gw0paabp.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fz2rmaxssij21g810ctc0.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fz62icb3m2j21520qygne.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fz63cr8d02j21860z0jt5.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fz8hrhsef7j21a00swwgi.jpg">
-<meta property="og:updated_time" content="2019-01-24T00:59:45.661Z">
+<meta property="og:updated_time" content="2019-02-12T03:49:45.475Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="20.多线程编程-GCD">
 <meta name="twitter:description" content="在实际开项目开发中为了能够给用户更好的体验，有些延时操作我们都会放在子线程中进行。今天我们就来聊聊多线程在实际项目中的运用。
 基本知识进程(process)
 进程是一个具有一定独立功能的程序关于某次数据集合的一次运行活动,它是操作系统分配资源的基本单元
-每个进程之间是相互独立的,每个进程均运行在其专用且受保护的内存空间内。
-进程状态: 进程有三个状态,就绪、运行和阻塞。就绪状态其实就是获取了除cp">
+一个软件启动就是一个进程,每个进程之间是相互独立的,每个进程均运行在其专用且受保护的内存空间内。
+进程状态: 进程有三个状态,就绪、运行和阻塞。就">
 <meta name="twitter:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fyz6lpjp30j207v0aqjrp.jpg">
 
 
@@ -429,7 +430,7 @@
         <p>在实际开项目开发中为了能够给用户更好的体验，有些延时操作我们都会放在子线程中进行。今天我们就来聊聊多线程在实际项目中的运用。</p>
 <h3 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h3><h4 id="进程-process"><a href="#进程-process" class="headerlink" title="进程(process)"></a>进程(process)</h4><ul>
 <li>进程是一个具有一定独立功能的程序关于某次数据集合的一次运行活动,它是操作系统分配资源的基本单元</li>
-<li>每个进程之间是相互独立的,每个进程均运行在其专用且受保护的内存空间内。</li>
+<li>一个软件启动就是一个进程,每个进程之间是相互独立的,每个进程均运行在其专用且受保护的内存空间内。</li>
 <li>进程状态: 进程有三个状态,就绪、运行和阻塞。就绪状态其实就是获取了除cpu外的所有资源,只要处理器分配资源马上就可以运行。运行状态就是获取了处理器分配的资源,程序开始执行。阻塞状态:当程序条件不够时,需要等待条件满足时才能执行;比如等待I/O操作的时候,此刻的状态就叫阻塞</li>
 </ul>
 <a id="more"></a>
@@ -452,10 +453,10 @@ int main()
     return 0
 }
 </code></pre><p> Mac或iphone中执行OC源代码, 该源代码通过编译器转换为如下CPU命令列(二进制代码)</p>
-<pre><code>000001ac:     b590  push  {r4, r7, 1r}
-000001ae: f240019c  movw r1, :lower16:0x260-0x1c0+0xfffffffc
+<pre><code>000001ac:     b590  push    {r4, r7, 1r}
+000001ae: f240019c  movw    r1, :lower16:0x260-0x1c0+0xfffffffc
 000001b2:     af01  add     r7, sp, #4
-000001b4: f2c00100  movt  r1, :upper16:0x260-0x1c0+0xfffffffc
+000001b4: f2c00100  movt    r1, :upper16:0x260-0x1c0+0xfffffffc
 ...
 </code></pre><p> 汇集CPU命令列和数据,将其作为一个应用程序安装到Mac或iPhone上。</p>
 <p> Mac、iPhone的操作系统OS X、iOS根据用户的指示启动该应用程序后,首先便将包含在应用程序中的CPU命令列配置到内存中。CPU从应用程序指定的地址开始,一个一个地执行CPU命令列。先执行1ac的命令列push,接着向后移动,执行地址lae的命令movw,再次向后移动,不断循环下去</p>
@@ -466,7 +467,7 @@ int main()
 <p>队列中的任务,放到不同线程中相当于把命令列放到不同的渠道。单核的话,一个CPU核在一条命令列执行,和在多条命令列中调用执行任务效果其实是一样的,每个时刻只能执行一个命令。 因为CPU能够在某个线程和其他线程之间反复多次进行上下文切换,因此看上去就好像1个CPU核能够并列执行多个线程一样。而在具有多个CPU核的情况下,多个CPU核心在多个线程中调度,就真的提供了多个CPU核并行执行多个线程的技术。</p>
 <p>但是,多线程编程实际上是一种易发生各种问题的编程技术。比如多个线程更新相同的资源会导致数据的不一致(数据竞争)、停止等待时间的线程会导致多个线程相互持续等待(死锁)、使用太多线程会消耗大量内存等。<br><img src="http://ww1.sinaimg.cn/large/8af26a6dly1fyz9g4kxlcj215i0giab9.jpg" alt=""></p>
 <p>尽管极易发生各种问题,也应当使用多线程编程。因为使用多线程编程可保证应用程序的响应性能。</p>
-<p>GCD打打简化了偏于复杂的多线程编程的代码。我们来看下GCD的API。</p>
+<p>GCD大大简化了偏于复杂的多线程编程的代码。我们来看下GCD的API。</p>
 <h3 id="GCD的API"><a href="#GCD的API" class="headerlink" title="GCD的API"></a>GCD的API</h3><ul>
 <li>GCD是iOS4.0开始引入的新多线程编程技术,是异步执行任务的技术之一,提供的是系统级线程管理,执行效率更高。</li>
 </ul>
@@ -476,7 +477,8 @@ int main()
 <p>现在有两种Dispath Queue,一种是等待现在执行中处理结束的<strong>Serial Dispatch</strong>,另一种是不等待现在执行中处理结束的<strong>Concurrent Queue</strong>.</p>
 <p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1fz2rmaxssij21g810ctc0.jpg" alt=""></p>
 <p>比较这两种Dispath Queue。准备以下源代码:</p>
-<pre><code>    dispatch_queue_t serialQueue = dispatch_queue_create(&quot;test.example.serial&quot;, DISPATCH_QUEUE_SERIAL);
+<pre><code>dispatch_queue_t serialQueue = dispatch_queue_create(&quot;test.example.serial&quot;, DISPATCH_QUEUE_SERIAL);
+
 for (int i = 0; i &lt; 100 ; i ++) {
     dispatch_async(serialQueue, ^{
         NSLog(@&quot;serialQueue%@&quot;,@(i));
@@ -597,10 +599,12 @@ Current Thread=&lt;NSThread: 0x6000028d9740&gt;{number = 12, name = (null)}----&
 Current Thread=&lt;NSThread: 0x6000028d9140&gt;{number = 13, name = (null)}----&gt;3-----
 </code></pre><p>小结:并发队列异步执行从结果看开辟了多个线程,并且不是顺序执行。主线程执行的”并行队列异步end”打印。<strong>异步执行会开启新的线程</strong>,并发队列不需要等待现在执行中的处理结束,就开始派发下一个队列中的任务,所以不是顺序。</p>
 <p>补充:</p>
-<pre><code>1. 当生成多个Serial Dispath Queue**异步**执行时候,各个Serial Dispath Queue都将并行执行。虽然在一个Serial Dispath Queue中同时只能执行一个追加处理,但是如果将处理分别追加到多个Serial Dispath Queue中,各个Serial Dispath Queue执行1个,即为同时执行多个处理。
-![](http://ww1.sinaimg.cn/large/8af26a6dly1fz63cr8d02j21860z0jt5.jpg)
-</code></pre><p>一旦生成Serial Dispath Queue并追加处理,系统对于一个Serial Dispath Queue就只生成并使用一个线程。</p>
+<ol>
+<li>当生成多个Serial Dispath Queue<strong>异步</strong>执行时候,各个Serial Dispath Queue都将并行执行。虽然在一个Serial Dispath Queue中同时只能执行一个追加处理,但是如果将处理分别追加到多个Serial Dispath Queue中,各个Serial Dispath Queue执行1个,即为同时执行多个处理。</li>
+</ol>
+<p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1fz63cr8d02j21860z0jt5.jpg" alt=""><br>一旦生成Serial Dispath Queue并追加处理,系统对于一个Serial Dispath Queue就只生成并使用一个线程。</p>
 <p>2.主队列同步执行</p>
+<p>我们来看第一段代码</p>
 <pre><code>//获取主队列
 dispatch_queue_t queue = dispatch_get_main_queue();
 //执行任务
@@ -608,7 +612,22 @@ dispatch_sync(queue, ^{
     NSLog(@&quot;main_queue_sync%@&quot;,[NSThread currentThread]);
 });
 NSLog(@&quot;main_queue_sync_end&quot;);
-</code></pre><p>小结: 这样会死锁, 主线程调用dispatch_sync这个函数,当这个函数执行完成后主队列才会将下一个任务派遣到主线程中执行,但dispatch_sync执行完成的条件是里面的block返回,里面的block是不会执行的, 因为dispatch_sync这个函数将block任务放到主队列中了,这个block任务需要等待主线程中的任务执行的dispatch_sync函数完成才会执行,</p>
+</code></pre><p>这样会死锁, 主队列调用dispatch_sync这个函数,当这个函数执行完成后主队列才会将下一个任务派遣到主线程中执行,但dispatch_sync执行完成的条件是里面的block返回,里面的block是不会执行的, 因为dispatch_sync这个函数将block任务放到主队列中了,这个block任务需要等待主线程中的任务执行的dispatch_sync函数完成才会执行</p>
+<p>我们来看第二段代码</p>
+<pre><code>//创建队列
+dispatch_queue_t queue = dispatch_queue_create(&quot;serialQueueSyncMethod&quot;, DISPATCH_QUEUE_SERIAL);
+dispatch_sync(queue, ^{
+    NSLog(@&quot;Current Thread=%@&quot;,[NSThread currentThread]);
+});
+</code></pre><p>这样不会死锁,因为<strong>阻塞的是队列不是线程</strong>,输出的block确实也是在主线程中执行,如果sync阻塞的是主线程,那按道理这样确实会死锁,但实际上sync阻塞的是主队列,而不是主线程,这样写的运行结果是, dispatch_sync运行在主队列,而其block运行在queue队列,虽然两个队列都是主线程执行,由于dispatch_sync阻塞的只是主队列,block在queue队列由主线程执行完成并返回,从而dispatch_sync返回,之后主队列结束阻塞继续执行下面的任务。原理是此处的queue队列是运行在主队列中的另一串行队列。</p>
+<p>正确的串行队列阻塞写法应该是:</p>
+<pre><code>dispatch_queue_t serialQueue = dispatch_queue_create(&quot;com.excomple.serial&quot;, DISPATCH_QUEUE_SERIAL);
+dispatch_sync(serialQueue, ^{
+    dispatch_sync(serialQueue, ^{
+        NSLog(@&quot;模拟串行队列崩溃&quot;);
+    });
+});
+</code></pre><p>这样就把串行队列queue阻塞了</p>
 <h4 id="dispatch-set-target-queue"><a href="#dispatch-set-target-queue" class="headerlink" title="dispatch_set_target_queue"></a>dispatch_set_target_queue</h4><p><strong>作用:</strong> 变更生成的Dispath Queue的执行优先级</p>
 <h4 id="dispatch-after"><a href="#dispatch-after" class="headerlink" title="dispatch_after"></a>dispatch_after</h4><p><strong>作用:</strong> 在指定时间后执行处理的情况 </p>
 <pre><code>dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3ull * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -638,7 +657,7 @@ block2
 block4
  done
 </code></pre><p>多个派发队列情况:</p>
-<pre><code>        dispatch_queue_t concurrentQueue = dispatch_queue_create(&quot;example.test.com&quot;, DISPATCH_QUEUE_CONCURRENT);
+<pre><code>dispatch_queue_t concurrentQueue = dispatch_queue_create(&quot;example.test.com&quot;, DISPATCH_QUEUE_CONCURRENT);
 dispatch_queue_t anotherConcurrentQueue = dispatch_queue_create(&quot;example.another.test.com&quot;, DISPATCH_QUEUE_CONCURRENT);
 
 dispatch_group_t group = dispatch_group_create();
@@ -679,7 +698,7 @@ anotherDone
 <p>也就是说,为了高效率地进行访问,读取处理追加到Concurrent Dispatch Queue中,写入处理在任一个读取处理没有执行的状态下,追加到Serial Dispatch Queue中即可(在写入处理结束之前,读取处理不可执行)。</p>
 <p>虽然利用Dispatch Group和dispath_set_target_queue函数也可实现,但代码会稍微复杂。有兴趣的可以尝试下。</p>
 <p>GCD为我们提供了更为聪明的解决方法: dispatch_barrier_async函数。该函数同并发队列一起使用。</p>
-<pre><code>    void(^block1_reading)(void) = ^{
+<pre><code> void(^block1_reading)(void) = ^{
     NSLog(@&quot;block1_reading&quot;);
 };
 void(^block2_reading)(void) = ^{
@@ -952,7 +971,7 @@ ThreadDemo[54913:1615402] task4
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
