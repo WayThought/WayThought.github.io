@@ -108,7 +108,7 @@ struct __AtAutoreleasePool {
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcly1g0jvfd92jjj30ew0izq6k.jpg">
 <meta property="og:image" content="https://ws2.sinaimg.cn/large/006tKfTcly1g0jw04abxlj30rj0as0u0.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/006tKfTcly1g0k07vxs7gj30ri0apq47.jpg">
-<meta property="og:updated_time" content="2019-02-27T05:35:42.749Z">
+<meta property="og:updated_time" content="2019-02-27T07:32:42.383Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="21.深入AutoreleasePool">
 <meta name="twitter:description" content="AutoReleasePool的原理
@@ -446,7 +446,7 @@ struct __AtAutoreleasePool {
 }
 </code></pre><h3 id="AutoreleasePool-是什么"><a href="#AutoreleasePool-是什么" class="headerlink" title="AutoreleasePool 是什么"></a>AutoreleasePool 是什么</h3><p>这一节开始分析方法<strong>objc_autoreleasePoolPush</strong>和 <strong>objc_autoreleasePoolPop</strong>实现:</p>
 <pre><code>void *objc_autoreleasePoolPush(void) {
-return AutoreleasePoolPage::push();
+    return AutoreleasePoolPage::push();
 }
 
 void objc_autoreleasePoolPop(void *ctxt) {
@@ -567,7 +567,10 @@ void objc_autoreleasePoolPop(void *ctxt) {
 <li>当对象调用 <strong>autorelease</strong> 方法时,会将对象加入 <strong>AutoreleasePoolPage</strong> 的栈中</li>
 <li>调用 <strong>AutoreleasePoolPage::pop</strong> 方法会向栈中的对象发送 <strong>release</strong> 消息。</li>
 </ul>
+<p><strong>参考资料</strong></p>
 <p><a href="https://juejin.im/entry/5a4302535188257d7242b387#autoreleaseFast" target="_blank" rel="external">原理部分</a></p>
+<p><a href="https://juejin.im/post/5b052282f265da0b7156a2aa" target="_blank" rel="external">AutoreleasePool底层实现原理</a></p>
+<p><a href="https://juejin.im/post/59eabe2451882578ca2dc145" target="_blank" rel="external">在ARC环境中autoreleasepool(runloop)的研究</a></p>
 
       
     </div>
