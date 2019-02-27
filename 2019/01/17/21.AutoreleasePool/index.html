@@ -96,7 +96,7 @@ struct __AtAutoreleasePool {
   ~__AtAuto">
 <meta property="og:type" content="article">
 <meta property="og:title" content="21.深入AutoreleasePool">
-<meta property="og:url" content="http://waythought.duoshuo.com/2018/01/17/21.AutoreleasePool/index.html">
+<meta property="og:url" content="http://waythought.duoshuo.com/2019/01/17/21.AutoreleasePool/index.html">
 <meta property="og:site_name" content="钱多多的博客">
 <meta property="og:description" content="AutoReleasePool的原理
 @autoreleasepool@autoreleasepool{} 是一个__AtAutorereleasePool的结构体
@@ -108,7 +108,7 @@ struct __AtAutoreleasePool {
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcly1g0jvfd92jjj30ew0izq6k.jpg">
 <meta property="og:image" content="https://ws2.sinaimg.cn/large/006tKfTcly1g0jw04abxlj30rj0as0u0.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/006tKfTcly1g0k07vxs7gj30ri0apq47.jpg">
-<meta property="og:updated_time" content="2019-02-26T14:30:58.248Z">
+<meta property="og:updated_time" content="2019-02-27T05:35:42.749Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="21.深入AutoreleasePool">
 <meta name="twitter:description" content="AutoReleasePool的原理
@@ -144,7 +144,7 @@ struct __AtAutoreleasePool {
 
 
 
-  <link rel="canonical" href="http://waythought.duoshuo.com/2018/01/17/21.AutoreleasePool/"/>
+  <link rel="canonical" href="http://waythought.duoshuo.com/2019/01/17/21.AutoreleasePool/"/>
 
 
 
@@ -331,7 +331,7 @@ struct __AtAutoreleasePool {
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://waythought.duoshuo.com/2018/01/17/21.AutoreleasePool/">
+    <link itemprop="mainEntityOfPage" href="http://waythought.duoshuo.com/2019/01/17/21.AutoreleasePool/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Qian.G.j">
@@ -367,8 +367,8 @@ struct __AtAutoreleasePool {
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-17T11:12:23+08:00">
-                2018-01-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-17T11:12:23+08:00">
+                2019-01-17
               </time>
             
 
@@ -386,8 +386,8 @@ struct __AtAutoreleasePool {
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/01/17/21.AutoreleasePool/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/01/17/21.AutoreleasePool/" itemprop="commentCount"></span>
+                <a href="/2019/01/17/21.AutoreleasePool/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/01/17/21.AutoreleasePool/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -395,7 +395,7 @@ struct __AtAutoreleasePool {
 
           
           
-             <span id="/2018/01/17/21.AutoreleasePool/" class="leancloud_visitors" data-flag-title="21.深入AutoreleasePool">
+             <span id="/2019/01/17/21.AutoreleasePool/" class="leancloud_visitors" data-flag-title="21.深入AutoreleasePool">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -432,6 +432,7 @@ struct __AtAutoreleasePool {
   void * atautoreleasepoolobj;
 };
 </code></pre><p>这个结构体会在初始化时调用<strong>objc_autoreleasePoolPush()</strong>方法,会在析构(对象结束其生命周期)时调用<strong>objc_autoreleasePoolPop</strong>方法。</p>
+<a id="more"></a>
 <p>我们main函数在实际工作时其实是这样的:</p>
 <pre><code>int main(int argc, const char * argv[]) {
     {
@@ -618,8 +619,8 @@ void objc_autoreleasePoolPop(void *ctxt) {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/12/12/15.rutime系列-消息传递/" rel="next" title="15.Object-C Runtime基本介绍和消息传递">
-                <i class="fa fa-chevron-left"></i> 15.Object-C Runtime基本介绍和消息传递
+              <a href="/2018/11/17/20.GCD/" rel="next" title="20.多线程编程-GCD">
+                <i class="fa fa-chevron-left"></i> 20.多线程编程-GCD
               </a>
             
           </div>
@@ -627,10 +628,6 @@ void objc_autoreleasePoolPop(void *ctxt) {
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/02/13/16.项目启动耗时测试/" rel="prev" title="16.项目启动耗时性能优化">
-                16.项目启动耗时性能优化 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -876,7 +873,7 @@ void objc_autoreleasePoolPop(void *ctxt) {
 
     <script type="text/javascript">
       var disqus_shortname = 'waythought';
-      var disqus_identifier = '2018/01/17/21.AutoreleasePool/';
+      var disqus_identifier = '2019/01/17/21.AutoreleasePool/';
 
       var disqus_title = "21.深入AutoreleasePool";
 
