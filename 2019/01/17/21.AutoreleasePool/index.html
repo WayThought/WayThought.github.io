@@ -108,7 +108,7 @@ struct __AtAutoreleasePool {
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcly1g0jvfd92jjj30ew0izq6k.jpg">
 <meta property="og:image" content="https://ws2.sinaimg.cn/large/006tKfTcly1g0jw04abxlj30rj0as0u0.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/006tKfTcly1g0k07vxs7gj30ri0apq47.jpg">
-<meta property="og:updated_time" content="2019-02-27T07:32:42.383Z">
+<meta property="og:updated_time" content="2019-02-28T05:45:47.720Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="21.深入AutoreleasePool">
 <meta name="twitter:description" content="AutoReleasePool的原理
@@ -466,6 +466,9 @@ void objc_autoreleasePoolPop(void *ctxt) {
 </code></pre><ul>
 <li>magic用于对当前AutoreleasePoolPage完整性的校验</li>
 <li>thread保存了当前页所在的线程</li>
+<li>*next指向最新添加的autorelease对象的下一个位置,初始化时指向begin()</li>
+<li>parent指向了父节点,第一个初始化的 AutoreleasePoolPage 的parent值为nil</li>
+<li>child指向子节点,最后一个节点的child值为nil</li>
 </ul>
 <p>每一个自动释放池都是由一系列的 AutoreleasePoolPage 组成的,并且每一个 AutoreleasePoolPage 的大小都是4096字节(16进制 0x1000)</p>
 <h5 id="双向链表"><a href="#双向链表" class="headerlink" title="双向链表:"></a>双向链表:</h5><p>自动释放池中的 AutoreleasePoolPage 是以<strong>双向链表</strong>的形式连接起来的:</p>
