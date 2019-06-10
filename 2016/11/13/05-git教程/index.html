@@ -103,7 +103,7 @@ git有机器强大的分">
 Git: 分布式版本控制系统,每个人电脑就有版本库.写完代码,先提交到本地的版本,让后提交到服务器上,最后每个电脑都有一个最新的代码
 git也要配置服务器, 但是服务器的作用, 只是作为一个中间桥梁供开发人员去同步代码用的.
 git有机器强大的分">
-<meta property="og:updated_time" content="2018-11-19T01:44:40.629Z">
+<meta property="og:updated_time" content="2019-06-10T05:40:12.336Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="05-git教程">
 <meta name="twitter:description" content="SVN: 集中式的版本控制系统. 本地只有文件,没有版本库,所有的代码只在服务器上有版本记录,如果要进行版本的回退,和一些tag操作,必须经过服务器
@@ -555,7 +555,9 @@ fatal: The remote end hung up unexpectedly
     git config http.postBuffer 524288000
 第三种。 git push -u origin 分支(这种没有亲自尝试过,可以试试)
 </code></pre><h3 id="6-0-为什么GitHub需要SSH-Key呢"><a href="#6-0-为什么GitHub需要SSH-Key呢" class="headerlink" title="6.0 为什么GitHub需要SSH Key呢"></a>6.0 为什么GitHub需要SSH Key呢</h3><p>因为GitHub需要识别出你推送的提交确实是你推送的，而不是别人冒充的，而Git支持SSH协议，所以，GitHub只要知道了你的公钥，就可以确认只有你自己才能推送。</p>
-<p>参考资料:<a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/" target="_blank" rel="external">廖雪峰的博客</a></p>
+<h3 id="7-0-下载的工程带有submodule"><a href="#7-0-下载的工程带有submodule" class="headerlink" title="7.0 下载的工程带有submodule"></a>7.0 下载的工程带有submodule</h3><p>当使用git clone下来的工程中带有submodule时，初始的时候，submodule的内容并不会自动下载下来的。<br>此时，只需执行如下命令：</p>
+<pre><code>git submodule update --init --recursive
+</code></pre><p>参考资料:<a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/" target="_blank" rel="external">廖雪峰的博客</a></p>
 
       
     </div>
@@ -737,7 +739,7 @@ fatal: The remote end hung up unexpectedly
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-远程仓库"><span class="nav-number">1.</span> <span class="nav-text">1.远程仓库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-本地分支管理"><span class="nav-number">2.</span> <span class="nav-text">2.本地分支管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-版本回退※"><span class="nav-number">3.</span> <span class="nav-text">3.版本回退※</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-补充"><span class="nav-number">4.</span> <span class="nav-text">4.补充:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-0冲突"><span class="nav-number">5.</span> <span class="nav-text">5.0冲突</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1常见冲突"><span class="nav-number">6.</span> <span class="nav-text">5.1常见冲突:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-pbxproj文件冲突"><span class="nav-number">7.</span> <span class="nav-text">5.2 pbxproj文件冲突</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-git-push-报以下错误"><span class="nav-number"></span> <span class="nav-text">5.3 git push 报以下错误:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-0-为什么GitHub需要SSH-Key呢"><span class="nav-number"></span> <span class="nav-text">6.0 为什么GitHub需要SSH Key呢</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-远程仓库"><span class="nav-number">1.</span> <span class="nav-text">1.远程仓库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-本地分支管理"><span class="nav-number">2.</span> <span class="nav-text">2.本地分支管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-版本回退※"><span class="nav-number">3.</span> <span class="nav-text">3.版本回退※</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-补充"><span class="nav-number">4.</span> <span class="nav-text">4.补充:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-0冲突"><span class="nav-number">5.</span> <span class="nav-text">5.0冲突</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1常见冲突"><span class="nav-number">6.</span> <span class="nav-text">5.1常见冲突:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-pbxproj文件冲突"><span class="nav-number">7.</span> <span class="nav-text">5.2 pbxproj文件冲突</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-git-push-报以下错误"><span class="nav-number"></span> <span class="nav-text">5.3 git push 报以下错误:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-0-为什么GitHub需要SSH-Key呢"><span class="nav-number"></span> <span class="nav-text">6.0 为什么GitHub需要SSH Key呢</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-0-下载的工程带有submodule"><span class="nav-number"></span> <span class="nav-text">7.0 下载的工程带有submodule</span></a></div>
             
 
           </div>

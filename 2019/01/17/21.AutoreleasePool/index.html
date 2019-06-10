@@ -89,33 +89,30 @@
 
 
 
-<meta name="description" content="AutoReleasePool的原理
-@autoreleasepool@autoreleasepool{} 是一个__AtAutorereleasePool的结构体
+<meta name="description" content="@autoreleasepool@autoreleasepool{} 是一个__AtAutorereleasePool的结构体
 struct __AtAutoreleasePool {
   __AtAutoreleasePool() {atautoreleasepoolobj = objc_autoreleasePoolPush();}
-  ~__AtAuto">
+  ~__AtAutoreleasePool() {objc">
 <meta property="og:type" content="article">
 <meta property="og:title" content="21.深入AutoreleasePool">
 <meta property="og:url" content="http://waythought.duoshuo.com/2019/01/17/21.AutoreleasePool/index.html">
 <meta property="og:site_name" content="钱多多的博客">
-<meta property="og:description" content="AutoReleasePool的原理
-@autoreleasepool@autoreleasepool{} 是一个__AtAutorereleasePool的结构体
+<meta property="og:description" content="@autoreleasepool@autoreleasepool{} 是一个__AtAutorereleasePool的结构体
 struct __AtAutoreleasePool {
   __AtAutoreleasePool() {atautoreleasepoolobj = objc_autoreleasePoolPush();}
-  ~__AtAuto">
+  ~__AtAutoreleasePool() {objc">
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcly1g0jv3eeabij30rd04htaa.jpg">
 <meta property="og:image" content="https://ws2.sinaimg.cn/large/006tKfTcly1g0jv87h0mkj30ex0j0tab.jpg">
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcly1g0jvfd92jjj30ew0izq6k.jpg">
 <meta property="og:image" content="https://ws2.sinaimg.cn/large/006tKfTcly1g0jw04abxlj30rj0as0u0.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/006tKfTcly1g0k07vxs7gj30ri0apq47.jpg">
-<meta property="og:updated_time" content="2019-02-28T05:45:47.720Z">
+<meta property="og:updated_time" content="2019-02-28T05:47:37.842Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="21.深入AutoreleasePool">
-<meta name="twitter:description" content="AutoReleasePool的原理
-@autoreleasepool@autoreleasepool{} 是一个__AtAutorereleasePool的结构体
+<meta name="twitter:description" content="@autoreleasepool@autoreleasepool{} 是一个__AtAutorereleasePool的结构体
 struct __AtAutoreleasePool {
   __AtAutoreleasePool() {atautoreleasepoolobj = objc_autoreleasePoolPush();}
-  ~__AtAuto">
+  ~__AtAutoreleasePool() {objc">
 <meta name="twitter:image" content="https://ws3.sinaimg.cn/large/006tKfTcly1g0jv3eeabij30rd04htaa.jpg">
 
 
@@ -424,8 +421,7 @@ struct __AtAutoreleasePool {
       
 
       
-        <p>AutoReleasePool的原理</p>
-<h3 id="autoreleasepool"><a href="#autoreleasepool" class="headerlink" title="@autoreleasepool"></a>@autoreleasepool</h3><p>@autoreleasepool{} 是一个__AtAutorereleasePool的结构体</p>
+        <h3 id="autoreleasepool"><a href="#autoreleasepool" class="headerlink" title="@autoreleasepool"></a>@autoreleasepool</h3><p>@autoreleasepool{} 是一个__AtAutorereleasePool的结构体</p>
 <pre><code>struct __AtAutoreleasePool {
   __AtAutoreleasePool() {atautoreleasepoolobj = objc_autoreleasePoolPush();}
   ~__AtAutoreleasePool() {objc_autoreleasePoolPop(atautoreleasepoolobj);}

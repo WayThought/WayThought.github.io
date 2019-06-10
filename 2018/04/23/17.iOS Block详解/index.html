@@ -89,23 +89,23 @@
 
 
 
-<meta name="description" content="一、概述Block是C语言的扩充功能。可以用一句话来表示Block的扩充功能: 带有自动变量的匿名函数。
-
-Block本质是对象,使代码高聚合
+<meta name="description" content="一、概述
+Block本质是一个oc对象,它内部也有一个isa指针
 Block的使用分为声明、实现、执行
 Block可以定义在方法内部或外部
 
+block的底层结构如图所示
 二、 Block的定义和使用">
 <meta property="og:type" content="article">
 <meta property="og:title" content="17.iOS Block详解">
 <meta property="og:url" content="http://waythought.duoshuo.com/2018/04/23/17.iOS Block详解/index.html">
 <meta property="og:site_name" content="钱多多的博客">
-<meta property="og:description" content="一、概述Block是C语言的扩充功能。可以用一句话来表示Block的扩充功能: 带有自动变量的匿名函数。
-
-Block本质是对象,使代码高聚合
+<meta property="og:description" content="一、概述
+Block本质是一个oc对象,它内部也有一个isa指针
 Block的使用分为声明、实现、执行
 Block可以定义在方法内部或外部
 
+block的底层结构如图所示
 二、 Block的定义和使用">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0c0ryozj21bk0mu78c.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0c0ituhj208v04iweb.jpg">
@@ -116,15 +116,15 @@ Block可以定义在方法内部或外部
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0c0ln86j20uh0qodga.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0c0m56yj20zk09iaac.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0c0mk9xj20j30e0q36.jpg">
-<meta property="og:updated_time" content="2018-12-05T09:48:38.659Z">
+<meta property="og:updated_time" content="2019-05-19T14:46:48.891Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="17.iOS Block详解">
-<meta name="twitter:description" content="一、概述Block是C语言的扩充功能。可以用一句话来表示Block的扩充功能: 带有自动变量的匿名函数。
-
-Block本质是对象,使代码高聚合
+<meta name="twitter:description" content="一、概述
+Block本质是一个oc对象,它内部也有一个isa指针
 Block的使用分为声明、实现、执行
 Block可以定义在方法内部或外部
 
+block的底层结构如图所示
 二、 Block的定义和使用">
 <meta name="twitter:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0c0ryozj21bk0mu78c.jpg">
 
@@ -434,12 +434,12 @@ Block可以定义在方法内部或外部
       
 
       
-        <h4 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h4><p>Block是C语言的扩充功能。可以用一句话来表示Block的扩充功能: 带有自动变量的匿名函数。</p>
-<ul>
-<li>Block本质是对象,使代码高聚合</li>
+        <h4 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h4><ul>
+<li>Block本质是一个oc对象,它内部也有一个isa指针</li>
 <li>Block的使用分为声明、实现、执行</li>
 <li>Block可以定义在方法内部或外部</li>
 </ul>
+<p><strong>block的底层结构如图所示</strong></p>
 <h4 id="二、-Block的定义和使用"><a href="#二、-Block的定义和使用" class="headerlink" title="二、 Block的定义和使用"></a>二、 Block的定义和使用</h4><a id="more"></a>
 <p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0c0ryozj21bk0mu78c.jpg" alt=""></p>
 <p>实际开发中常用typedef 定义Block</p>
