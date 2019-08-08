@@ -314,6 +314,226 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://waythought.duoshuo.com/2019/08/02/22.KVO底层实现原理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qian.G.j">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="钱多多的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2019/08/02/22.KVO底层实现原理/" itemprop="url">
+                  22.探讨KVO底层原理
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-02T11:12:23+08:00">
+                2019-08-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/08/02/22.KVO底层实现原理/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/08/02/22.KVO底层实现原理/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/08/02/22.KVO底层实现原理/" class="leancloud_visitors" data-flag-title="22.探讨KVO底层原理">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="KVO"><a href="#KVO" class="headerlink" title="KVO"></a>KVO</h3><p><strong>KVO的全称是Key-Value Observing，俗称“键值监听”，可以用于监听某个对象属性值的改变</strong></p>
+<p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1g5r4ueu2m0j212g084wew.jpg" alt=""></p>
+<h3 id="KVO底层实现原理分析与验证"><a href="#KVO底层实现原理分析与验证" class="headerlink" title="KVO底层实现原理分析与验证"></a>KVO底层实现原理分析与验证</h3><h4 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h4><p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1g5r4vim911j21j613e7e0.jpg" alt=""></p>
+<p>打印结果<br><img src="http://ww1.sinaimg.cn/large/8af26a6dly1g5r5jz1s2zj21x409sgn7.jpg" alt=""></p>
+<p>那么给person1和person2赋值的时候,为什么只是添加了监听者对象的属性变化会调用呢? </p>
+<p>我们看到person1与person2的区别就是person2添加了监听者。所以猜测是person2实例对象发生了变化。</p>
+<p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1g5r5l6q7d8j21x4130tjg.jpg" alt=""></p>
+<p>打印结果显示person1与person2指向的类对象是不同的,也就是添加了KVO监听的实例对象的isa指向的类对象是NSKVONotifying_BYPerson,未添加监听者的实例对象的isa指向的还是原来的类对象。</p>
+<p>我们都知道实例对象调用方法是给这个对象发送消息,根据实例对象的isa,找到类对象,优先在这个类对象中去寻找对象方法,找不到的话会根据superClass指针找父类的类对象,再去父类的类对象中查询对象方法。</p>
+<p><strong>person1的isa</strong><br><img src="http://ww1.sinaimg.cn/large/8af26a6dly1g5r69kvuqoj20xe0fw0tx.jpg" alt=""></p>
+<p><strong>person2的isa</strong></p>
+<p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1g5r69votxbj21a00ogdix.jpg" alt=""></p>
+<p><strong>备注:  NSKVONotifying_BYPerson这个派生的子类,是runtime动态生成的, NSKVONotifying_BYPerson这个类对象的isa指针指向这个派生类的元类对象</strong></p>
+<p>我们来验证下NSKVONotifying_BYPerson类中有哪些对象方法</p>
+<pre><code>// 打印类中的方法
+- (void)printMethodNamesOfClass:(Class)cls
+{
+    unsigned int count;
+    // 获得方法数组
+    Method *methodList = class_copyMethodList(cls, &amp;count);
+
+    // 存储方法名
+    NSMutableString *methodNames = [NSMutableString string];
+
+    // 遍历所有的方法
+    for (int i = 0; i &lt; count; i++) {
+        // 获得方法
+        Method method = methodList[i];
+        // 获得方法名
+        NSString *methodName = NSStringFromSelector(method_getName(method));
+        // 拼接方法名
+        [methodNames appendString:methodName];
+        [methodNames appendString:@&quot;, &quot;];
+    }
+
+    // 释放
+    free(methodList);
+
+    // 打印方法名
+    NSLog(@&quot;%@ %@&quot;, cls, methodNames);
+}
+</code></pre><hr>
+<p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1g5r6whglpej21w80oaqay.jpg" alt=""></p>
+<p>NSKVONotifying_BYPerson类中有setAge:, class, dealloc, _isKVOA方法</p>
+<h4 id="派生的子类中的-setAge-方法"><a href="#派生的子类中的-setAge-方法" class="headerlink" title="派生的子类中的 setAge: 方法"></a>派生的子类中的 setAge: 方法</h4><p><strong>根据结果来看person2会优先调用NSKVONotifying_BYPerson这个类对象中的setAge:方法</strong></p>
+<p>我们来看下NSKVONotifying_BYPerson对象方法的setAge:方法的实现:</p>
+<p><strong>methodForSelector:</strong>方法是返回实例对象对应的对象方法的实现<br><img src="http://ww1.sinaimg.cn/large/8af26a6dly1g5r70l2asuj21x6176tnl.jpg" alt=""></p>
+<p>我们看到person1的”setAge:”方法实现没有发生变化,person2在添加监听者之前和之后是不同的</p>
+<pre><code>p (IMP) 地址
+</code></pre><p>会打印出该方法的实现</p>
+<p>person1是正常调用的BYPerson类的setAge:方法,而person2的”setAge:”方法的实现是函数<strong>_NSSetIntValueAndNotify</strong>这个函数</p>
+<h4 id="NSSetIntValueAndNotify内部实现"><a href="#NSSetIntValueAndNotify内部实现" class="headerlink" title="_NSSetIntValueAndNotify内部实现"></a>_NSSetIntValueAndNotify内部实现</h4><p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1g5r789eihrj20m707l401.jpg" alt=""></p>
+<ol>
+<li>调用willChangeValueForKey,记录旧的值</li>
+<li>调用原来的setter方法</li>
+<li>调用didChangeValueForKey (该方法内部会调用observer的observeValueForKeyPath:ofObject:change:context方法)</li>
+</ol>
+<h4 id="派生的子类中的-class-方法"><a href="#派生的子类中的-class-方法" class="headerlink" title="派生的子类中的 class 方法"></a>派生的子类中的 class 方法</h4><pre><code>- (Class)class {return [BYPerson class];}
+</code></pre><p>派生的子类中重写了class方法,返回的是父类的class方法。苹果为什么要这么做呢?</p>
+<p>我认为是苹果不想公开NSKVONotifying_BYPerson这个类,屏蔽内部实现,隐藏派生子类的实现,让开发者更注重业务的开发。<br>即使开发者调用class方法,告诉开发者的也是BYPerson,是父类,也是正确的。</p>
+<h3 id="KVOController源码讨论"><a href="#KVOController源码讨论" class="headerlink" title="KVOController源码讨论"></a>KVOController源码讨论</h3><h4 id="KVO现状"><a href="#KVO现状" class="headerlink" title="KVO现状"></a>KVO现状</h4><ul>
+<li>addObserver和removeObserver必须配对出现,仅支持以下用法</li>
+</ul>
+<pre><code>[observe addObserver...];
+// do something
+[observe removeObserver...];
+</code></pre><ul>
+<li>很多时候明明代码已经做到了配对出现且按次序调用,由于<strong>多线程导致软件运行时环境复杂化</strong> 或者 <strong>观察者意外地过早释放掉</strong>还是发现有相关的crash。</li>
+<li>对同一个实例对象的属性添加多次监听,在属性发生变化的时候,observeValueForKeyPath:ofObject:change:context的方法会调用多次</li>
+</ul>
+<h4 id="KVOController的优势"><a href="#KVOController的优势" class="headerlink" title="KVOController的优势"></a>KVOController的优势</h4><ul>
+<li>提供更易用的的接口</li>
+</ul>
+<p>提供对block回调和自定义selector的支持,保持了灵活性和强大</p>
+<ul>
+<li>提供更加安全的接口</li>
+</ul>
+<p>通过解决addObserver 和 removeObserver必须配对且按次序调用的问题,提供了一套更加安全的接口。</p>
+<p>使用单例主动监听,保证在程序声明周期不会释放掉。</p>
+<ul>
+<li>消息过滤<br>通过_FBKVOInfo *existingInfo = [infos member:info], 首先判断是否已经包含对应观察者消息,如果包含则直接返回,不会再重复注册。</li>
+</ul>
+<h4 id="KVOController-流程"><a href="#KVOController-流程" class="headerlink" title="KVOController 流程"></a>KVOController 流程</h4>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://waythought.duoshuo.com/2019/01/17/21.AutoreleasePool/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1622,151 +1842,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://waythought.duoshuo.com/2017/08/17/12.Effective Objective-C 2.0读书笔记/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qian.G.j">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="钱多多的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/08/17/12.Effective Objective-C 2.0读书笔记/" itemprop="url">
-                  12.Effective Objective-C 2.0读书笔记
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-17T15:34:14+08:00">
-                2017-08-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/08/17/12.Effective Objective-C 2.0读书笔记/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/08/17/12.Effective Objective-C 2.0读书笔记/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2017/08/17/12.Effective Objective-C 2.0读书笔记/" class="leancloud_visitors" data-flag-title="12.Effective Objective-C 2.0读书笔记">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ol>
-<li>动态绑定</li>
-</ol>
-<p>// Messaging (Objective-C)</p>
-<p>Object *obj = [Object new];</p>
-<p>[obj performWith:parameterl and: parameterl2];</p>
-<p>关键区别在于: 使用消息结构的语言,其运行时所应执行的代码由运行环境来决定;而使用函数调用的语言,则有编辑器决定。如果范例代码中调用的函数是多态的,那么在运行时就要按照 <strong>虚方法表: </strong>来查出到底应该执行哪个函数实现。而采取消息结构的语言,不论是否多态,总是在运行时才回去查找所要执行的方法。实际上,编辑器甚至不关心接受消息的对象是何种类型。接受消息的对象问题也要在运行时处理,其过程叫做”动态绑定”。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1816,7 +1891,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

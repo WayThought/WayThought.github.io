@@ -89,31 +89,27 @@
 
 
 
-<meta name="description" content="动态绑定
-
-// Messaging (Objective-C)
+<meta name="description" content="第1条: 动态绑定// Messaging (Objective-C)
 Object *obj = [Object new];
 [obj performWith:parameterl and: parameterl2];
-关键区别在于: 使用消息结构的语言,其运行时所应执行的代码由运行环境来决定;而使用函数调用的语言,则有编辑器决定。如果范例代码中调用的函数是多态的,那么在运行时就要按照 虚方法表:">
+关键区别在于: 使用消息结构的语言,其运行时所应执行的代码由运行环境来决定;而使用函数调用的语言,则有编辑器决定。如果范例代码中调用的函数是多态的,那么在运行时就要按照 虚方法表">
 <meta property="og:type" content="article">
 <meta property="og:title" content="12.Effective Objective-C 2.0读书笔记">
 <meta property="og:url" content="http://waythought.duoshuo.com/2017/08/17/12.Effective Objective-C 2.0读书笔记/index.html">
 <meta property="og:site_name" content="钱多多的博客">
-<meta property="og:description" content="动态绑定
-
-// Messaging (Objective-C)
+<meta property="og:description" content="第1条: 动态绑定// Messaging (Objective-C)
 Object *obj = [Object new];
 [obj performWith:parameterl and: parameterl2];
-关键区别在于: 使用消息结构的语言,其运行时所应执行的代码由运行环境来决定;而使用函数调用的语言,则有编辑器决定。如果范例代码中调用的函数是多态的,那么在运行时就要按照 虚方法表:">
-<meta property="og:updated_time" content="2018-08-25T03:20:06.082Z">
+关键区别在于: 使用消息结构的语言,其运行时所应执行的代码由运行环境来决定;而使用函数调用的语言,则有编辑器决定。如果范例代码中调用的函数是多态的,那么在运行时就要按照 虚方法表">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1g4fsa9cr0fj20f309gglm.jpg">
+<meta property="og:updated_time" content="2019-06-27T08:20:25.563Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="12.Effective Objective-C 2.0读书笔记">
-<meta name="twitter:description" content="动态绑定
-
-// Messaging (Objective-C)
+<meta name="twitter:description" content="第1条: 动态绑定// Messaging (Objective-C)
 Object *obj = [Object new];
 [obj performWith:parameterl and: parameterl2];
-关键区别在于: 使用消息结构的语言,其运行时所应执行的代码由运行环境来决定;而使用函数调用的语言,则有编辑器决定。如果范例代码中调用的函数是多态的,那么在运行时就要按照 虚方法表:">
+关键区别在于: 使用消息结构的语言,其运行时所应执行的代码由运行环境来决定;而使用函数调用的语言,则有编辑器决定。如果范例代码中调用的函数是多态的,那么在运行时就要按照 虚方法表">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1g4fsa9cr0fj20f309gglm.jpg">
 
 
 
@@ -421,13 +417,23 @@ Object *obj = [Object new];
       
 
       
-        <ol>
-<li>动态绑定</li>
-</ol>
-<p>// Messaging (Objective-C)</p>
+        <h3 id="第1条-动态绑定"><a href="#第1条-动态绑定" class="headerlink" title="第1条: 动态绑定"></a>第1条: 动态绑定</h3><p>// Messaging (Objective-C)</p>
 <p>Object *obj = [Object new];</p>
 <p>[obj performWith:parameterl and: parameterl2];</p>
 <p>关键区别在于: 使用消息结构的语言,其运行时所应执行的代码由运行环境来决定;而使用函数调用的语言,则有编辑器决定。如果范例代码中调用的函数是多态的,那么在运行时就要按照 <strong>虚方法表: </strong>来查出到底应该执行哪个函数实现。而采取消息结构的语言,不论是否多态,总是在运行时才回去查找所要执行的方法。实际上,编辑器甚至不关心接受消息的对象是何种类型。接受消息的对象问题也要在运行时处理,其过程叫做”动态绑定”。</p>
+<h3 id="第23条-通过代理与数据源进行对象间通信"><a href="#第23条-通过代理与数据源进行对象间通信" class="headerlink" title="第23条: 通过代理与数据源进行对象间通信"></a>第23条: 通过代理与数据源进行对象间通信</h3><p>如果给委托对象发送消息,那么需要提前判断该代理对象<strong>是否存在</strong>并且判断该代理<strong>是否实现了该方法</strong>。</p>
+<pre><code>if (self.delegate &amp;&amp; [self.delegate respondsToSelector:@selector(hook_tableViewManagerShowBigEmpty:)]) {
+    [self.delegate hook_tableViewManagerShowBigEmpty:needShowBigEmpty];
+}
+</code></pre><p>对于代理模式,在iOS中分为两种:</p>
+<ul>
+<li>普通的代理模式: 信息从类流向代理者</li>
+<li>信息源模式: 信息从数据源流向类</li>
+</ul>
+<p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1g4fsa9cr0fj20f309gglm.jpg" alt=""></p>
+<blockquote>
+<p>类似于UITableView告诉他的代理(delegate)”我被点击了”; 而它的数据源(dataSource)告诉UITableView”你有这些数据”。这两个信息的传递方向是反的</p>
+</blockquote>
 
       
     </div>
@@ -538,8 +544,17 @@ Object *obj = [Object new];
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.png"
@@ -554,7 +569,7 @@ Object *obj = [Object new];
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -590,6 +605,22 @@ Object *obj = [Object new];
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第1条-动态绑定"><span class="nav-number">1.</span> <span class="nav-text">第1条: 动态绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第23条-通过代理与数据源进行对象间通信"><span class="nav-number">2.</span> <span class="nav-text">第23条: 通过代理与数据源进行对象间通信</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

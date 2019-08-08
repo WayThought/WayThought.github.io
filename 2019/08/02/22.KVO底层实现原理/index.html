@@ -89,22 +89,47 @@
 
 
 
-<meta name="description" content="一、概述近期项目中需要将UIWebView替换成WKWebView,查询到前端口原js调用的方法不在起作用,需要调用新方法window.webkit.messageHandlers..postMessage(),所以本地新建Html测试下,需要设置Apache相关配置
-Mac系统对于Php运行非常友好,我们只需要进行简单的配置便可以开始进行使用。">
+<meta name="description" content="KVOKVO的全称是Key-Value Observing，俗称“键值监听”，可以用于监听某个对象属性值的改变
+
+KVO底层实现原理分析与验证基本使用
+打印结果
+那么给person1和person2赋值的时候,为什么只是添加了监听者对象的属性变化会调用呢? 
+我们看到person1与person2的区别就是person2添加了监听者。所以猜测是person2实例对象发生了变化。
+
+打印结果显示pe">
 <meta property="og:type" content="article">
-<meta property="og:title" content="18.在Mac系统下配置PHP运行环境">
-<meta property="og:url" content="http://waythought.duoshuo.com/2018/04/26/18.在Mac系统下配置PHP运行环境/index.html">
+<meta property="og:title" content="22.探讨KVO底层原理">
+<meta property="og:url" content="http://waythought.duoshuo.com/2019/08/02/22.KVO底层实现原理/index.html">
 <meta property="og:site_name" content="钱多多的博客">
-<meta property="og:description" content="一、概述近期项目中需要将UIWebView替换成WKWebView,查询到前端口原js调用的方法不在起作用,需要调用新方法window.webkit.messageHandlers..postMessage(),所以本地新建Html测试下,需要设置Apache相关配置
-Mac系统对于Php运行非常友好,我们只需要进行简单的配置便可以开始进行使用。">
-<meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0svou6rj20vo0p4tdj.jpg">
-<meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0sviqpij20r80gomz9.jpg">
-<meta property="og:updated_time" content="2018-12-05T09:57:52.719Z">
+<meta property="og:description" content="KVOKVO的全称是Key-Value Observing，俗称“键值监听”，可以用于监听某个对象属性值的改变
+
+KVO底层实现原理分析与验证基本使用
+打印结果
+那么给person1和person2赋值的时候,为什么只是添加了监听者对象的属性变化会调用呢? 
+我们看到person1与person2的区别就是person2添加了监听者。所以猜测是person2实例对象发生了变化。
+
+打印结果显示pe">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1g5r4ueu2m0j212g084wew.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1g5r4vim911j21j613e7e0.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1g5r5jz1s2zj21x409sgn7.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1g5r5l6q7d8j21x4130tjg.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1g5r69kvuqoj20xe0fw0tx.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1g5r69votxbj21a00ogdix.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1g5r6whglpej21w80oaqay.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1g5r70l2asuj21x6176tnl.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1g5r789eihrj20m707l401.jpg">
+<meta property="og:updated_time" content="2019-08-08T07:55:25.276Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="18.在Mac系统下配置PHP运行环境">
-<meta name="twitter:description" content="一、概述近期项目中需要将UIWebView替换成WKWebView,查询到前端口原js调用的方法不在起作用,需要调用新方法window.webkit.messageHandlers..postMessage(),所以本地新建Html测试下,需要设置Apache相关配置
-Mac系统对于Php运行非常友好,我们只需要进行简单的配置便可以开始进行使用。">
-<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0svou6rj20vo0p4tdj.jpg">
+<meta name="twitter:title" content="22.探讨KVO底层原理">
+<meta name="twitter:description" content="KVOKVO的全称是Key-Value Observing，俗称“键值监听”，可以用于监听某个对象属性值的改变
+
+KVO底层实现原理分析与验证基本使用
+打印结果
+那么给person1和person2赋值的时候,为什么只是添加了监听者对象的属性变化会调用呢? 
+我们看到person1与person2的区别就是person2添加了监听者。所以猜测是person2实例对象发生了变化。
+
+打印结果显示pe">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1g5r4ueu2m0j212g084wew.jpg">
 
 
 
@@ -132,13 +157,13 @@ Mac系统对于Php运行非常友好,我们只需要进行简单的配置便可�
 
 
 
-  <link rel="canonical" href="http://waythought.duoshuo.com/2018/04/26/18.在Mac系统下配置PHP运行环境/"/>
+  <link rel="canonical" href="http://waythought.duoshuo.com/2019/08/02/22.KVO底层实现原理/"/>
 
 
 
 
 
-  <title> 18.在Mac系统下配置PHP运行环境 | 钱多多的博客 </title>
+  <title> 22.探讨KVO底层原理 | 钱多多的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -319,7 +344,7 @@ Mac系统对于Php运行非常友好,我们只需要进行简单的配置便可�
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://waythought.duoshuo.com/2018/04/26/18.在Mac系统下配置PHP运行环境/">
+    <link itemprop="mainEntityOfPage" href="http://waythought.duoshuo.com/2019/08/02/22.KVO底层实现原理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Qian.G.j">
@@ -340,7 +365,7 @@ Mac系统对于Php运行非常友好,我们只需要进行简单的配置便可�
             
             
               
-                18.在Mac系统下配置PHP运行环境
+                22.探讨KVO底层原理
               
             
           </h1>
@@ -355,8 +380,8 @@ Mac系统对于Php运行非常友好,我们只需要进行简单的配置便可�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-26T14:12:14+08:00">
-                2018-04-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-02T11:12:23+08:00">
+                2019-08-02
               </time>
             
 
@@ -374,8 +399,8 @@ Mac系统对于Php运行非常友好,我们只需要进行简单的配置便可�
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/04/26/18.在Mac系统下配置PHP运行环境/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/04/26/18.在Mac系统下配置PHP运行环境/" itemprop="commentCount"></span>
+                <a href="/2019/08/02/22.KVO底层实现原理/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/08/02/22.KVO底层实现原理/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -383,7 +408,7 @@ Mac系统对于Php运行非常友好,我们只需要进行简单的配置便可�
 
           
           
-             <span id="/2018/04/26/18.在Mac系统下配置PHP运行环境/" class="leancloud_visitors" data-flag-title="18.在Mac系统下配置PHP运行环境">
+             <span id="/2019/08/02/22.KVO底层实现原理/" class="leancloud_visitors" data-flag-title="22.探讨KVO底层原理">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -412,39 +437,89 @@ Mac系统对于Php运行非常友好,我们只需要进行简单的配置便可�
       
 
       
-        <h4 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h4><p>近期项目中需要将UIWebView替换成WKWebView,查询到前端口原js调用的方法不在起作用,需要调用新方法window.webkit.messageHandlers.<name>.postMessage(<messagebody>),所以本地新建Html测试下,需要设置Apache相关配置</messagebody></name></p>
-<p>Mac系统对于Php运行非常友好,我们只需要进行简单的配置便可以开始进行使用。</p>
-<a id="more"></a>
-<h4 id="二、Apache"><a href="#二、Apache" class="headerlink" title="二、Apache"></a>二、Apache</h4><h5 id="Apache介绍"><a href="#Apache介绍" class="headerlink" title="Apache介绍"></a>Apache介绍</h5><p>启动Apache服务,在Mac系统中已经安装好了Apache服务,我们只需要通过如下方式启动即可直接使用。</p>
-<p>在终端中输入如下命令,启动Apache服务</p>
-<pre><code>sudo apachectl start
-</code></pre><p>在终端输入如下命令,查看Apache服务版本</p>
-<pre><code>sudo apachectl -v
-</code></pre><p>在本机中版本信息如下:</p>
-<pre><code>Server version: Apache/2.4.29 (Unix)
-Server built:   Jan 17 2017 18:20:31
-</code></pre><p>在浏览器中输入如下网址,检查Apache服务是否启动成功</p>
-<pre><code>http://localhost
-http://127.0.0.1
-</code></pre><p>如果Apache服务启动成功,页面会显示  It works!</p>
-<h5 id="Apache服务部署路径"><a href="#Apache服务部署路径" class="headerlink" title="Apache服务部署路径"></a>Apache服务部署路径</h5><p>Apache服务部署路径在 /资源库/WebServer/Documents/,我们的项目需要放置在该路径下</p>
-<p>如果想要修改部署路径,可以在/private/etc/apache2目录下找到并打开httpd.conf文件,搜索DocumentRoot并修改部署路径<br>DocumentRoot “/Library/WebServer/Documents”</p>
-<p>Apache服务端口号</p>
-<p>Apache服务端口默认80,如果想要修改端口号,可以在/private/etc/apache2目录下找到并打开httpd.conf文件,搜索Listen 80并修改端口号</p>
-<h4 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h4><p>PHP的启动只需要再Apache服务中进行下一配置即可直接使用</p>
-<p>首先,在/private/etc/apache2目录下找到并打开httpd.conf文件</p>
-<p>其次,搜索#LoadModule php7_module libexec/apache2/libphp7.so,将前方的#删除,由于php版本不同,全局搜索libexec/apache2/libphp就可以找到<br>再次,重启Apache服务即可</p>
-<p>最后我们把我们创建好的项目tmp.html放入/资源库/WebServer/Documents/路径下</p>
-<p>在终端输入以下命令得到本机ip()</p>
-<pre><code>ifconfig en0
-</code></pre><p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0svou6rj20vo0p4tdj.jpg" alt=""></p>
-<p>外网访问我们项目地址就是: 172.50.10.239/tmp.html</p>
-<p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0sviqpij20r80gomz9.jpg" alt=""></p>
-<h5 id="至此-我们创建的项目能够正常访问了"><a href="#至此-我们创建的项目能够正常访问了" class="headerlink" title="至此,我们创建的项目能够正常访问了"></a>至此,我们创建的项目能够正常访问了</h5><h4 id="Apache的其他配置"><a href="#Apache的其他配置" class="headerlink" title="Apache的其他配置"></a>Apache的其他配置</h4><p>在终端中输入如下命令,关闭Apache服务</p>
-<pre><code>sudo apachectl stop
-</code></pre><p>在终端中输入如下命令,重启Apache服务</p>
-<pre><code>sudo apachectl restart
-</code></pre>
+        <h3 id="KVO"><a href="#KVO" class="headerlink" title="KVO"></a>KVO</h3><p><strong>KVO的全称是Key-Value Observing，俗称“键值监听”，可以用于监听某个对象属性值的改变</strong></p>
+<p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1g5r4ueu2m0j212g084wew.jpg" alt=""></p>
+<h3 id="KVO底层实现原理分析与验证"><a href="#KVO底层实现原理分析与验证" class="headerlink" title="KVO底层实现原理分析与验证"></a>KVO底层实现原理分析与验证</h3><h4 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h4><p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1g5r4vim911j21j613e7e0.jpg" alt=""></p>
+<p>打印结果<br><img src="http://ww1.sinaimg.cn/large/8af26a6dly1g5r5jz1s2zj21x409sgn7.jpg" alt=""></p>
+<p>那么给person1和person2赋值的时候,为什么只是添加了监听者对象的属性变化会调用呢? </p>
+<p>我们看到person1与person2的区别就是person2添加了监听者。所以猜测是person2实例对象发生了变化。</p>
+<p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1g5r5l6q7d8j21x4130tjg.jpg" alt=""></p>
+<p>打印结果显示person1与person2指向的类对象是不同的,也就是添加了KVO监听的实例对象的isa指向的类对象是NSKVONotifying_BYPerson,未添加监听者的实例对象的isa指向的还是原来的类对象。</p>
+<p>我们都知道实例对象调用方法是给这个对象发送消息,根据实例对象的isa,找到类对象,优先在这个类对象中去寻找对象方法,找不到的话会根据superClass指针找父类的类对象,再去父类的类对象中查询对象方法。</p>
+<p><strong>person1的isa</strong><br><img src="http://ww1.sinaimg.cn/large/8af26a6dly1g5r69kvuqoj20xe0fw0tx.jpg" alt=""></p>
+<p><strong>person2的isa</strong></p>
+<p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1g5r69votxbj21a00ogdix.jpg" alt=""></p>
+<p><strong>备注:  NSKVONotifying_BYPerson这个派生的子类,是runtime动态生成的, NSKVONotifying_BYPerson这个类对象的isa指针指向这个派生类的元类对象</strong></p>
+<p>我们来验证下NSKVONotifying_BYPerson类中有哪些对象方法</p>
+<pre><code>// 打印类中的方法
+- (void)printMethodNamesOfClass:(Class)cls
+{
+    unsigned int count;
+    // 获得方法数组
+    Method *methodList = class_copyMethodList(cls, &amp;count);
+
+    // 存储方法名
+    NSMutableString *methodNames = [NSMutableString string];
+
+    // 遍历所有的方法
+    for (int i = 0; i &lt; count; i++) {
+        // 获得方法
+        Method method = methodList[i];
+        // 获得方法名
+        NSString *methodName = NSStringFromSelector(method_getName(method));
+        // 拼接方法名
+        [methodNames appendString:methodName];
+        [methodNames appendString:@&quot;, &quot;];
+    }
+
+    // 释放
+    free(methodList);
+
+    // 打印方法名
+    NSLog(@&quot;%@ %@&quot;, cls, methodNames);
+}
+</code></pre><hr>
+<p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1g5r6whglpej21w80oaqay.jpg" alt=""></p>
+<p>NSKVONotifying_BYPerson类中有setAge:, class, dealloc, _isKVOA方法</p>
+<h4 id="派生的子类中的-setAge-方法"><a href="#派生的子类中的-setAge-方法" class="headerlink" title="派生的子类中的 setAge: 方法"></a>派生的子类中的 setAge: 方法</h4><p><strong>根据结果来看person2会优先调用NSKVONotifying_BYPerson这个类对象中的setAge:方法</strong></p>
+<p>我们来看下NSKVONotifying_BYPerson对象方法的setAge:方法的实现:</p>
+<p><strong>methodForSelector:</strong>方法是返回实例对象对应的对象方法的实现<br><img src="http://ww1.sinaimg.cn/large/8af26a6dly1g5r70l2asuj21x6176tnl.jpg" alt=""></p>
+<p>我们看到person1的”setAge:”方法实现没有发生变化,person2在添加监听者之前和之后是不同的</p>
+<pre><code>p (IMP) 地址
+</code></pre><p>会打印出该方法的实现</p>
+<p>person1是正常调用的BYPerson类的setAge:方法,而person2的”setAge:”方法的实现是函数<strong>_NSSetIntValueAndNotify</strong>这个函数</p>
+<h4 id="NSSetIntValueAndNotify内部实现"><a href="#NSSetIntValueAndNotify内部实现" class="headerlink" title="_NSSetIntValueAndNotify内部实现"></a>_NSSetIntValueAndNotify内部实现</h4><p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1g5r789eihrj20m707l401.jpg" alt=""></p>
+<ol>
+<li>调用willChangeValueForKey,记录旧的值</li>
+<li>调用原来的setter方法</li>
+<li>调用didChangeValueForKey (该方法内部会调用observer的observeValueForKeyPath:ofObject:change:context方法)</li>
+</ol>
+<h4 id="派生的子类中的-class-方法"><a href="#派生的子类中的-class-方法" class="headerlink" title="派生的子类中的 class 方法"></a>派生的子类中的 class 方法</h4><pre><code>- (Class)class {return [BYPerson class];}
+</code></pre><p>派生的子类中重写了class方法,返回的是父类的class方法。苹果为什么要这么做呢?</p>
+<p>我认为是苹果不想公开NSKVONotifying_BYPerson这个类,屏蔽内部实现,隐藏派生子类的实现,让开发者更注重业务的开发。<br>即使开发者调用class方法,告诉开发者的也是BYPerson,是父类,也是正确的。</p>
+<h3 id="KVOController源码讨论"><a href="#KVOController源码讨论" class="headerlink" title="KVOController源码讨论"></a>KVOController源码讨论</h3><h4 id="KVO现状"><a href="#KVO现状" class="headerlink" title="KVO现状"></a>KVO现状</h4><ul>
+<li>addObserver和removeObserver必须配对出现,仅支持以下用法</li>
+</ul>
+<pre><code>[observe addObserver...];
+// do something
+[observe removeObserver...];
+</code></pre><ul>
+<li>很多时候明明代码已经做到了配对出现且按次序调用,由于<strong>多线程导致软件运行时环境复杂化</strong> 或者 <strong>观察者意外地过早释放掉</strong>还是发现有相关的crash。</li>
+<li>对同一个实例对象的属性添加多次监听,在属性发生变化的时候,observeValueForKeyPath:ofObject:change:context的方法会调用多次</li>
+</ul>
+<h4 id="KVOController的优势"><a href="#KVOController的优势" class="headerlink" title="KVOController的优势"></a>KVOController的优势</h4><ul>
+<li>提供更易用的的接口</li>
+</ul>
+<p>提供对block回调和自定义selector的支持,保持了灵活性和强大</p>
+<ul>
+<li>提供更加安全的接口</li>
+</ul>
+<p>通过解决addObserver 和 removeObserver必须配对且按次序调用的问题,提供了一套更加安全的接口。</p>
+<p>使用单例主动监听,保证在程序声明周期不会释放掉。</p>
+<ul>
+<li>消息过滤<br>通过_FBKVOInfo *existingInfo = [infos member:info], 首先判断是否已经包含对应观察者消息,如果包含则直接返回,不会再重复注册。</li>
+</ul>
+<h4 id="KVOController-流程"><a href="#KVOController-流程" class="headerlink" title="KVOController 流程"></a>KVOController 流程</h4>
       
     </div>
 
@@ -495,8 +570,8 @@ http://127.0.0.1
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/23/17.iOS Block详解/" rel="next" title="17.iOS Block详解">
-                <i class="fa fa-chevron-left"></i> 17.iOS Block详解
+              <a href="/2019/01/17/21.AutoreleasePool/" rel="next" title="21.深入AutoreleasePool">
+                <i class="fa fa-chevron-left"></i> 21.深入AutoreleasePool
               </a>
             
           </div>
@@ -504,10 +579,6 @@ http://127.0.0.1
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/08/17/19.python自动生成model和api脚本/" rel="prev" title="19.RequestToModel的使用">
-                19.RequestToModel的使用 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -625,7 +696,7 @@ http://127.0.0.1
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、概述"><span class="nav-number">1.</span> <span class="nav-text">一、概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、Apache"><span class="nav-number">2.</span> <span class="nav-text">二、Apache</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Apache介绍"><span class="nav-number">2.1.</span> <span class="nav-text">Apache介绍</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Apache服务部署路径"><span class="nav-number">2.2.</span> <span class="nav-text">Apache服务部署路径</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PHP"><span class="nav-number">3.</span> <span class="nav-text">PHP</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#至此-我们创建的项目能够正常访问了"><span class="nav-number">3.1.</span> <span class="nav-text">至此,我们创建的项目能够正常访问了</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Apache的其他配置"><span class="nav-number">4.</span> <span class="nav-text">Apache的其他配置</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#KVO"><span class="nav-number">1.</span> <span class="nav-text">KVO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#KVO底层实现原理分析与验证"><span class="nav-number">2.</span> <span class="nav-text">KVO底层实现原理分析与验证</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本使用"><span class="nav-number">2.1.</span> <span class="nav-text">基本使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#派生的子类中的-setAge-方法"><span class="nav-number">2.2.</span> <span class="nav-text">派生的子类中的 setAge: 方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NSSetIntValueAndNotify内部实现"><span class="nav-number">2.3.</span> <span class="nav-text">_NSSetIntValueAndNotify内部实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#派生的子类中的-class-方法"><span class="nav-number">2.4.</span> <span class="nav-text">派生的子类中的 class 方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#KVOController源码讨论"><span class="nav-number">3.</span> <span class="nav-text">KVOController源码讨论</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#KVO现状"><span class="nav-number">3.1.</span> <span class="nav-text">KVO现状</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#KVOController的优势"><span class="nav-number">3.2.</span> <span class="nav-text">KVOController的优势</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#KVOController-流程"><span class="nav-number">3.3.</span> <span class="nav-text">KVOController 流程</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -753,9 +824,9 @@ http://127.0.0.1
 
     <script type="text/javascript">
       var disqus_shortname = 'waythought';
-      var disqus_identifier = '2018/04/26/18.在Mac系统下配置PHP运行环境/';
+      var disqus_identifier = '2019/08/02/22.KVO底层实现原理/';
 
-      var disqus_title = "18.在Mac系统下配置PHP运行环境";
+      var disqus_title = "22.探讨KVO底层原理";
 
 
       function run_disqus_script(disqus_script) {

@@ -103,7 +103,7 @@ git有机器强大的分">
 Git: 分布式版本控制系统,每个人电脑就有版本库.写完代码,先提交到本地的版本,让后提交到服务器上,最后每个电脑都有一个最新的代码
 git也要配置服务器, 但是服务器的作用, 只是作为一个中间桥梁供开发人员去同步代码用的.
 git有机器强大的分">
-<meta property="og:updated_time" content="2019-06-10T05:40:12.336Z">
+<meta property="og:updated_time" content="2019-07-15T09:54:38.529Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="05-git教程">
 <meta name="twitter:description" content="SVN: 集中式的版本控制系统. 本地只有文件,没有版本库,所有的代码只在服务器上有版本记录,如果要进行版本的回退,和一些tag操作,必须经过服务器
@@ -519,7 +519,7 @@ git reset HEAD .      放弃所有暂存区内容
 git push origin HEAD --force #远程提交回退
 </code></pre><p>4.2.5 删除远程分支</p>
 <pre><code>git push origin \-\-delete 远程分支名
-</code></pre><p>4.2.6 强制覆盖分支 ※</p>
+</code></pre><p>备注:如果删除远端分支后,合作的小伙伴需要git fetch -p  删除不存在的远程跟踪分支<br>4.2.6 强制覆盖分支 ※</p>
 <pre><code>把本地的 develop 分支强制(-f)推送到远程 master
 git push origin develop:master -f
 </code></pre><p>4.3 补充：<br>查看本地分支与远端分支的差异：<br>git diff master..远程仓库名字/master</p>
@@ -693,7 +693,7 @@ fatal: The remote end hung up unexpectedly
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

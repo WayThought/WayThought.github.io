@@ -110,7 +110,7 @@ objc_class结构体及其成员变量定义
 
 1. objc_msgSend的介绍">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0036yjrj20iw0j00sz.jpg">
-<meta property="og:updated_time" content="2018-12-05T09:30:09.444Z">
+<meta property="og:updated_time" content="2019-07-01T06:29:54.514Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="15.Object-C Runtime基本介绍和消息传递">
 <meta name="twitter:description" content="本文内容
@@ -500,7 +500,7 @@ objc_class结构体及其成员变量定义
 
 - (instancetype)init {
     if (self = [super init]) {
-        NSLog(@&quot;[self class] --&gt; %@&quot;,[self class]);
+           NSLog(@&quot;[self class] --&gt; %@&quot;,[self class]);
         NSLog(@&quot;[super class] --&gt; %@&quot;,[super class]);
     }
     return self;
@@ -536,9 +536,7 @@ typedef struct objc_object *id;
 struct objc_object {
     Class _Nonnull isa  OBJC_ISA_AVAILABILITY;
 };
-</code></pre><p>objc_object是一个结构体,包含一个isa指针,根据这个isa指针可以顺藤摸瓜找到对象所属的类。(isa指针不总是指向实例对象所属的类,不能依靠它来确定类型,而是应该是class方法来确定实例对象的类。因为KVO的实现机理就是将被观察对象的isa指针指向一个中间类而不是真实的类,这是一种叫做isa-swizzling的技术)。</p>
-<p><a href="https://juejin.im/post/59e6b6215188255b5b2abd56" target="_blank" rel="external">感兴趣的可以去这个链接介绍isa-swizzling</a></p>
-<h4 id="SEL"><a href="#SEL" class="headerlink" title="SEL"></a>SEL</h4><p>objc_msgSend函数的第二个参数类型是SEL,它是selector在Objc中的表示类型,他是个映射到方法的C字符串。</p>
+</code></pre><h4 id="SEL"><a href="#SEL" class="headerlink" title="SEL"></a>SEL</h4><p>objc_msgSend函数的第二个参数类型是SEL,它是selector在Objc中的表示类型,他是个映射到方法的C字符串。</p>
 <h4 id="isa指针"><a href="#isa指针" class="headerlink" title="isa指针"></a>isa指针</h4><p>上面的objc_msgSend实现原理里面提到了isa指针、类。也是我们平时经常接触的两个概念,但是他们内部具体如何实现,却很少深究。</p>
 <p>我们OC中的基本所有的类都是继承于NSObject,NSObject是根类。我们来看下定义</p>
 <pre><code>// NSObject.h定义
@@ -565,15 +563,13 @@ struct objc_class {
 
 } OBJC2_UNAVAILABLE;
 </code></pre><p>objc_class为什么也有个isa?<br>我们知道isa指针指向的是该对象所属的类,对于实例对象的isa指针,我们知道是指向其所属的类,但是实例对象所属的类的isa指针又指向谁呢?</p>
-<p>类对象本身也是对象,类本身所属类是 元类!!!<br>所以实例对象所属的类的isa指针指向的是元类。</p>
-<h3 id="类"><a href="#类" class="headerlink" title="类"></a>类</h3><h4 id="1-类对象的实质"><a href="#1-类对象的实质" class="headerlink" title="1.类对象的实质"></a>1.类对象的实质</h4><p>类对象是由编译器创建的,任何直接或间接继承NSObject的类,它的实例对象(instance object)中都有一个isa指针,指向它的类对象(class object)。这个类对象中存储了关于这个实例对象所属的类的定义的包括变量、方法、遵守的协议等。</p>
+<p>类对象本身也是对象,类本身所属类是 元类!!!<br>所以实例对象所属的类的isa指针指向的是该类对象对应的元类。</p>
+<h3 id="类"><a href="#类" class="headerlink" title="类"></a>类</h3><h4 id="1-实例对象-instance对象"><a href="#1-实例对象-instance对象" class="headerlink" title="1.实例对象(instance对象)"></a>1.实例对象(instance对象)</h4><p>instance对象就是通过类alloc出来的对象,每次调用alloc都会产生新的instance对象。instance对象在内存中存储的信息包括 <strong>isa指针</strong>、<strong>其他成员变量的值</strong></p>
+<h4 id="2-类对象-class对象"><a href="#2-类对象-class对象" class="headerlink" title="2.类对象(class对象)"></a>2.类对象(class对象)</h4><p>类对象是由编译器创建的,每个类在内存中有且只有一个class对象。这个类对象中存储了关于这个实例对象所属的类的定义的包括属性信息(名字)、对象方法、遵守的协议信息、成员变量信息等。</p>
 <p>因此,类对象能访问所有关于这个类的信息,利用这些信息可以产生一个新的实例,但是类对象不能访问任何实例对象的内容。当调用一个类方法的时候,例如[NSObject alloc]的时候,实际上是发送了一个消息给他的类对象。</p>
-<h4 id="2-类对象和实例对象的区别"><a href="#2-类对象和实例对象的区别" class="headerlink" title="2.类对象和实例对象的区别"></a>2.类对象和实例对象的区别</h4><p>类对象虽然保留了一个该类实例对象的原型,但是不能执行实例方法。然而,类的定义能包括那些特意为类对象准备的方法–类方法。类对象也可以从父类那里继承类方法。</p>
-<p>类对象是一个功能完整的对象,所以也能被动态识别(dynamically typed),接受消息,从其他类继承方法。特殊之处是在于它们由编辑器创建,缺少它们自己的数据结构(实例变量)。</p>
-<h4 id="元类"><a href="#元类" class="headerlink" title="元类"></a>元类</h4><p>实际上,类对象是元类对象的一个实例!!</p>
+<h4 id="3-元类对象-meta-class对象"><a href="#3-元类对象-meta-class对象" class="headerlink" title="3.元类对象(meta-class对象)"></a>3.元类对象(meta-class对象)</h4><p>meta-class对象和class对象的内存结构是一样的,但是用途是不一样的,在内存中存储的信息主要包括isa指针、superclass指针、类的类方法信息等</p>
 <p>元类描述了一个类对象,就像类对象描述了普通的实例变量一样。不同的是元类的方法列表是类方法的集合,由类对象的选择器来响应。当向一个类发送消息时,objc_msgSend会通过类对象的isa指针定位到元类,并检查元类的方法列表来决定调用哪个方法。</p>
-<p>很显然,元类也是对象,也应该是其他类的实例,实际上元类是根类(root class’s metaclass)的实例,而根类是其自身的实例,即根类的isa指针指向自身。</p>
-<p>整个指针链就是类的super_class指向其父类,而元类的super_class则指向父类的元类。元类的super class链与类的super_class链平行,所以类方法的继承于实例方法的继承也是并行的。而根元类的super_class指向根元类。</p>
+<p>整个指针链就是类的super_class指向其父类,而元类的super_class则指向其父类的元类。元类的super class链与类的super_class链平行,所以类方法的继承于实例方法的继承也是并行的。而根元类的super_class指向根元类。</p>
 <p>当一个消息发送给任何一个对象的时候,方法检测都是从对象的isa指针开始依次去本类、父类方法列表中寻找。实例方法在类中定义,类方法在元类和根类中定义。 (根类的元类就是根类自己)。</p>
 <p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0036yjrj20iw0j00sz.jpg" alt=""></p>
 <p>objc_msgSend函数会依据接收者与选择子的类型来调用适当的方法。为了完成此操作,该方法需要在接收者所属的类中搜寻其”方法列表”(list of methods),如果能找到与选择子名称相符的方法,就跳至其实现代码。若是找不到,那就沿着继承体系继续向上查找,等找到合适的方法之后再跳转。如果最终还是找不到相符的方法,那就执行”消息转发”(message forwarding)操作。</p>
@@ -763,7 +759,7 @@ struct objc_class {
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -809,7 +805,7 @@ struct objc_class {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-objc-msgSend的介绍"><span class="nav-number">1.</span> <span class="nav-text">1. objc_msgSend的介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#来看两段代码"><span class="nav-number">1.1.</span> <span class="nav-text">来看两段代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第一段代码"><span class="nav-number">1.2.</span> <span class="nav-text">第一段代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二段代码"><span class="nav-number">1.3.</span> <span class="nav-text">第二段代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Runtime基本介绍"><span class="nav-number">2.</span> <span class="nav-text">2.Runtime基本介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#id"><span class="nav-number">2.1.</span> <span class="nav-text">id</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SEL"><span class="nav-number">2.2.</span> <span class="nav-text">SEL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#isa指针"><span class="nav-number">2.3.</span> <span class="nav-text">isa指针</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类"><span class="nav-number">3.</span> <span class="nav-text">类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-类对象的实质"><span class="nav-number">3.1.</span> <span class="nav-text">1.类对象的实质</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-类对象和实例对象的区别"><span class="nav-number">3.2.</span> <span class="nav-text">2.类对象和实例对象的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#元类"><span class="nav-number">3.3.</span> <span class="nav-text">元类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#object-getClass-obj-与-obj-class-的区别"><span class="nav-number">3.3.1.</span> <span class="nav-text">object_getClass(obj)与[obj class]的区别</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第一段代码解析"><span class="nav-number">3.4.</span> <span class="nav-text">第一段代码解析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#self-class"><span class="nav-number">3.4.1.</span> <span class="nav-text">[self class]</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#super-class"><span class="nav-number">3.4.2.</span> <span class="nav-text">[super class]</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">3.5.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二段代码解析"><span class="nav-number">3.6.</span> <span class="nav-text">第二段代码解析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结-1"><span class="nav-number">3.7.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-objc-msgSend的介绍"><span class="nav-number">1.</span> <span class="nav-text">1. objc_msgSend的介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#来看两段代码"><span class="nav-number">1.1.</span> <span class="nav-text">来看两段代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第一段代码"><span class="nav-number">1.2.</span> <span class="nav-text">第一段代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二段代码"><span class="nav-number">1.3.</span> <span class="nav-text">第二段代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Runtime基本介绍"><span class="nav-number">2.</span> <span class="nav-text">2.Runtime基本介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#id"><span class="nav-number">2.1.</span> <span class="nav-text">id</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SEL"><span class="nav-number">2.2.</span> <span class="nav-text">SEL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#isa指针"><span class="nav-number">2.3.</span> <span class="nav-text">isa指针</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类"><span class="nav-number">3.</span> <span class="nav-text">类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-实例对象-instance对象"><span class="nav-number">3.1.</span> <span class="nav-text">1.实例对象(instance对象)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-类对象-class对象"><span class="nav-number">3.2.</span> <span class="nav-text">2.类对象(class对象)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-元类对象-meta-class对象"><span class="nav-number">3.3.</span> <span class="nav-text">3.元类对象(meta-class对象)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#object-getClass-obj-与-obj-class-的区别"><span class="nav-number">3.3.1.</span> <span class="nav-text">object_getClass(obj)与[obj class]的区别</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第一段代码解析"><span class="nav-number">3.4.</span> <span class="nav-text">第一段代码解析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#self-class"><span class="nav-number">3.4.1.</span> <span class="nav-text">[self class]</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#super-class"><span class="nav-number">3.4.2.</span> <span class="nav-text">[super class]</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">3.5.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二段代码解析"><span class="nav-number">3.6.</span> <span class="nav-text">第二段代码解析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结-1"><span class="nav-number">3.7.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
             
 
           </div>
