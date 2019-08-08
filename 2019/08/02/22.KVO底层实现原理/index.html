@@ -89,26 +89,12 @@
 
 
 
-<meta name="description" content="KVOKVO的全称是Key-Value Observing，俗称“键值监听”，可以用于监听某个对象属性值的改变
-
-KVO底层实现原理分析与验证基本使用
-打印结果
-那么给person1和person2赋值的时候,为什么只是添加了监听者对象的属性变化会调用呢? 
-我们看到person1与person2的区别就是person2添加了监听者。所以猜测是person2实例对象发生了变化。
-
-打印结果显示pe">
+<meta name="description" content="KVOKVO的全称是Key-Value Observing，俗称“键值监听”，可以用于监听某个对象属性值的改变">
 <meta property="og:type" content="article">
 <meta property="og:title" content="22.探讨KVO底层原理">
 <meta property="og:url" content="http://waythought.duoshuo.com/2019/08/02/22.KVO底层实现原理/index.html">
 <meta property="og:site_name" content="钱多多的博客">
-<meta property="og:description" content="KVOKVO的全称是Key-Value Observing，俗称“键值监听”，可以用于监听某个对象属性值的改变
-
-KVO底层实现原理分析与验证基本使用
-打印结果
-那么给person1和person2赋值的时候,为什么只是添加了监听者对象的属性变化会调用呢? 
-我们看到person1与person2的区别就是person2添加了监听者。所以猜测是person2实例对象发生了变化。
-
-打印结果显示pe">
+<meta property="og:description" content="KVOKVO的全称是Key-Value Observing，俗称“键值监听”，可以用于监听某个对象属性值的改变">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1g5r4ueu2m0j212g084wew.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1g5r4vim911j21j613e7e0.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1g5r5jz1s2zj21x409sgn7.jpg">
@@ -118,17 +104,10 @@ KVO底层实现原理分析与验证基本使用
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1g5r6whglpej21w80oaqay.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1g5r70l2asuj21x6176tnl.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1g5r789eihrj20m707l401.jpg">
-<meta property="og:updated_time" content="2019-08-08T07:55:25.276Z">
+<meta property="og:updated_time" content="2019-08-08T08:01:22.015Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="22.探讨KVO底层原理">
-<meta name="twitter:description" content="KVOKVO的全称是Key-Value Observing，俗称“键值监听”，可以用于监听某个对象属性值的改变
-
-KVO底层实现原理分析与验证基本使用
-打印结果
-那么给person1和person2赋值的时候,为什么只是添加了监听者对象的属性变化会调用呢? 
-我们看到person1与person2的区别就是person2添加了监听者。所以猜测是person2实例对象发生了变化。
-
-打印结果显示pe">
+<meta name="twitter:description" content="KVOKVO的全称是Key-Value Observing，俗称“键值监听”，可以用于监听某个对象属性值的改变">
 <meta name="twitter:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1g5r4ueu2m0j212g084wew.jpg">
 
 
@@ -439,6 +418,7 @@ KVO底层实现原理分析与验证基本使用
       
         <h3 id="KVO"><a href="#KVO" class="headerlink" title="KVO"></a>KVO</h3><p><strong>KVO的全称是Key-Value Observing，俗称“键值监听”，可以用于监听某个对象属性值的改变</strong></p>
 <p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1g5r4ueu2m0j212g084wew.jpg" alt=""></p>
+<a id="more"></a>
 <h3 id="KVO底层实现原理分析与验证"><a href="#KVO底层实现原理分析与验证" class="headerlink" title="KVO底层实现原理分析与验证"></a>KVO底层实现原理分析与验证</h3><h4 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h4><p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1g5r4vim911j21j613e7e0.jpg" alt=""></p>
 <p>打印结果<br><img src="http://ww1.sinaimg.cn/large/8af26a6dly1g5r5jz1s2zj21x409sgn7.jpg" alt=""></p>
 <p>那么给person1和person2赋值的时候,为什么只是添加了监听者对象的属性变化会调用呢? </p>
