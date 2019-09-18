@@ -91,7 +91,7 @@
 
 <meta name="description" content="KVOKVO的全称是Key-Value Observing，俗称“键值监听”，可以用于监听某个对象属性值的改变">
 <meta property="og:type" content="article">
-<meta property="og:title" content="22.探讨KVO底层原理">
+<meta property="og:title" content="22.探讨KVO底层原理、存在的缺陷以及解决方法">
 <meta property="og:url" content="http://waythought.duoshuo.com/2019/08/02/22.KVO底层实现原理/index.html">
 <meta property="og:site_name" content="钱多多的博客">
 <meta property="og:description" content="KVOKVO的全称是Key-Value Observing，俗称“键值监听”，可以用于监听某个对象属性值的改变">
@@ -103,10 +103,10 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1g5r69votxbj21a00ogdix.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1g5r6whglpej21w80oaqay.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1g5r70l2asuj21x6176tnl.jpg">
-<meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1g5r789eihrj20m707l401.jpg">
-<meta property="og:updated_time" content="2019-08-08T08:01:22.015Z">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1g73y0sr4duj20dg04f0tr.jpg">
+<meta property="og:updated_time" content="2019-09-18T12:32:12.986Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="22.探讨KVO底层原理">
+<meta name="twitter:title" content="22.探讨KVO底层原理、存在的缺陷以及解决方法">
 <meta name="twitter:description" content="KVOKVO的全称是Key-Value Observing，俗称“键值监听”，可以用于监听某个对象属性值的改变">
 <meta name="twitter:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1g5r4ueu2m0j212g084wew.jpg">
 
@@ -142,7 +142,7 @@
 
 
 
-  <title> 22.探讨KVO底层原理 | 钱多多的博客 </title>
+  <title> 22.探讨KVO底层原理、存在的缺陷以及解决方法 | 钱多多的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -344,7 +344,7 @@
             
             
               
-                22.探讨KVO底层原理
+                22.探讨KVO底层原理、存在的缺陷以及解决方法
               
             
           </h1>
@@ -387,7 +387,7 @@
 
           
           
-             <span id="/2019/08/02/22.KVO底层实现原理/" class="leancloud_visitors" data-flag-title="22.探讨KVO底层原理">
+             <span id="/2019/08/02/22.KVO底层实现原理/" class="leancloud_visitors" data-flag-title="22.探讨KVO底层原理、存在的缺陷以及解决方法">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -424,7 +424,7 @@
 <p>那么给person1和person2赋值的时候,为什么只是添加了监听者对象的属性变化会调用呢? </p>
 <p>我们看到person1与person2的区别就是person2添加了监听者。所以猜测是person2实例对象发生了变化。</p>
 <p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1g5r5l6q7d8j21x4130tjg.jpg" alt=""></p>
-<p>打印结果显示person1与person2指向的类对象是不同的,也就是添加了KVO监听的实例对象的isa指向的类对象是NSKVONotifying_BYPerson,未添加监听者的实例对象的isa指向的还是原来的类对象。</p>
+<p>打印结果显示person1与person2实例对象的isa指向的类对象是不同的,也就是添加了KVO监听的实例对象的isa指向的类对象是NSKVONotifying_BYPerson,未添加监听者的实例对象的isa指向的还是原来的类对象。</p>
 <p>我们都知道实例对象调用方法是给这个对象发送消息,根据实例对象的isa,找到类对象,优先在这个类对象中去寻找对象方法,找不到的话会根据superClass指针找父类的类对象,再去父类的类对象中查询对象方法。</p>
 <p><strong>person1的isa</strong><br><img src="http://ww1.sinaimg.cn/large/8af26a6dly1g5r69kvuqoj20xe0fw0tx.jpg" alt=""></p>
 <p><strong>person2的isa</strong></p>
@@ -468,7 +468,7 @@
 <pre><code>p (IMP) 地址
 </code></pre><p>会打印出该方法的实现</p>
 <p>person1是正常调用的BYPerson类的setAge:方法,而person2的”setAge:”方法的实现是函数<strong>_NSSetIntValueAndNotify</strong>这个函数</p>
-<h4 id="NSSetIntValueAndNotify内部实现"><a href="#NSSetIntValueAndNotify内部实现" class="headerlink" title="_NSSetIntValueAndNotify内部实现"></a>_NSSetIntValueAndNotify内部实现</h4><p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1g5r789eihrj20m707l401.jpg" alt=""></p>
+<h4 id="NSSetIntValueAndNotify内部实现"><a href="#NSSetIntValueAndNotify内部实现" class="headerlink" title="_NSSetIntValueAndNotify内部实现"></a>_NSSetIntValueAndNotify内部实现</h4><p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1g73y0sr4duj20dg04f0tr.jpg" alt=""></p>
 <ol>
 <li>调用willChangeValueForKey,记录旧的值</li>
 <li>调用原来的setter方法</li>
@@ -499,7 +499,63 @@
 <ul>
 <li>消息过滤<br>通过_FBKVOInfo *existingInfo = [infos member:info], 首先判断是否已经包含对应观察者消息,如果包含则直接返回,不会再重复注册。</li>
 </ul>
-<h4 id="KVOController-流程"><a href="#KVOController-流程" class="headerlink" title="KVOController 流程"></a>KVOController 流程</h4>
+<h4 id="KVOController-流程"><a href="#KVOController-流程" class="headerlink" title="KVOController 流程"></a>KVOController 流程</h4><p><strong>关键类</strong></p>
+<pre><code>_FBKVOInfo:
+{
+    @public
+      // 对FBKVOController的弱引用
+      __weak FBKVOController *_controller;
+      // 被监听者的keyPath
+      NSString *_keyPath;
+      NSKeyValueObservingOptions _options;
+      SEL _action;
+      void *_context;
+      // 被监听到的实例变量发生变化之后的回调
+      FBKVONotificationBlock _block;
+      // 本对象的状态
+      _FBKVOInfoState _state;
+}
+</code></pre><hr>
+<pre><code>FBKVOController:
+    // 用来记录监听的table
+    NSMapTable&lt;id, NSMutableSet&lt;_FBKVOInfo *&gt; *&gt; *_objectInfosMap;
+    // 弱引用一个被监听的对象
+    @property (nullable, nonatomic, weak, readonly) id observer;
+</code></pre><hr>
+<pre><code>_FBKVOSharedController:
+// 记录监听的集合
+NSHashTable&lt;_FBKVOInfo *&gt; *_infos;
+</code></pre><p>第一步、(基本使用)</p>
+<pre><code>// Arrange 1: Create a controller to observe changes to a circle.
+id&lt;FBKVOTestObserving&gt; observer = mockProtocol(@protocol(FBKVOTestObserving));
+FBKVOController *controller = [FBKVOController controllerWithObserver:observer];
+
+// Arrange 2: Observe the key paths &quot;radius&quot; and &quot;borderWidth&quot; on the circle.
+//            Aggregate the new values in an array.
+NSMutableArray *newValues = [NSMutableArray array];
+FBKVOTestCircle *circle = [FBKVOTestCircle circle];
+// 将被监听者、keyPath、传到FBKVOController内部
+[controller observe:circle keyPaths:@[radius, borderWidth] options:NSKeyValueObservingOptionNew block:^(id observer, FBKVOTestCircle *circle, NSDictionary *change) {
+  [newValues addObject:change[NSKeyValueChangeNewKey]];
+}];
+</code></pre><p>第二步、(在FBKVOController的操作)</p>
+<ol>
+<li><p>根据FBKVOController、keyPath等创建_FBKVOInfo对象,并把被监听者作为key,创建对应NSMutableSet作为value,将_FBKVOInfo对象添加到这个NSMutableSet中。将key与value的对应关系存储到FBKVOController的的objectInfosMap(NSMapTable类型)成员变量中</p>
+</li>
+<li><p>等下次添加的时候,根据被监听者(key)判断是否创建了这个NSMutableSet(value),未创建则重新创建;如果判断已经创建了,取出对应的NSMutableSet, 再判断这个NSMutableSet是否包含了该keypath创建_FBKVOInfo对象,如果包含则直接return,未创建则重新创建。过滤掉重复监听同一个被监听者的同一个属性。</p>
+</li>
+<li>将被监听者和生成的_FBKVOInfo对象传给_FBKVOSharedController这个单例</li>
+</ol>
+<p>第三步、(在_FBKVOSharedController中的操作)</p>
+<ol>
+<li>让_FBKVOSharedController这个单例对被监听者进行监听,因为监听者是单例,所以监听者在程序的运行声明周期不会释放掉。</li>
+<li><p>在监听回调方法<strong>observeValueForKeyPath</strong>中做了以下判断</p>
+<p> 2.1. 取出对应的info,判断info持有的_controller是否释放掉了,如果释放掉了直接return <br></p>
+<p> 2.2. 判断_controller持有的被监听者是否释放掉了,如果释放掉了直接return</p>
+</li>
+<li>走完上述两步,进行block的回调。保证在回调过程中被监听者、监听者和KVOController都是存在的</li>
+</ol>
+
       
     </div>
 
@@ -806,7 +862,7 @@
       var disqus_shortname = 'waythought';
       var disqus_identifier = '2019/08/02/22.KVO底层实现原理/';
 
-      var disqus_title = "22.探讨KVO底层原理";
+      var disqus_title = "22.探讨KVO底层原理、存在的缺陷以及解决方法";
 
 
       function run_disqus_script(disqus_script) {
