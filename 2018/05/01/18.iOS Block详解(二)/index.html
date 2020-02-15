@@ -89,22 +89,33 @@
 
 
 
-<meta name="description" content="一、概述近期项目中需要将UIWebView替换成WKWebView,查询到前端口原js调用的方法不在起作用,需要调用新方法window.webkit.messageHandlers..postMessage(),所以本地新建Html测试下,需要设置Apache相关配置
-Mac系统对于Php运行非常友好,我们只需要进行简单的配置便可以开始进行使用。">
+<meta name="description" content="__block使用和原理
+__block可以用于解决block内部无法修改auto变量的问题
+__block不能修饰全局变量、静态变量(static)
+编译器会将__block变量包装成一个对象
+
+12345678910111213int main(int argc, const char * argv[]) &amp;#123;    @autoreleasepool &amp;#123;        MFP">
 <meta property="og:type" content="article">
-<meta property="og:title" content="18.在Mac系统下配置PHP运行环境">
-<meta property="og:url" content="http://waythought.duoshuo.com/2018/04/26/18.在Mac系统下配置PHP运行环境/index.html">
+<meta property="og:title" content="18.iOS Block详解(二)">
+<meta property="og:url" content="http://waythought.duoshuo.com/2018/05/01/18.iOS Block详解(二)/index.html">
 <meta property="og:site_name" content="钱多多的博客">
-<meta property="og:description" content="一、概述近期项目中需要将UIWebView替换成WKWebView,查询到前端口原js调用的方法不在起作用,需要调用新方法window.webkit.messageHandlers..postMessage(),所以本地新建Html测试下,需要设置Apache相关配置
-Mac系统对于Php运行非常友好,我们只需要进行简单的配置便可以开始进行使用。">
-<meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0svou6rj20vo0p4tdj.jpg">
-<meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0sviqpij20r80gomz9.jpg">
-<meta property="og:updated_time" content="2018-12-05T09:57:52.719Z">
+<meta property="og:description" content="__block使用和原理
+__block可以用于解决block内部无法修改auto变量的问题
+__block不能修饰全局变量、静态变量(static)
+编译器会将__block变量包装成一个对象
+
+12345678910111213int main(int argc, const char * argv[]) &amp;#123;    @autoreleasepool &amp;#123;        MFP">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0c0mk9xj20j30e0q36.jpg">
+<meta property="og:updated_time" content="2019-11-13T02:00:34.239Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="18.在Mac系统下配置PHP运行环境">
-<meta name="twitter:description" content="一、概述近期项目中需要将UIWebView替换成WKWebView,查询到前端口原js调用的方法不在起作用,需要调用新方法window.webkit.messageHandlers..postMessage(),所以本地新建Html测试下,需要设置Apache相关配置
-Mac系统对于Php运行非常友好,我们只需要进行简单的配置便可以开始进行使用。">
-<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0svou6rj20vo0p4tdj.jpg">
+<meta name="twitter:title" content="18.iOS Block详解(二)">
+<meta name="twitter:description" content="__block使用和原理
+__block可以用于解决block内部无法修改auto变量的问题
+__block不能修饰全局变量、静态变量(static)
+编译器会将__block变量包装成一个对象
+
+12345678910111213int main(int argc, const char * argv[]) &amp;#123;    @autoreleasepool &amp;#123;        MFP">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0c0mk9xj20j30e0q36.jpg">
 
 
 
@@ -132,13 +143,13 @@ Mac系统对于Php运行非常友好,我们只需要进行简单的配置便可�
 
 
 
-  <link rel="canonical" href="http://waythought.duoshuo.com/2018/04/26/18.在Mac系统下配置PHP运行环境/"/>
+  <link rel="canonical" href="http://waythought.duoshuo.com/2018/05/01/18.iOS Block详解(二)/"/>
 
 
 
 
 
-  <title> 18.在Mac系统下配置PHP运行环境 | 钱多多的博客 </title>
+  <title> 18.iOS Block详解(二) | 钱多多的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -319,7 +330,7 @@ Mac系统对于Php运行非常友好,我们只需要进行简单的配置便可�
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://waythought.duoshuo.com/2018/04/26/18.在Mac系统下配置PHP运行环境/">
+    <link itemprop="mainEntityOfPage" href="http://waythought.duoshuo.com/2018/05/01/18.iOS Block详解(二)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Qian.G.j">
@@ -340,7 +351,7 @@ Mac系统对于Php运行非常友好,我们只需要进行简单的配置便可�
             
             
               
-                18.在Mac系统下配置PHP运行环境
+                18.iOS Block详解(二)
               
             
           </h1>
@@ -355,8 +366,8 @@ Mac系统对于Php运行非常友好,我们只需要进行简单的配置便可�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-26T14:12:14+08:00">
-                2018-04-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-01T15:02:04+08:00">
+                2018-05-01
               </time>
             
 
@@ -374,8 +385,8 @@ Mac系统对于Php运行非常友好,我们只需要进行简单的配置便可�
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/04/26/18.在Mac系统下配置PHP运行环境/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/04/26/18.在Mac系统下配置PHP运行环境/" itemprop="commentCount"></span>
+                <a href="/2018/05/01/18.iOS Block详解(二)/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/05/01/18.iOS Block详解(二)/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -383,7 +394,7 @@ Mac系统对于Php运行非常友好,我们只需要进行简单的配置便可�
 
           
           
-             <span id="/2018/04/26/18.在Mac系统下配置PHP运行环境/" class="leancloud_visitors" data-flag-title="18.在Mac系统下配置PHP运行环境">
+             <span id="/2018/05/01/18.iOS Block详解(二)/" class="leancloud_visitors" data-flag-title="18.iOS Block详解(二)">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -412,39 +423,55 @@ Mac系统对于Php运行非常友好,我们只需要进行简单的配置便可�
       
 
       
-        <h4 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h4><p>近期项目中需要将UIWebView替换成WKWebView,查询到前端口原js调用的方法不在起作用,需要调用新方法window.webkit.messageHandlers.<name>.postMessage(<messagebody>),所以本地新建Html测试下,需要设置Apache相关配置</messagebody></name></p>
-<p>Mac系统对于Php运行非常友好,我们只需要进行简单的配置便可以开始进行使用。</p>
-<a id="more"></a>
-<h4 id="二、Apache"><a href="#二、Apache" class="headerlink" title="二、Apache"></a>二、Apache</h4><h5 id="Apache介绍"><a href="#Apache介绍" class="headerlink" title="Apache介绍"></a>Apache介绍</h5><p>启动Apache服务,在Mac系统中已经安装好了Apache服务,我们只需要通过如下方式启动即可直接使用。</p>
-<p>在终端中输入如下命令,启动Apache服务</p>
-<pre><code>sudo apachectl start
-</code></pre><p>在终端输入如下命令,查看Apache服务版本</p>
-<pre><code>sudo apachectl -v
-</code></pre><p>在本机中版本信息如下:</p>
-<pre><code>Server version: Apache/2.4.29 (Unix)
-Server built:   Jan 17 2017 18:20:31
-</code></pre><p>在浏览器中输入如下网址,检查Apache服务是否启动成功</p>
-<pre><code>http://localhost
-http://127.0.0.1
-</code></pre><p>如果Apache服务启动成功,页面会显示  It works!</p>
-<h5 id="Apache服务部署路径"><a href="#Apache服务部署路径" class="headerlink" title="Apache服务部署路径"></a>Apache服务部署路径</h5><p>Apache服务部署路径在 /资源库/WebServer/Documents/,我们的项目需要放置在该路径下</p>
-<p>如果想要修改部署路径,可以在/private/etc/apache2目录下找到并打开httpd.conf文件,搜索DocumentRoot并修改部署路径<br>DocumentRoot “/Library/WebServer/Documents”</p>
-<p>Apache服务端口号</p>
-<p>Apache服务端口默认80,如果想要修改端口号,可以在/private/etc/apache2目录下找到并打开httpd.conf文件,搜索Listen 80并修改端口号</p>
-<h4 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h4><p>PHP的启动只需要再Apache服务中进行下一配置即可直接使用</p>
-<p>首先,在/private/etc/apache2目录下找到并打开httpd.conf文件</p>
-<p>其次,搜索#LoadModule php7_module libexec/apache2/libphp7.so,将前方的#删除,由于php版本不同,全局搜索libexec/apache2/libphp就可以找到<br>再次,重启Apache服务即可</p>
-<p>最后我们把我们创建好的项目tmp.html放入/资源库/WebServer/Documents/路径下</p>
-<p>在终端输入以下命令得到本机ip()</p>
-<pre><code>ifconfig en0
-</code></pre><p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0svou6rj20vo0p4tdj.jpg" alt=""></p>
-<p>外网访问我们项目地址就是: 172.50.10.239/tmp.html</p>
-<p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0sviqpij20r80gomz9.jpg" alt=""></p>
-<h5 id="至此-我们创建的项目能够正常访问了"><a href="#至此-我们创建的项目能够正常访问了" class="headerlink" title="至此,我们创建的项目能够正常访问了"></a>至此,我们创建的项目能够正常访问了</h5><h4 id="Apache的其他配置"><a href="#Apache的其他配置" class="headerlink" title="Apache的其他配置"></a>Apache的其他配置</h4><p>在终端中输入如下命令,关闭Apache服务</p>
-<pre><code>sudo apachectl stop
-</code></pre><p>在终端中输入如下命令,重启Apache服务</p>
-<pre><code>sudo apachectl restart
-</code></pre>
+        <h1 id="block使用和原理"><a href="#block使用和原理" class="headerlink" title="__block使用和原理"></a>__block使用和原理</h1><ul>
+<li>__block可以用于解决block内部无法修改auto变量的问题</li>
+<li>__block不能修饰全局变量、静态变量(static)</li>
+<li>编译器会将__block变量包装成一个对象</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">int main(int argc, const char * argv[]) &#123;</div><div class="line">    @autoreleasepool &#123;</div><div class="line">        MFPerson *person = [[MFPerson alloc] init];</div><div class="line">        person.age = 10;</div><div class="line">        void(^myBlock)(void) = ^&#123;</div><div class="line">            person = nil;</div><div class="line">            NSLog(@&quot;person == %d&quot;, person.age);</div><div class="line">        &#125;;</div><div class="line">        myBlock();</div><div class="line"></div><div class="line">    &#125;</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里的person = nil会编译报错。person是声明在main函数中, 内存是在main函数的main空间, block执行的代码是在func函数中。独立的函数不能互相访问,作用域问题</p>
+<p>我们来看下如下的代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">int main(int argc, const char * argv[]) &#123;</div><div class="line">    @autoreleasepool &#123;</div><div class="line">        MFPerson *person = [[MFPerson alloc] init];</div><div class="line">        person.age = 10;</div><div class="line">        void(^myBlock)(void) = ^&#123;</div><div class="line">            person.age = 20;</div><div class="line">            NSLog(@&quot;person age = %d&quot;, person.age);</div><div class="line">        &#125;;</div><div class="line">        myBlock();</div><div class="line"></div><div class="line">    &#125;</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>打印结果为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">person age = 20</div></pre></td></tr></table></figure>
+<p>虽然我们不能修改这个指针,我们可以拿过来这个指针使用。</p>
+<p>我们如果想要在block内部访问外部变量,并且这个变量还是auto类型(使用static放在全局区,程序运行阶段不会销毁),需要使用__block</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">int main(int argc, const char * argv[]) &#123;</div><div class="line">    @autoreleasepool &#123;</div><div class="line">        __block MFPerson *person = [[MFPerson alloc] init];</div><div class="line">        person.age = 10;</div><div class="line">        void(^myBlock)(void) = ^&#123;</div><div class="line">            person = nil;</div><div class="line">            NSLog(@&quot;person = %@&quot;, person);</div><div class="line">        &#125;;</div><div class="line">        myBlock();</div><div class="line"></div><div class="line">    &#125;</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>打印结果为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">person = (null)</div></pre></td></tr></table></figure></p>
+<p>这里的person指针还是在栈区, 还是auto类型</p>
+<p>__block如何实现的呢</p>
+<p>使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xcrun -sdk iphoneos clang -arch arm64 -rewrite-objc main.m</div></pre></td></tr></table></figure></p>
+<p>将以下的OC代码转换成c++代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">int main(int argc, const char * argv[]) &#123;</div><div class="line">    @autoreleasepool &#123;</div><div class="line">        __block int age = 10;</div><div class="line">        void(^myBlock)(void) = ^&#123;</div><div class="line">            age = 20;</div><div class="line">            NSLog(@&quot;person age is %d&quot;, age);</div><div class="line">        &#125;;</div><div class="line">        myBlock();</div><div class="line">    &#125;</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>c++代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">int main(int argc, const char * argv[]) &#123;</div><div class="line">    /* @autoreleasepool */ &#123; __AtAutoreleasePool __autoreleasepool; </div><div class="line">    </div><div class="line">        __attribute__((__blocks__(byref))) __Block_byref_age_0 age = &#123;(void*)0,(__Block_byref_age_0 *)&amp;age, 0, sizeof(__Block_byref_age_0), 10&#125;;</div><div class="line">        </div><div class="line">        void(*myBlock)(void) = ((void (*)())&amp;__main_block_impl_0((void *)__main_block_func_0, &amp;__main_block_desc_0_DATA, (__Block_byref_age_0 *)&amp;age, 570425344));</div><div class="line">        ((void (*)(__block_impl *))((__block_impl *)myBlock)-&gt;FuncPtr)((__block_impl *)myBlock);</div><div class="line"></div><div class="line">    &#125;</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">struct __Block_byref_age_0 &#123;</div><div class="line">  void *__isa;</div><div class="line">__Block_byref_age_0 *__forwarding;</div><div class="line"> int __flags;</div><div class="line"> int __size;</div><div class="line"> int age;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">struct __main_block_impl_0 &#123;</div><div class="line">  struct __block_impl impl;</div><div class="line">  struct __main_block_desc_0* Desc;</div><div class="line">  __Block_byref_age_0 *age; // by ref</div><div class="line">  __main_block_impl_0(void *fp, struct __main_block_desc_0 *desc, __Block_byref_age_0 *_age, int flags=0) : age(_age-&gt;__forwarding) &#123;</div><div class="line">    impl.isa = &amp;_NSConcreteStackBlock;</div><div class="line">    impl.Flags = flags;</div><div class="line">    impl.FuncPtr = fp;</div><div class="line">    Desc = desc;</div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>__Block_byref_age_0结构体存储着isa和age, 在block中修改的age的值,存储在__Block_byref_age_0的结构体中, __size代表了他这个结构体占用的内存大小,</p>
+<p>我们看下这个结构体如何赋值的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">__attribute__((__blocks__(byref))) __Block_byref_age_0 age = &#123;(void*)0,(__Block_byref_age_0 *)&amp;age, 0, sizeof(__Block_byref_age_0), 10&#125;;</div></pre></td></tr></table></figure></p>
+<p>相当于把 &amp;age这个结构体赋值给第二个成员变量,也就是 <strong>Block_byref_age_0 *</strong>forwarding存储的地址, 指向这个<strong>Block_byref_age_0结构体他自己,也就是指向结构体自己的</strong>isa。 </p>
+<p>把变量age的值赋值给结构体的第五个成员变量,保存起来</p>
+<p>block实现的时候也会把上面的age结构体 &amp;age传给这个结构体, 也就是会把上面的age的结构体地址传递给__main_block_impl_0函数的第三个参数。</p>
+<p>我们看下执行代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">static void __main_block_func_0(struct __main_block_impl_0 *__cself) &#123;</div><div class="line">  __Block_byref_age_0 *age = __cself-&gt;age; // bound by ref</div><div class="line"></div><div class="line">            (age-&gt;__forwarding-&gt;age) = 20;</div><div class="line">            NSLog((NSString *)&amp;__NSConstantStringImpl__var_folders_cg_39bx6n8912b59t0sp6dr_rlm0000gn_T_main_4795a0_mi_0, (age-&gt;__forwarding-&gt;age));</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
+<p>取出这个结构体</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">__Block_byref_age_0 *age = __cself-&gt;age</div></pre></td></tr></table></figure>
+<p>对结构体age的__forwarding指向的age成员进行赋值,结构体存储了这个值。NSLog函数也是这样取值的</p>
+<p>使用__block修饰的age被block捕获, 再block内部或者外部访问age,访问的是block中捕获的结构体中的成员变量的age</p>
+<h1 id="block的内存管理-基本数据类型"><a href="#block的内存管理-基本数据类型" class="headerlink" title="__block的内存管理 (基本数据类型)"></a>__block的内存管理 (基本数据类型)</h1><p>当block在栈上的时候,并不会对__block变量产生强引用</p>
+<p>当block被拷贝到堆上时,会调用block内部的copy函数。copy函数内部会调用__Block_object_assgin函数,__Block_object_assgin函数会对__block形成强引用(retain),也就是会对block内部的<figure class="highlight plain"><figcaption><span>*age;```形成强引用</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"> </div><div class="line"> </div><div class="line">**block经过系统的copy放到了堆区,同时也会将block使用的__block变量也拷贝到堆上,并且block对__block变量是个强引用。**</div><div class="line"> </div><div class="line">多个block访问同一个__block变量,只会copy一次这个变量到堆上, 不会重复copy。第一次访问的时候会copy,但是这几个block都会对block进行强引用。</div><div class="line"> </div><div class="line"> </div><div class="line">当block从堆上移除的时候,对调用block内部的dispose函数。dispose函数内部会调用\_Block\_object\_dispose函数,此函数会自动释放引用的__block变量。</div><div class="line"> </div><div class="line"> </div><div class="line">如果是访问的 NSObject *object = [[NSObject alloc] init];</div><div class="line">由于系统会copy,把block升级为堆块,堆上的block会根据object是__strong修饰的还是__weak修饰的,来判断是否对这个对象进行强引用(因为alloc出来的对象就是在堆区的)</div><div class="line"></div><div class="line"></div><div class="line">_\_Block\_object\_assgin函数入参会根据不同类型变量做区分(例如__block修饰的int 类型传入的是8, NSObject类型传入的是 3)</div></pre></td></tr></table></figure></p>
+<p>(age-&gt;__forwarding-&gt;age) = 20;</p>
+<p>```<br>赋值的时候为什么是找到结构体后,再找__forwading指针,根据这个指针找到结构体,在给结构体中的成员变量赋值呢。</p>
+<p>系统想要赋值给堆上的这个结构体。</p>
+<p>如果block未copy, 栈上的结构体的__forwading指针指向的是本身栈上这个结构体</p>
+<p>如果block进行copy后,栈上结构体的<strong>forwading指向的是拷贝到堆区的结构体。这样就能保证赋值的肯定是堆上的结构体。堆上的</strong>forwarding指针指向的是他自己</p>
+<p>所以无论是栈上的__block结构体还是堆上的, 在赋值的时候都是堆上这个结构体。<br><img src="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0c0mk9xj20j30e0q36.jpg" alt=""></p>
+<p>问题: 将__block修饰的变量拷贝到堆区的话, block本身的变量指针指向的是栈区的还是堆区的呢?</p>
+<p>发生变化了, 指向堆上的变量结构体了。</p>
+<h1 id="被-block修饰对象类型"><a href="#被-block修饰对象类型" class="headerlink" title="被__block修饰对象类型"></a>被__block修饰对象类型</h1><p>也会将这个对象包装成为一个结构体,将对象的指针包装在结构体中, 这个指针指向malloc的对象的内存地址</p>
+<p>不伦对象是<strong>strong修饰的还是</strong>weak修饰的,block指向的包装好的结构体是强指针(copy决定的),这里不存在弱引用。<strong>包装好的结构体拷贝到堆上,同时这个包装好的结构体也会调用自身的copy方法(非对象类型的包装成的结构体没有这个方法)。,会调用包装好结构体中的assign函数,</strong> 进行判断,包装好的结构体里面的person指针对这个对象的强弱引用是根据对象如果是<strong>strong修饰,结构体里面的person指针对这个对象就是强引用;如果是</strong>weak修饰,结构体里面的person指针对这个对象就是弱引用。</p>
+<p>等到block销毁的时候,调用block的dispose函数, 解除对包装好的结构体的强引用,此时包装好的结构体也要进行销毁,调用自己的dispose函数,解除对该对象的引用(无论是强引用,还是弱引用)</p>
+<p>assign函数会根据所指向对象的修饰符,做出相应的操作,形成强引用或者弱引用(注意:这里ARC下会retain操作,MRC下则不会retain)</p>
+
       
     </div>
 
@@ -495,8 +522,8 @@ http://127.0.0.1
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/23/17.iOS Block详解/" rel="next" title="17.iOS Block详解">
-                <i class="fa fa-chevron-left"></i> 17.iOS Block详解
+              <a href="/2018/04/26/01.在Mac系统下配置PHP运行环境/" rel="next" title="01.在Mac系统下配置PHP运行环境">
+                <i class="fa fa-chevron-left"></i> 01.在Mac系统下配置PHP运行环境
               </a>
             
           </div>
@@ -505,8 +532,8 @@ http://127.0.0.1
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/08/17/19.python自动生成model和api脚本/" rel="prev" title="19.RequestToModel的使用">
-                19.RequestToModel的使用 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/05/31/19.iOS Block详解(三)/" rel="prev" title="19.iOS Block详解(三)">
+                19.iOS Block详解(三) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -625,7 +652,7 @@ http://127.0.0.1
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、概述"><span class="nav-number">1.</span> <span class="nav-text">一、概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、Apache"><span class="nav-number">2.</span> <span class="nav-text">二、Apache</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Apache介绍"><span class="nav-number">2.1.</span> <span class="nav-text">Apache介绍</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Apache服务部署路径"><span class="nav-number">2.2.</span> <span class="nav-text">Apache服务部署路径</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PHP"><span class="nav-number">3.</span> <span class="nav-text">PHP</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#至此-我们创建的项目能够正常访问了"><span class="nav-number">3.1.</span> <span class="nav-text">至此,我们创建的项目能够正常访问了</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Apache的其他配置"><span class="nav-number">4.</span> <span class="nav-text">Apache的其他配置</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#block使用和原理"><span class="nav-number">1.</span> <span class="nav-text">__block使用和原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#block的内存管理-基本数据类型"><span class="nav-number">2.</span> <span class="nav-text">__block的内存管理 (基本数据类型)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#被-block修饰对象类型"><span class="nav-number">3.</span> <span class="nav-text">被__block修饰对象类型</span></a></li></ol></div>
             
 
           </div>
@@ -648,7 +675,7 @@ http://127.0.0.1
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2019</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -753,9 +780,9 @@ http://127.0.0.1
 
     <script type="text/javascript">
       var disqus_shortname = 'waythought';
-      var disqus_identifier = '2018/04/26/18.在Mac系统下配置PHP运行环境/';
+      var disqus_identifier = '2018/05/01/18.iOS Block详解(二)/';
 
-      var disqus_title = "18.在Mac系统下配置PHP运行环境";
+      var disqus_title = "18.iOS Block详解(二)";
 
 
       function run_disqus_script(disqus_script) {

@@ -111,7 +111,7 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fz62icb3m2j21520qygne.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fz63cr8d02j21860z0jt5.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fz8hrhsef7j21a00swwgi.jpg">
-<meta property="og:updated_time" content="2019-02-12T03:49:45.475Z">
+<meta property="og:updated_time" content="2019-10-15T02:53:28.712Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="20.多线程编程-GCD">
 <meta name="twitter:description" content="在实际开项目开发中为了能够给用户更好的体验，有些延时操作我们都会放在子线程中进行。今天我们就来聊聊多线程在实际项目中的运用。
@@ -431,7 +431,7 @@
 <h3 id="基本知识"><a href="#基本知识" class="headerlink" title="基本知识"></a>基本知识</h3><h4 id="进程-process"><a href="#进程-process" class="headerlink" title="进程(process)"></a>进程(process)</h4><ul>
 <li>进程是一个具有一定独立功能的程序关于某次数据集合的一次运行活动,它是操作系统分配资源的基本单元</li>
 <li>一个软件启动就是一个进程,每个进程之间是相互独立的,每个进程均运行在其专用且受保护的内存空间内。</li>
-<li>进程状态: 进程有三个状态,就绪、运行和阻塞。就绪状态其实就是获取了除cpu外的所有资源,只要处理器分配资源马上就可以运行。运行状态就是获取了处理器分配的资源,程序开始执行。阻塞状态:当程序条件不够时,需要等待条件满足时才能执行;比如等待I/O操作的时候,此刻的状态就叫阻塞</li>
+<li>进程状态: 进程有三个状态,就绪、运行和阻塞。就绪状态其实就是获取了除cpu外的所有资源,只要处理器分配资源马上就可以运行。运行状态就是获取了处理器分配ƒ的资源,程序开始执行。阻塞状态:当程序条件不够时,需要等待条件满足时才能执行;比如等待I/O操作的时候,此刻的状态就叫阻塞</li>
 </ul>
 <a id="more"></a>
 <h4 id="线程-thread"><a href="#线程-thread" class="headerlink" title="线程(thread)"></a>线程(thread)</h4><ul>
@@ -612,7 +612,7 @@ dispatch_sync(queue, ^{
     NSLog(@&quot;main_queue_sync%@&quot;,[NSThread currentThread]);
 });
 NSLog(@&quot;main_queue_sync_end&quot;);
-</code></pre><p>这样会死锁, 主队列调用dispatch_sync这个函数,当这个函数执行完成后主队列才会将下一个任务派遣到主线程中执行,但dispatch_sync执行完成的条件是里面的block返回,里面的block是不会执行的, 因为dispatch_sync这个函数将block任务放到主队列中了,这个block任务需要等待主线程中的任务执行的dispatch_sync函数完成才会执行</p>
+</code></pre><p>这样会死锁, dispatch_sync这个函数目前是在主线程中执行的,当这个函数执行完成后主队列才会将下一个任务派遣到主线程中执行,但dispatch_sync执行完成的条件是里面的block返回,里面的block是不会执行的, 因为dispatch_sync这个函数将block任务放到主队列中了,这个block任务需要等待主线程中的任务执行的dispatch_sync函数完成才会执行</p>
 <p>我们来看第二段代码</p>
 <pre><code>//创建队列
 dispatch_queue_t queue = dispatch_queue_create(&quot;serialQueueSyncMethod&quot;, DISPATCH_QUEUE_SERIAL);
@@ -891,8 +891,8 @@ ThreadDemo[54913:1615402] task4
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/17/19.python自动生成model和api脚本/" rel="next" title="19.RequestToModel的使用">
-                <i class="fa fa-chevron-left"></i> 19.RequestToModel的使用
+              <a href="/2018/05/31/19.iOS Block详解(三)/" rel="next" title="19.iOS Block详解(三)">
+                <i class="fa fa-chevron-left"></i> 19.iOS Block详解(三)
               </a>
             
           </div>
@@ -1044,7 +1044,7 @@ ThreadDemo[54913:1615402] task4
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2019</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

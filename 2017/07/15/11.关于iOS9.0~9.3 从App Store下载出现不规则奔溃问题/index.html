@@ -98,7 +98,7 @@
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fxvzn1k303j20s60lm0yz.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fxvzn1buhvj212802e756.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fxvzn1a7pzj20fe050gm6.jpg">
-<meta property="og:updated_time" content="2018-12-05T09:19:36.526Z">
+<meta property="og:updated_time" content="2019-11-01T15:23:58.090Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="11.关于iOS9.0 ~ iOS9.3 从App Store下载出现不规则奔溃问题">
 <meta name="twitter:description" content="这次上线遇到了一个大坑,版本发布上线后,同事的iOS9.1系统的6sp手机运行闪退,而这个手机真机直接跑、扫描二维码安装ipa包,都是没有问题的。">
@@ -415,7 +415,7 @@
 <p>去友盟错误列表反馈报以下错误提示:</p>
 <pre><code>Application received signal SIGTRAP
 </code></pre><p>最终定位到了P3资源文件的问题上了,图片资源文件里有16位图,显示模式为P3</p>
-<h4 id="⚠️⚠️⚠️"><a href="#⚠️⚠️⚠️" class="headerlink" title="⚠️⚠️⚠️"></a>⚠️⚠️⚠️</h4><p><strong>原理: </strong><br>如果你的app需要支持广色域显示的话，那你必须得把target设置成iOS 9.3+，相反，如果你的app不需要支持广色域且你想兼容 iOS 9.3 之前的项目，你就得把资源文件所有的16位的或者显示模式为’P3’图片全都替换成8位模式的SRGB颜色的图片</p>
+<h4 id="⚠️⚠️⚠️"><a href="#⚠️⚠️⚠️" class="headerlink" title="⚠️⚠️⚠️"></a>⚠️⚠️⚠️</h4><p><strong>原理:</strong><br>如果你的app需要支持广色域显示的话，那你必须得把target设置成iOS 9.3+，相反，如果你的app不需要支持广色域且你想兼容 iOS 9.3 之前的项目，你就得把资源文件所有的16位的或者显示模式为’P3’图片全都替换成8位模式的SRGB颜色的图片</p>
 <ul>
 <li><p>替换16位模式的SRGB颜色的图片步骤:</p>
 <p>  1.打一个ipa包,将该文件后缀名.ipa为.zip</p>
@@ -644,7 +644,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2019</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

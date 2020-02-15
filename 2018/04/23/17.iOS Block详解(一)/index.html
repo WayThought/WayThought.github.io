@@ -1,0 +1,1161 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="钱多多的博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="一、概述
+Block本质是一个oc对象,它内部也有一个isa指针
+Block的使用分为声明、实现、执行
+Block是封装了函数调用以及函数调用环境的OC对象。函数调用就是block{}中的函数(存储了函数的调用地址),所谓的函数调用环境,就是内部函数调用需要的外界的变量
+
+二、 Block的定义和使用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="17.iOS Block详解(一)">
+<meta property="og:url" content="http://waythought.duoshuo.com/2018/04/23/17.iOS Block详解(一)/index.html">
+<meta property="og:site_name" content="钱多多的博客">
+<meta property="og:description" content="一、概述
+Block本质是一个oc对象,它内部也有一个isa指针
+Block的使用分为声明、实现、执行
+Block是封装了函数调用以及函数调用环境的OC对象。函数调用就是block{}中的函数(存储了函数的调用地址),所谓的函数调用环境,就是内部函数调用需要的外界的变量
+
+二、 Block的定义和使用">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0c0ryozj21bk0mu78c.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0c0jrp9j20yg0ds0ss.jpg">
+<meta property="og:updated_time" content="2019-11-22T02:00:17.253Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="17.iOS Block详解(一)">
+<meta name="twitter:description" content="一、概述
+Block本质是一个oc对象,它内部也有一个isa指针
+Block的使用分为声明、实现、执行
+Block是封装了函数调用以及函数调用环境的OC对象。函数调用就是block{}中的函数(存储了函数的调用地址),所谓的函数调用环境,就是内部函数调用需要的外界的变量
+
+二、 Block的定义和使用">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0c0ryozj21bk0mu78c.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '6392330585196463000',
+      author: '钱多多'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://waythought.duoshuo.com/2018/04/23/17.iOS Block详解(一)/"/>
+
+
+
+
+
+  <title> 17.iOS Block详解(一) | 钱多多的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+    <a href="https://github.com/waythought"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/c6625ac1f3ee0a12250227cf83ce904423abf351/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">钱多多的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://waythought.duoshuo.com/2018/04/23/17.iOS Block详解(一)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qian.G.j">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="钱多多的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                17.iOS Block详解(一)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-23T14:12:14+08:00">
+                2018-04-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/04/23/17.iOS Block详解(一)/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/04/23/17.iOS Block详解(一)/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/04/23/17.iOS Block详解(一)/" class="leancloud_visitors" data-flag-title="17.iOS Block详解(一)">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h4><ul>
+<li>Block本质是一个oc对象,它内部也有一个isa指针</li>
+<li>Block的使用分为声明、实现、执行</li>
+<li>Block是封装了函数调用以及函数调用环境的OC对象。函数调用就是block{}中的函数(存储了函数的调用地址),所谓的函数调用环境,就是内部函数调用需要的外界的变量</li>
+</ul>
+<h4 id="二、-Block的定义和使用"><a href="#二、-Block的定义和使用" class="headerlink" title="二、 Block的定义和使用"></a>二、 Block的定义和使用</h4><a id="more"></a>
+<p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0c0ryozj21bk0mu78c.jpg" alt=""></p>
+<p>实际开发中常用typedef 定义Block</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">// ^ 代表插入记号 typedef: 起别名  返回值(^名称)(参数列表)</div><div class="line">typedef void(^MyBlock)(int parameter);</div></pre></td></tr></table></figure>
+<p>这时, MyBlock就成为了一种Block类型,在定义类的属性时可以这样:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@property (nonatomic, copy) MyBlock anotherBlock;</div></pre></td></tr></table></figure>
+<h4 id="三、Block的底层数据结构"><a href="#三、Block的底层数据结构" class="headerlink" title="三、Block的底层数据结构"></a>三、Block的底层数据结构</h4><p>新建项目,使用以下命令将OC代码转成c++代码,来窥探本质</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xcrun -sdk iphoneos clang -arch arm64 -rewrite-objc main.m</div></pre></td></tr></table></figure>
+<p>OC代码如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">int main(int argc, const char * argv[]) &#123;</div><div class="line">    @autoreleasepool &#123;</div><div class="line">    	 // 1. 定义block变量</div><div class="line">        void(^myBlock)(void) = ^&#123;</div><div class="line">            NSLog(@&quot;Hello, World!&quot;);</div><div class="line">        &#125;;</div><div class="line">        // 2. 调用block内部的代码</div><div class="line">        myBlock();</div><div class="line">	 &#125;</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>转成的c++代码如下:(分别对应<strong>定义block变量</strong>和<strong>调用block内部的代码</strong>)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">int main(int argc, const char * argv[]) &#123;</div><div class="line">	/* @autoreleasepool */ &#123; __AtAutoreleasePool __autoreleasepool; </div><div class="line">	    // 1. 定义block变量</div><div class="line">	    void(*myBlock)(void) = ((void (*)())&amp;__main_block_impl_0((void *)__main_block_func_0, &amp;__main_block_desc_0_DATA));</div><div class="line">		// 2. 调用block内部的代码</div><div class="line">	    ((void (*)(__block_impl *))((__block_impl *)myBlock)-&gt;FuncPtr)((__block_impl *)myBlock);</div><div class="line">	&#125;</div><div class="line">	return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="1-定义block变量删除多余修饰之后的代码为"><a href="#1-定义block变量删除多余修饰之后的代码为" class="headerlink" title="1. 定义block变量删除多余修饰之后的代码为"></a>1. 定义block变量删除多余修饰之后的代码为</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">void(*myBlock)(void) = &amp;__main_block_impl_0(__main_block_func_0, &amp;__main_block_desc_0_DATA);</div></pre></td></tr></table></figure>
+<p>我们的block指向了<strong>__main_block_impl_0</strong>这个函数的返回值的地址。</p>
+<p>我们发现<strong>__main_block_impl_0</strong>函数是定义在如下结构体中,在c++中这个函数是<strong>初始化方法并且返回它所在的这个结构体</strong>,也就是我们的block指向<strong>&amp;返回的结构体</strong>即<strong>这个结构体的内存地址</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">struct __main_block_impl_0 &#123;</div><div class="line">  struct __block_impl impl;</div><div class="line">  struct __main_block_desc_0* Desc;</div><div class="line">  // 构造函数,传参并返回函数所在的结构体</div><div class="line">  __main_block_impl_0(void *fp, struct __main_block_desc_0 *desc, int flags=0) &#123;</div><div class="line">    impl.isa = &amp;_NSConcreteStackBlock;</div><div class="line">    impl.Flags = flags;</div><div class="line">    impl.FuncPtr = fp;</div><div class="line">    Desc = desc;</div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>第一个成员变量<strong>impl</strong>的结构体为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">struct __block_impl &#123;</div><div class="line">  void *isa;</div><div class="line">  int Flags;</div><div class="line">  int Reserved;</div><div class="line">  void *FuncPtr;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p><strong>定义block的__main_block_impl_0函数的包含的参数有三个</strong></p>
+<p><strong>第1个参数</strong>是 <strong>__main_block_func_0</strong>函数,代码如下。这个函数封装了block执行的逻辑(代码)。我们这里的block执行的代码只有NSLog这个一个函数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">static void __main_block_func_0(struct __main_block_impl_0 *__cself) &#123;</div><div class="line">    NSLog((NSString *)&amp;__NSConstantStringImpl__var_folders_cg_39bx6n8912b59t0sp6dr_rlm0000gn_T_main_0781c4_mi_0);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们看到系统将<strong>__main_block_func_0</strong>函数地址赋值给了<strong>__main_block_impl_0</strong>结构体第一个变量<strong>impl</strong>的<strong>FuncPtr</strong>,也就是<strong>FuncPtr存储了将来要执行代码的函数的地址</strong>。</p>
+<p><strong>注意: __main_block_impl_0</strong>函数除了这个fp参数,还定义了<strong>返回结构体的类型</strong>,存储在了<strong>impl</strong>的<strong>isa</strong>中,demo这个结构体是_NSConcreteStackBlock类型;关于<strong>Flags有默认值</strong>我们暂不谈论。</p>
+<p><strong>第2个参数</strong>是<strong>__main_block_desc_0_DATA变量</strong>,这个结构体变量中包含(size_t reserved = 0)和<strong>这个block所占内存空间的大小</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">static struct __main_block_desc_0 &#123;</div><div class="line">  size_t reserved;</div><div class="line">  size_t Block_size;</div><div class="line">&#125; __main_block_desc_0_DATA = &#123; 0, sizeof(struct __main_block_impl_0)&#125;;</div></pre></td></tr></table></figure>
+<p>我们看到系统将<strong>__main_block_desc_0_DATA变量</strong>函数地址赋值给了<strong>__main_block_impl_0</strong>结构体第二个变量<strong>Desc</strong>,也就是结构体中的<strong>Desc</strong>存储了这个block所占空间的大小。</p>
+<p><strong>第3个参数</strong>是 flags默认为0可以不传</p>
+<p>以上为block的定义</p>
+<h4 id="2-调用block内部的代码删除多余修饰之后的代码为"><a href="#2-调用block内部的代码删除多余修饰之后的代码为" class="headerlink" title="2. 调用block内部的代码删除多余修饰之后的代码为"></a>2. 调用block内部的代码删除多余修饰之后的代码为</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">myBlock-&gt;FuncPtr(myBlock);</div></pre></td></tr></table></figure>
+<p><strong>将block本身作为参数传递过去,myBlock内部的代码之所以能够执行,是由于myBlock结构体的第一个成员是impl,myBlock的地址就是impl, myBlock在强转类型之后能够调用impl的FuncPtr,而FuncPtr存储了执行代码的函数的地址</strong></p>
+<h4 id="四、Block与外界变量"><a href="#四、Block与外界变量" class="headerlink" title="四、Block与外界变量"></a>四、Block与外界变量</h4><p>1、block内访问局部变量(auto)</p>
+<p>1.1 默认情况</p>
+<pre><code>int main(int argc, const char * argv[]) {
+    @autoreleasepool {
+        int age = 10;
+        void(^myBlock)(void) = ^{
+            NSLog(@&quot;age = %d&quot;, age);
+        };
+        age = 18;
+        myBlock();
+    }
+    return 0;
+}
+</code></pre><p>输出结果:</p>
+<pre><code>age = 10    
+</code></pre><p>我们通过第三步骤中的clang命令将上面的OC代码转为C++来查看一下block底层实现,</p>
+<p>// 转为c++代码如下</p>
+<pre><code>int main(int argc, const char * argv[]) {
+    /* @autoreleasepool */ { __AtAutoreleasePool __autoreleasepool; 
+        int age = 10;
+        void(*myBlock)(void) = ((void (*)())&amp;__main_block_impl_0((void *)__main_block_func_0, &amp;__main_block_desc_0_DATA, age));
+        age = 18;
+        ((void (*)(__block_impl *))((__block_impl *)myBlock)-&gt;FuncPtr)((__block_impl *)myBlock);
+    }
+    return 0;
+}
+</code></pre><p>与第三步相比, __main_block_impl_0函数多了一个参数<strong>age</strong>,我们看下结构体__main_block_impl_0的代码</p>
+<pre><code>struct __main_block_impl_0 {
+  struct __block_impl impl;
+  struct __main_block_desc_0* Desc;
+  int age;
+  __main_block_impl_0(void *fp, struct __main_block_desc_0 *desc, int _age, int flags=0) : age(_age) {
+    impl.isa = &amp;_NSConcreteStackBlock;
+    impl.Flags = flags;
+    impl.FuncPtr = fp;
+    Desc = desc;
+  }
+};
+</code></pre><p>c++的构造函数 __main_block_impl_0 ,关于age的写法是将_age的值赋给age这个成员。</p>
+<p>此时impl的FuncPtr存储的block执行时的代码为</p>
+<pre><code>static void __main_block_func_0(struct __main_block_impl_0 *__cself) {
+  int age = __cself-&gt;age; // bound by copy
+  NSLog((NSString *)&amp;__NSConstantStringImpl__var_folders_cg_39bx6n8912b59t0sp6dr_rlm0000gn_T_main_85b888_mi_0, age);
+}
+</code></pre><p>由<strong>__cself-&gt;age</strong>可知block执行的时候,使用的结构体本身这个age成员。因此在调用block之前对局部变量进行修改并不会影响block内部的值,同时内部的值也是不可修改的。</p>
+<p>对于auto变量,变量是什么类型,block捕获的就是什么类型。如果是object类型,捕获的就是object,如果是基础数据类型,捕捉的就是基础数据类型。</p>
+<p>2.block内访问局部变量(static)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">int main(int argc, const char * argv[]) &#123;</div><div class="line">    @autoreleasepool &#123;</div><div class="line">        int age = 10;</div><div class="line">        static int height = 10;</div><div class="line">        void(^myBlock)(void) = ^&#123;</div><div class="line">            NSLog(@&quot;age = %d, height = %d&quot;, age, height);</div><div class="line">        &#125;;</div><div class="line">        age = 18;</div><div class="line">        height = 18;</div><div class="line">        myBlock();</div><div class="line">    &#125;</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>将OC代码转换成c++代码如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">int main(int argc, const char * argv[]) &#123;</div><div class="line">    /* @autoreleasepool */ &#123; __AtAutoreleasePool __autoreleasepool; </div><div class="line">        int age = 10;</div><div class="line">        static int height = 10;</div><div class="line">        void(*myBlock)(void) = ((void (*)())&amp;__main_block_impl_0((void *)__main_block_func_0, &amp;__main_block_desc_0_DATA, age, &amp;height));</div><div class="line">        age = 18;</div><div class="line">        height = 18;</div><div class="line">        ((void (*)(__block_impl *))((__block_impl *)myBlock)-&gt;FuncPtr)((__block_impl *)myBlock);</div><div class="line">    &#125;</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>与age相比, __main_block_impl_0函数多了一个参数<strong>&amp;height</strong>,传入的是<strong>指向height的指针</strong>我们看下结构体__main_block_impl_0的代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">struct __main_block_impl_0 &#123;</div><div class="line">  struct __block_impl impl;</div><div class="line">  struct __main_block_desc_0* Desc;</div><div class="line">  int age;</div><div class="line">  int *height;</div><div class="line">  __main_block_impl_0(void *fp, struct __main_block_desc_0 *desc, int _age, int *_height, int flags=0) : age(_age), height(_height) &#123;</div><div class="line">    impl.isa = &amp;_NSConcreteStackBlock;</div><div class="line">    impl.Flags = flags;</div><div class="line">    impl.FuncPtr = fp;</div><div class="line">    Desc = desc;</div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>这里__main_block_impl_0函数将<strong>&amp;height(指向height的指针)</strong>赋值给结构体的<strong>int *height</strong>成员 </p>
+<p>此时impl的FuncPtr存储的block执行时的代码为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">static void __main_block_func_0(struct __main_block_impl_0 *__cself) &#123;</div><div class="line">  int age = __cself-&gt;age; // bound by copy</div><div class="line">  int *height = __cself-&gt;height; // bound by copy</div><div class="line">  NSLog((NSString *)&amp;__NSConstantStringImpl__var_folders_cg_39bx6n8912b59t0sp6dr_rlm0000gn_T_main_93f885_mi_0, age, (*height));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>NSLog</strong>的<strong>(*height)</strong>参数是指向height的指针,访问height的指针指向的内存地址,所以<strong>NSLog函数</strong>最终取的是height的指针指向的内存地址,此时值已经发生变化,打印的height为变化之后的值。</p>
+<p><strong>注意:</strong></p>
+<p>2.1 跨函数访问,所以需要捕获</p>
+<p>2.2 局部变量会捕获,全局变量不会捕获 (包含self、_cmd等隐性参数)</p>
+<p>2.3 block写在类中, block访问所在的类中的属性(self -&gt; _name)。则会捕获。先找到的self,</p>
+<p>对于局部变量(static),变量是什么类型,block捕获的就是 (<em> + 什么类型)。如果是object类型,捕获的就是</em>object,有两颗 *。</p>
+<p>3、block内访问全局变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">int age = 10;</div><div class="line">static int height = 10;</div><div class="line"></div><div class="line">int main(int argc, const char * argv[]) &#123;</div><div class="line">    @autoreleasepool &#123;</div><div class="line">        void(^myBlock)(void) = ^&#123;</div><div class="line">            NSLog(@&quot;age = %d, height = %d&quot;, age, height);</div><div class="line">        &#125;;</div><div class="line">        age = 18;</div><div class="line">        height = 18;</div><div class="line">        myBlock();</div><div class="line">    &#125;</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>打印结果为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">age = 18, height = 18</div></pre></td></tr></table></figure>
+<p>将OC代码转换成c++代码如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">int main(int argc, const char * argv[]) &#123;</div><div class="line">    /* @autoreleasepool */ &#123; __AtAutoreleasePool __autoreleasepool; </div><div class="line">        void(*myBlock)(void) = ((void (*)())&amp;__main_block_impl_0((void *)__main_block_func_0, &amp;__main_block_desc_0_DATA));</div><div class="line">        age = 18;</div><div class="line">        height = 18;</div><div class="line">        ((void (*)(__block_impl *))((__block_impl *)myBlock)-&gt;FuncPtr)((__block_impl *)myBlock);</div><div class="line">    &#125;</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里__main_block_impl_0函数没有传递额外的参数,而且下面的__main_block_impl_0的结构体也没有除impl和Desc额外的参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">struct __main_block_impl_0 &#123;</div><div class="line">  struct __block_impl impl;</div><div class="line">  struct __main_block_desc_0* Desc;</div><div class="line">  __main_block_impl_0(void *fp, struct __main_block_desc_0 *desc, int flags=0) &#123;</div><div class="line">    impl.isa = &amp;_NSConcreteStackBlock;</div><div class="line">    impl.Flags = flags;</div><div class="line">    impl.FuncPtr = fp;</div><div class="line">    Desc = desc;</div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>impl的FuncPtr存储的block执行时的代码为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">static void __main_block_func_0(struct __main_block_impl_0 *__cself) &#123;</div><div class="line"></div><div class="line">	NSLog((NSString *)&amp;__NSConstantStringImpl__var_folders_cg_39bx6n8912b59t0sp6dr_rlm0000gn_T_main_cff453_mi_0, age, height);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里是直接访问的全局的age和height。所以block没有捕获全局变量到结构体的内部。</p>
+<p><strong>全局变量所占用的内存只有一份,供所有函数共同调用,在block定义时并未将全局变量的值或者指针传给block变量所指向的结构体,因此在调用block之前对全局变量进行修改会影响到block内部的值,同时内部的值也是可以修改的。<br> 局部变量由于作用域问题,执行block的时候访问的自动变量有可能已经释放掉了,所以捕获定义block时的面值;执行block的时候访问的静态局部变量有可能超出作用域,获取不到这个静态局部变量了,所以捕获定义block时静态变量的指针</strong></p>
+<h4 id="五、Block的类型"><a href="#五、Block的类型" class="headerlink" title="五、Block的类型"></a>五、Block的类型</h4><p>使用isa或者class方法来打印类型所有的block都继承NSBlock,而NSBlock继承NSObject</p>
+<p>其实,block有三种类型:</p>
+<ul>
+<li>全局块 (_NSConcreteGlobalBlock)</li>
+<li>栈块 (_NSConcreteStackBlock)</li>
+<li>堆块 (_NSConcreteMallocBlock)</li>
+</ul>
+<p>这三种block各自的存储域如下图:<br><img src="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0c0jrp9j20yg0ds0ss.jpg" alt=""></p>
+<ul>
+<li>全局块存在于数据段中。</li>
+<li>栈块存在于栈内存中,超出其作用域则马上销毁</li>
+<li>堆块存在于堆内存中,是一个带引用计数的对象,需要自行管理其内存</li>
+</ul>
+<p><strong>_NSConcreteGlobalBlock:</strong></p>
+<p>block没有访问外部变量或访问的不是auto变量,而是staic或者全局变量),(用的比较少)</p>
+<p><strong>_NSConcreteStackBlock</strong></p>
+<p>MRC下block访问auto变量,则为stack类型。(block访问类中的属性也是这种情况);</p>
+<p>原因: 虽然捕获局部变量到block中,但是block超出作用域会自动销毁,即使使用全局的block记录原block(内存地址),原内存地址结构体成员变量已经变成其他内容,再执行的时候使用内存地址去查找并调用会错乱。因此要将这种类型的block放到堆中,由程序员控制内存的释放,注意及时手动销毁。</p>
+<p>还有一点就是由于ARC已经能很好地处理对象的生命周期的管理,这样所有对象都放到堆上管理,对于编译器来实现来说,会比较方便。</p>
+<p><strong>_NSConcreteMallocBlock</strong><br>stack类型的block调用copy,就会升级为malloc类型 (global类型的block调用copy,不会有操作,还是global类型的block; malloc类型的block调用copy,引用计数器+1)</p>
+<p>ARC下block为stack类型的,以下情况系统会自动对该block进行copy操作</p>
+<ul>
+<li>block作为函数返回值的时</li>
+<li>将block赋值给__strong指针时(局部变量也有强指针指着, 没有引用就没有强指针)</li>
+<li>block作为Cocoa Api中方法名含有usingBlock的方法参数时</li>
+<li>block作为GCD Api的方法参数时</li>
+</ul>
+<p>关于以上三种类型,访问基础数据类型或者对象类型结果相同</p>
+<h5 id="block持有外部变量"><a href="#block持有外部变量" class="headerlink" title="block持有外部变量"></a>block持有外部变量</h5><p><strong>MRC下:</strong></p>
+<p>栈空间的block是不会持有外部这个对象变量的, 对stack类型的block进行copy,升级为malloc类型的block,这个block会对外部这个变量进行retain操作。</p>
+<p><strong>ARC下:</strong></p>
+<p>如果block为stack类型, 对外部的对象变量是弱引用;不负责外部变量的生命周期(不关心外部变量本身是强引用还是弱引用)</p>
+<p>如果block为malloc类型,外部变量为__weak修饰的弱引用,则block对外部变量也是弱引用,外部变量为__strong修饰的强引用,则block对外部变量是强引用。</p>
+<p>block主动copy或者系统copy会调用__main_block_copy_0的函数,该函数会调用_Block_object_assign函数,该函数会根据auto变量的修饰符(__strong, __weak, __unsafe_unretained)做出相应的操作,形成强引用还是弱引用。</p>
+<p>block从堆上移除的时候,会调用dispose这个函数(_Block_object_dispose),来释放引用的auto变量(release)</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat_reward.jpg" alt="Qian.G.j WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/aipay_reward.jpg" alt="Qian.G.j Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/13/16.项目启动耗时测试/" rel="next" title="16.项目启动耗时性能优化">
+                <i class="fa fa-chevron-left"></i> 16.项目启动耗时性能优化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/26/01.在Mac系统下配置PHP运行环境/" rel="prev" title="01.在Mac系统下配置PHP运行环境">
+                01.在Mac系统下配置PHP运行环境 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="Qian.G.j" />
+          <p class="site-author-name" itemprop="name">Qian.G.j</p>
+           
+              <p class="site-description motion-element" itemprop="description">搭建这个博客主要是来整理总结自己的知识，也希望将自己的一些见解分享给大家，同时锻炼自己的表达力能。</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、概述"><span class="nav-number">1.</span> <span class="nav-text">一、概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、-Block的定义和使用"><span class="nav-number">2.</span> <span class="nav-text">二、 Block的定义和使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三、Block的底层数据结构"><span class="nav-number">3.</span> <span class="nav-text">三、Block的底层数据结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-定义block变量删除多余修饰之后的代码为"><span class="nav-number">4.</span> <span class="nav-text">1. 定义block变量删除多余修饰之后的代码为</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-调用block内部的代码删除多余修饰之后的代码为"><span class="nav-number">5.</span> <span class="nav-text">2. 调用block内部的代码删除多余修饰之后的代码为</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四、Block与外界变量"><span class="nav-number">6.</span> <span class="nav-text">四、Block与外界变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#五、Block的类型"><span class="nav-number">7.</span> <span class="nav-text">五、Block的类型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#block持有外部变量"><span class="nav-number">7.1.</span> <span class="nav-text">block持有外部变量</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Qian.G.j</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.0</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'waythought';
+      var disqus_identifier = '2018/04/23/17.iOS Block详解(一)/';
+
+      var disqus_title = "17.iOS Block详解(一)";
+
+
+      function run_disqus_script(disqus_script) {
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+
+      
+        var disqus_config = function () {
+            this.page.url = disqus_url;
+            this.page.identifier = disqus_identifier;
+            this.page.title = disqus_title;
+        };
+        run_disqus_script('embed.js');
+      
+
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="local-search-pop-overlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("yVO4uxSAHwgvLgrIf7SnkxlR-gzGzoHsz", "hx7ievccDVORT201o95iVcmi");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

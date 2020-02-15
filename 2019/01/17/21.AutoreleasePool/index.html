@@ -91,29 +91,26 @@
 
 <meta name="description" content="@autoreleasepool@autoreleasepool{} 是一个__AtAutorereleasePool的结构体
 struct __AtAutoreleasePool {
-  __AtAutoreleasePool() {atautoreleasepoolobj = objc_autoreleasePoolPush();}
-  ~__AtAutoreleasePool() {objc">
+  __AtAutoreleasePool() {// 构造函数,在创建结构体的时候调用
+          atautoreleasepoolobj = objc_autoreleasePoolPush();">
 <meta property="og:type" content="article">
 <meta property="og:title" content="21.深入AutoreleasePool">
 <meta property="og:url" content="http://waythought.duoshuo.com/2019/01/17/21.AutoreleasePool/index.html">
 <meta property="og:site_name" content="钱多多的博客">
 <meta property="og:description" content="@autoreleasepool@autoreleasepool{} 是一个__AtAutorereleasePool的结构体
 struct __AtAutoreleasePool {
-  __AtAutoreleasePool() {atautoreleasepoolobj = objc_autoreleasePoolPush();}
-  ~__AtAutoreleasePool() {objc">
-<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcly1g0jv3eeabij30rd04htaa.jpg">
-<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tKfTcly1g0jv87h0mkj30ex0j0tab.jpg">
-<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tKfTcly1g0jvfd92jjj30ew0izq6k.jpg">
-<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tKfTcly1g0jw04abxlj30rj0as0u0.jpg">
-<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tKfTcly1g0k07vxs7gj30ri0apq47.jpg">
-<meta property="og:updated_time" content="2019-06-28T02:53:56.284Z">
+  __AtAutoreleasePool() {// 构造函数,在创建结构体的时候调用
+          atautoreleasepoolobj = objc_autoreleasePoolPush();">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1gbrbdmx35kj20rs05idgz.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1gbrbdmx35kj20rs05idgz.jpg">
+<meta property="og:updated_time" content="2020-02-15T16:19:37.817Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="21.深入AutoreleasePool">
 <meta name="twitter:description" content="@autoreleasepool@autoreleasepool{} 是一个__AtAutorereleasePool的结构体
 struct __AtAutoreleasePool {
-  __AtAutoreleasePool() {atautoreleasepoolobj = objc_autoreleasePoolPush();}
-  ~__AtAutoreleasePool() {objc">
-<meta name="twitter:image" content="https://ws3.sinaimg.cn/large/006tKfTcly1g0jv3eeabij30rd04htaa.jpg">
+  __AtAutoreleasePool() {// 构造函数,在创建结构体的时候调用
+          atautoreleasepoolobj = objc_autoreleasePoolPush();">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/8af26a6dly1gbrbdmx35kj20rs05idgz.jpg">
 
 
 
@@ -423,8 +420,14 @@ struct __AtAutoreleasePool {
       
         <h3 id="autoreleasepool"><a href="#autoreleasepool" class="headerlink" title="@autoreleasepool"></a>@autoreleasepool</h3><p>@autoreleasepool{} 是一个__AtAutorereleasePool的结构体</p>
 <pre><code>struct __AtAutoreleasePool {
-  __AtAutoreleasePool() {atautoreleasepoolobj = objc_autoreleasePoolPush();}
-  ~__AtAutoreleasePool() {objc_autoreleasePoolPop(atautoreleasepoolobj);}
+  __AtAutoreleasePool() {// 构造函数,在创建结构体的时候调用
+          atautoreleasepoolobj = objc_autoreleasePoolPush();
+      }
+
+  ~__AtAutoreleasePool() {// 析构函数, 在结构体销毁的时候调用
+      objc_autoreleasePoolPop(atautoreleasepoolobj);
+  }
+
   void * atautoreleasepoolobj;
 };
 </code></pre><p>这个结构体会在初始化时调用<strong>objc_autoreleasePoolPush()</strong>方法,会在析构(对象结束其生命周期)时调用<strong>objc_autoreleasePoolPop</strong>方法。</p>
@@ -466,18 +469,14 @@ void objc_autoreleasePoolPop(void *ctxt) {
 <li>parent指向了父节点,第一个初始化的 AutoreleasePoolPage 的parent值为nil</li>
 <li>child指向子节点,最后一个节点的child值为nil</li>
 </ul>
-<p>每一个自动释放池都是由一系列的 AutoreleasePoolPage 组成的,并且每一个 AutoreleasePoolPage 的大小都是4096字节(16进制 0x1000)</p>
+<p>每一个自动释放池都是由一系列的 AutoreleasePoolPage 组成的,并且每一个 AutoreleasePoolPage 的大小都是4096字节(16进制 0x1000)内存,除了用来存放它内部的成员变量, 剩下的空间用来存在autorelease对象(放到该pool中的对象)的地址。</p>
 <h5 id="双向链表"><a href="#双向链表" class="headerlink" title="双向链表:"></a>双向链表:</h5><p>自动释放池中的 AutoreleasePoolPage 是以<strong>双向链表</strong>的形式连接起来的:</p>
-<p><img src="https://ws3.sinaimg.cn/large/006tKfTcly1g0jv3eeabij30rd04htaa.jpg" alt=""></p>
+<p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1gbrbdmx35kj20rs05idgz.jpg" alt=""></p>
 <p><strong>parent 和 child 就是用来构造双向链表的指针。</strong></p>
-<h5 id="自动释放池中的栈"><a href="#自动释放池中的栈" class="headerlink" title="自动释放池中的栈"></a>自动释放池中的栈</h5><p>如果我们的一个 AutoreleasePoolPage被初始化在内存中的<strong>0x100816000 ~ 0x100817000</strong> 中,它在内存中的结构如下:</p>
-<p><img src="https://ws2.sinaimg.cn/large/006tKfTcly1g0jv87h0mkj30ex0j0tab.jpg" alt=""></p>
-<p>其中0x100816000 ~ 0x100816028的 56bit用于存储 AutoreleasePoolPage的成员变量,剩下的 0x100816038 ~ 0x100817000 都是用来存储加入到自动释放池中的对象。</p>
-<p><strong>next</strong> 指向了下一个为空的内存地址,如果 <strong>next</strong> 指向的地址加入一个 <strong>object</strong>, 它就会如下如图所示<strong>移动到下一个为空的内存地址中:</strong></p>
-<p><img src="https://ws3.sinaimg.cn/large/006tKfTcly1g0jvfd92jjj30ew0izq6k.jpg" alt=""></p>
-<pre><code>hiwat和depth在文章中并不会进行介绍,因为它们并不影响释放池的实现,也不在关键方法中的调用栈中。
-</code></pre><h5 id="POOL-SENTINEL-哨兵对象"><a href="#POOL-SENTINEL-哨兵对象" class="headerlink" title="POOL_SENTINEL(哨兵对象)"></a>POOL_SENTINEL(哨兵对象)</h5><p><strong>POOL_SENTINEL</strong> 只是 <strong>nil</strong> 的别名。</p>
-<p>在每个自动释放池初始化调用 <strong>objc_autoreleasePoolPush</strong> 的时候,都会把一个 <strong>POOL_SENTINEL</strong> push到自动释放池的栈顶,并且返回这个 <strong>POOL_SENTINEL</strong> 哨兵对象。</p>
+<h5 id="自动释放池中的栈"><a href="#自动释放池中的栈" class="headerlink" title="自动释放池中的栈"></a>自动释放池中的栈</h5><p>如果我们的一个 AutoreleasePoolPage被初始化在内存中的结构如下:</p>
+<p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1gbrbdmx35kj20rs05idgz.jpg" alt=""></p>
+<p>其中前 56bit用于存储 AutoreleasePoolPage的成员变量,剩下的 4040bit 都是用来存储加入到自动释放池中的对象。</p>
+<p>在每个自动释放池初始化调用 <strong>objc_autoreleasePoolPush</strong> 的时候,都会把一个 <strong>POOL_BOUNDARY</strong>,它存储着存储着begin()的初始值,push到自动释放池的栈顶,并且返回这个 <strong>POOL_BOUNDARY</strong>。</p>
 <pre><code>int main(int argc, const char * argv[]) {
     {
         void * atautoreleasepoolobj = objc_autoreleasePoolPush();
@@ -488,17 +487,18 @@ void objc_autoreleasePoolPop(void *ctxt) {
     }
     return 0;
 }
-</code></pre><p>上面的 <strong>atautoreleasepoolobj</strong> 就是一个 <strong>POOL_SENTINEL</strong>。</p>
-<p>而当方法 <strong>objc_autoreleasePoolPop</strong> 调用时,就会向自动释放池中的对象发送 <strong>release</strong> 消息,直到第一个 <strong>POOL_SENTINEL</strong>:</p>
-<p><img src="https://ws2.sinaimg.cn/large/006tKfTcly1g0jw04abxlj30rj0as0u0.jpg" alt=""></p>
+</code></pre><p>上面的 <strong>atautoreleasepoolobj</strong> 就是一个 <strong>POOL_BOUNDARY</strong>。</p>
+<p>每当一个对象调用autorelease的时候, 就会将这个对象地址值依次放到这个<strong>POOL_BOUNDARY</strong>的后面。</p>
+<p>每当一个autoreleasepool创建的时候,就会再次压栈一个<strong>POOL_BOUNDARY</strong>。</p>
+<p>而当方法 <strong>objc_autoreleasePoolPop</strong> 调用时,入参为<strong>atautoreleasepoolobj</strong>,就会向自动释放池中的对象依次发送 <strong>release</strong> 消息,从最后一个对象开始直到该pool对应的第一个 <strong>POOL_BOUNDARY</strong>:</p>
 <h5 id="objc-autoreleasePoolPush方法"><a href="#objc-autoreleasePoolPush方法" class="headerlink" title="objc_autoreleasePoolPush方法"></a>objc_autoreleasePoolPush方法</h5><pre><code>void *objc_autoreleasePoolPush(void) {
     return AutoreleasePoolPage::push();
 }
 </code></pre><p>它调用 <strong>AutoreleasePoolPage</strong> 的类方法 <strong>push</strong>: </p>
 <pre><code>static inline void *push() {
-       return autoreleaseFast(POOL_SENTINEL);
+       return autoreleaseFast(POOL_BOUNDARY);
 }
-</code></pre><p>在这里会进入一个比较关键的方法 <strong>autoreleaseFast</strong>,并传入哨兵对象 <strong>POOL_SENTINEL</strong>:</p>
+</code></pre><p>在这里会进入一个比较关键的方法 <strong>autoreleaseFast</strong>,并传入 <strong>POOL_BOUNDARY</strong>:</p>
 <pre><code>static inline id *autoreleaseFast(id obj)
 {
    AutoreleasePoolPage *page = hotPage();
@@ -516,8 +516,7 @@ void objc_autoreleasePoolPop(void *ctxt) {
 <li><strong>有 hotpage 并且当前的page已满</strong> :调用 autoreleaseFullPage 初始化一个新的页; 调用 page-&gt;add(obj) 方法将对象添加至 AutoreleasePoolPage 的栈中</li>
 <li><strong>无 hotPage</strong> : 调用 autoreleaseNoPage 创建一个 hotPage; 调用 page-&gt;add(obj)方法将对象添加至 AutoreleasePoolPage 的栈中</li>
 </ul>
-<p>最后都会调用 <strong>page-&gt;add(obj)</strong> 将对象添加到自动释放池中。</p>
-<p><strong>hotPage</strong> 可以理解为当前正在使用的 <strong>AutoreleasePoolPage</strong></p>
+<p>最后都会调用 <strong>page-&gt;add(obj)</strong> 将对象添加到自动释放池中。<strong>hotPage</strong> 可以理解为当前正在使用的 <strong>AutoreleasePoolPage</strong></p>
 <h5 id="page-gt-add-添加对象"><a href="#page-gt-add-添加对象" class="headerlink" title="page-&gt;add 添加对象"></a>page-&gt;add 添加对象</h5><p><strong>id *add(id objc)</strong> 将对象添加到自动释放池中:</p>
 <pre><code>id *add(id obj) {
     id *ret = next;
@@ -554,16 +553,15 @@ void objc_autoreleasePoolPop(void *ctxt) {
     return page-&gt;add(obj);
 }
 </code></pre><p>既然当前内存中不存在 AutoreleasePoolPage, 就要 <strong>从头开始构建这个自动释放池的双向链表</strong>,也就是说,新的 AutoreleasePoolPage 是没有 parent指针的。</p>
-<p>初始化之后,将当前页标记为 hotPage,然后会先向这个page中添加一个 POOL_SENTINEL 对象,来确保在 pop 调用的时候,不会出现异常。</p>
+<p>初始化之后,将当前页标记为 hotPage,然后会先向这个page中添加一个 POOL_BOUNDARY 对象,来确保在 pop 调用的时候,不会出现异常。</p>
 <p>最后,将 obj 添加到自动释放池中。</p>
 <h3 id="objc-autoreleasePoolPop-方法"><a href="#objc-autoreleasePoolPop-方法" class="headerlink" title="objc_autoreleasePoolPop 方法"></a>objc_autoreleasePoolPop 方法</h3><pre><code>void objc_autoreleasePoolPop(void *ctxt) {
     AutoreleasePoolPage::pop(ctxt);
 }
-</code></pre><p>我们一般会在这个方法中传入一个哨兵对象POOL_SENTINEL(传入其他对象也是没有问题的),如下图一样释放对象:</p>
-<p><img src="https://ws1.sinaimg.cn/large/006tKfTcly1g0k07vxs7gj30ri0apq47.jpg" alt=""></p>
-<h3 id="autoreleasepool-与-runloop"><a href="#autoreleasepool-与-runloop" class="headerlink" title="autoreleasepool 与 runloop"></a>autoreleasepool 与 runloop</h3><p>autoreleasepool与runloop关系: App启动后,苹果在主线程Runloop里注册了两个Obsever,其回调都是 _wapRunLoopWithAutoreleasePoolHandler().</p>
-<p>第一个Observer监视的事件是Entry(即将进入Loop),其回调会调用_objc_autoreleasePoolPush()创建自动释放池。其order是-2147483647,优先级最高,保证创建释放池发生在其他所有回调之前。</p>
-<p>第二个Observer监听了两个事件: BeforeWaiting(准备进入休眠)时调用_objc_autoreleasePoolPop()和_objc_autoreleasePoolPush()释放旧的池并创建新池;Exit(即将退出Loop)时调用_objc_autoreleasePoolPop()来释放自动释放池。这个Observer的order是2147483647,优先级最低,保证</p>
+</code></pre><p>传入一个<strong>POOL_BOUNDARY</strong>的内存地址，会从最后一个入栈的对象开始发送release消息，直到遇到这个<strong>POOL_BOUNDARY</strong></p>
+<h3 id="autoreleasepool-与-runloop"><a href="#autoreleasepool-与-runloop" class="headerlink" title="autoreleasepool 与 runloop"></a>autoreleasepool 与 runloop</h3><p>autoreleasepool与runloop关系: App启动后,苹果在主线程Runloop里<em>**</em>注册了两个Obsever,其回调都是 _wapRunLoopWithAutoreleasePoolHandler().</p>
+<p>第一个Observer监视的事件是Entry(即将进入Loop),其回调会调用objc_autoreleasePoolPush()创建自动释放池。其order是-2147483647,优先级最高,保证创建释放池发生在其他所有回调之前。</p>
+<p>第二个Observer监听了两个事件: BeforeWaiting(准备进入休眠)时调用_objc_autoreleasePoolPop()和_objc_autoreleasePoolPush()释放这一次loop中使用autorelease的对象,并重新入栈新的POOL_BOUNDARY;<br>Exit(即将退出Loop)时调用_objc_autoreleasePoolPop()来释放最后一次loop中使用autorelease的对象。这个Observer的order是2147483647,优先级最低,保证</p>
 <h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><ul>
 <li>自动释放池是由 <strong>AutoreleasePoolPage</strong> 以双向链表的方式实现的</li>
 <li>当对象调用 <strong>autorelease</strong> 方法时,会将对象加入 <strong>AutoreleasePoolPage</strong> 的栈中</li>
@@ -754,7 +752,7 @@ void objc_autoreleasePoolPop(void *ctxt) {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#autoreleasepool"><span class="nav-number">1.</span> <span class="nav-text">@autoreleasepool</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AutoreleasePool-是什么"><span class="nav-number">2.</span> <span class="nav-text">AutoreleasePool 是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#AutoreleasePoolPage-的结构"><span class="nav-number">2.1.</span> <span class="nav-text">AutoreleasePoolPage 的结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#双向链表"><span class="nav-number">2.1.1.</span> <span class="nav-text">双向链表:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#自动释放池中的栈"><span class="nav-number">2.1.2.</span> <span class="nav-text">自动释放池中的栈</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#POOL-SENTINEL-哨兵对象"><span class="nav-number">2.1.3.</span> <span class="nav-text">POOL_SENTINEL(哨兵对象)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#objc-autoreleasePoolPush方法"><span class="nav-number">2.1.4.</span> <span class="nav-text">objc_autoreleasePoolPush方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#page-gt-add-添加对象"><span class="nav-number">2.1.5.</span> <span class="nav-text">page->add 添加对象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#autoreleaseFullPage-当前的hotPage已满"><span class="nav-number">2.1.6.</span> <span class="nav-text">autoreleaseFullPage(当前的hotPage已满)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#autoreleaseNoPage-没有hotPage"><span class="nav-number">2.1.7.</span> <span class="nav-text">autoreleaseNoPage(没有hotPage)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#objc-autoreleasePoolPop-方法"><span class="nav-number">3.</span> <span class="nav-text">objc_autoreleasePoolPop 方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#autoreleasepool-与-runloop"><span class="nav-number">4.</span> <span class="nav-text">autoreleasepool 与 runloop</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#autoreleasepool"><span class="nav-number">1.</span> <span class="nav-text">@autoreleasepool</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AutoreleasePool-是什么"><span class="nav-number">2.</span> <span class="nav-text">AutoreleasePool 是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#AutoreleasePoolPage-的结构"><span class="nav-number">2.1.</span> <span class="nav-text">AutoreleasePoolPage 的结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#双向链表"><span class="nav-number">2.1.1.</span> <span class="nav-text">双向链表:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#自动释放池中的栈"><span class="nav-number">2.1.2.</span> <span class="nav-text">自动释放池中的栈</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#objc-autoreleasePoolPush方法"><span class="nav-number">2.1.3.</span> <span class="nav-text">objc_autoreleasePoolPush方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#page-gt-add-添加对象"><span class="nav-number">2.1.4.</span> <span class="nav-text">page->add 添加对象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#autoreleaseFullPage-当前的hotPage已满"><span class="nav-number">2.1.5.</span> <span class="nav-text">autoreleaseFullPage(当前的hotPage已满)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#autoreleaseNoPage-没有hotPage"><span class="nav-number">2.1.6.</span> <span class="nav-text">autoreleaseNoPage(没有hotPage)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#objc-autoreleasePoolPop-方法"><span class="nav-number">3.</span> <span class="nav-text">objc_autoreleasePoolPop 方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#autoreleasepool-与-runloop"><span class="nav-number">4.</span> <span class="nav-text">autoreleasepool 与 runloop</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li></ol></div>
             
 
           </div>
@@ -777,7 +775,7 @@ void objc_autoreleasePoolPop(void *ctxt) {
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2019</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
