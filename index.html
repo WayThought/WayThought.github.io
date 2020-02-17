@@ -858,30 +858,16 @@
 
       
         
-          
-            <h1 id="block的循环引用问题"><a href="#block的循环引用问题" class="headerlink" title="block的循环引用问题"></a>block的循环引用问题</h1><p>什么是block的循环引用,简单来说对象持有block, block持有这个对象</p>
+          <h1 id="block的循环引用问题"><a href="#block的循环引用问题" class="headerlink" title="block的循环引用问题"></a>block的循环引用问题</h1><p>什么是block的循环引用,简单来说对象持有block, block持有这个对象</p>
 <p>注意: block访问带下划线的属性,也会造成循环引用,因为block肯定是取到对象本身才能拿到属性。</p>
 <h1 id="ARC-解决循环引用问题"><a href="#ARC-解决循环引用问题" class="headerlink" title="ARC-解决循环引用问题"></a>ARC-解决循环引用问题</h1><p>由于我们需要对象持有block,来控制block的声明周期,所以解决循环引用我们一般设置block对对象的引用是弱引用即可。</p>
-<h2 id="使用-weak修饰对象"><a href="#使用-weak修饰对象" class="headerlink" title="使用__weak修饰对象"></a>使用__weak修饰对象</h2><p>我们需要使用__weak去修饰这个对象, block中的进行copy操作后,会调用block内部的copy函数,copy函数会调用_Block_object_assign函数,该函数会对根据对象的修饰符(__strong、__weak、__unsafe_unretained),做出相应的操作,形成强引用(retain)或者弱引用</p>
-<p>在block中直接使用weakSelf有没有风险,如果不使用__strong修饰一遍的话?</p>
-<p>有风险, 使用__strong修饰保证在block执行的时候self不会释放掉。 </p>
-<h2 id="使用-unsafe-unretained修饰对象"><a href="#使用-unsafe-unretained修饰对象" class="headerlink" title="使用__unsafe_unretained修饰对象"></a>使用__unsafe_unretained修饰对象</h2><p>__weak只是不会产生强引用</p>
-<p>__unsafe_unretained不会进行产生强引用,但是不安全</p>
-<p>__weak在指向的对象销毁时,会自动把指针置为nil</p>
-<p>__unsafe_unretained在指向的对象销毁时,不会置成nil,任然指向的是原对象内存地址</p>
-<h2 id="补充使用-block解决循环引用问题"><a href="#补充使用-block解决循环引用问题" class="headerlink" title="补充使用  __block解决循环引用问题"></a>补充使用  __block解决循环引用问题</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">int main(int argc, const char * argv[]) &#123;</div><div class="line">    @autoreleasepool &#123;</div><div class="line">        __block MFPerson *person = [[MFPerson alloc] init];</div><div class="line">        person.age = 10;</div><div class="line">        person.block = ^&#123;</div><div class="line">            NSLog(@&quot;person age = %@&quot;, @(person.age));</div><div class="line">            person = nil;</div><div class="line">        &#125;;</div><div class="line">        person.block();</div><div class="line">    &#125;</div><div class="line">    NSLog(@&quot;autoreleasepool did end&quot;);</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>打印结果为:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">person age = 10</div><div class="line">-[MFPerson dealloc]</div><div class="line">autoreleasepool did end</div></pre></td></tr></table></figure>
-<p>注意这里需要把person对象设置为nil</p>
-<p>block对象对包装好的结构体(<strong>block修饰)是强引用,包装好的结构体里对实例对象是强引用(由于</strong>strong修饰),实例对象对block是强引用。是个三角循环引用</p>
-<p><code>person = nil</code>是将包装好的结构体里对实例对象是引用设置为空了</p>
-<p><strong>这里必须要执行block,并且在block的实现里面要把实例对象设置为nil</strong></p>
-<h1 id="MRC-解决循环引用问题"><a href="#MRC-解决循环引用问题" class="headerlink" title="MRC-解决循环引用问题"></a>MRC-解决循环引用问题</h1><p>由于MRC下不支持弱指针,所以不能使用__weak,我们可以使用__unsafe_unretained去解决</p>
-<h2 id="使用-unsafe-unretained修饰对象-1"><a href="#使用-unsafe-unretained修饰对象-1" class="headerlink" title="使用__unsafe_unretained修饰对象"></a>使用__unsafe_unretained修饰对象</h2><p>与ARC下原理相同</p>
-<h2 id="使用-block解决循环引用问题"><a href="#使用-block解决循环引用问题" class="headerlink" title="使用  __block解决循环引用问题"></a>使用  __block解决循环引用问题</h2><p>上篇文章介绍了我们对block进行copy操作,__block做出相应的操作copy修饰</p>
-<p> block中的系统包装好的结构体(__block修饰)在调用_Block_object_assign函数的时候,不会对访问的对象进行retain操作。</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/31/19.iOS Block详解(三)/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1017,57 +1003,20 @@
 
       
         
-          
-            <h1 id="block使用和原理"><a href="#block使用和原理" class="headerlink" title="__block使用和原理"></a>__block使用和原理</h1><ul>
+          <h1 id="block使用和原理"><a href="#block使用和原理" class="headerlink" title="__block使用和原理"></a>__block使用和原理</h1><ul>
 <li>__block可以用于解决block内部无法修改auto变量的问题</li>
 <li>__block不能修饰全局变量、静态变量(static)</li>
 <li>编译器会将__block变量包装成一个对象</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">int main(int argc, const char * argv[]) &#123;</div><div class="line">    @autoreleasepool &#123;</div><div class="line">        MFPerson *person = [[MFPerson alloc] init];</div><div class="line">        person.age = 10;</div><div class="line">        void(^myBlock)(void) = ^&#123;</div><div class="line">            person = nil;</div><div class="line">            NSLog(@&quot;person == %d&quot;, person.age);</div><div class="line">        &#125;;</div><div class="line">        myBlock();</div><div class="line"></div><div class="line">    &#125;</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>这里的person = nil会编译报错。person是声明在main函数中, 内存是在main函数的main空间, block执行的代码是在func函数中。独立的函数不能互相访问,作用域问题</p>
-<p>我们来看下如下的代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">int main(int argc, const char * argv[]) &#123;</div><div class="line">    @autoreleasepool &#123;</div><div class="line">        MFPerson *person = [[MFPerson alloc] init];</div><div class="line">        person.age = 10;</div><div class="line">        void(^myBlock)(void) = ^&#123;</div><div class="line">            person.age = 20;</div><div class="line">            NSLog(@&quot;person age = %d&quot;, person.age);</div><div class="line">        &#125;;</div><div class="line">        myBlock();</div><div class="line"></div><div class="line">    &#125;</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>打印结果为</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">person age = 20</div></pre></td></tr></table></figure>
-<p>虽然我们不能修改这个指针,我们可以拿过来这个指针使用。</p>
-<p>我们如果想要在block内部访问外部变量,并且这个变量还是auto类型(使用static放在全局区,程序运行阶段不会销毁),需要使用__block</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">int main(int argc, const char * argv[]) &#123;</div><div class="line">    @autoreleasepool &#123;</div><div class="line">        __block MFPerson *person = [[MFPerson alloc] init];</div><div class="line">        person.age = 10;</div><div class="line">        void(^myBlock)(void) = ^&#123;</div><div class="line">            person = nil;</div><div class="line">            NSLog(@&quot;person = %@&quot;, person);</div><div class="line">        &#125;;</div><div class="line">        myBlock();</div><div class="line"></div><div class="line">    &#125;</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>打印结果为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">person = (null)</div></pre></td></tr></table></figure></p>
-<p>这里的person指针还是在栈区, 还是auto类型</p>
-<p>__block如何实现的呢</p>
-<p>使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xcrun -sdk iphoneos clang -arch arm64 -rewrite-objc main.m</div></pre></td></tr></table></figure></p>
-<p>将以下的OC代码转换成c++代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">int main(int argc, const char * argv[]) &#123;</div><div class="line">    @autoreleasepool &#123;</div><div class="line">        __block int age = 10;</div><div class="line">        void(^myBlock)(void) = ^&#123;</div><div class="line">            age = 20;</div><div class="line">            NSLog(@&quot;person age is %d&quot;, age);</div><div class="line">        &#125;;</div><div class="line">        myBlock();</div><div class="line">    &#125;</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>c++代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">int main(int argc, const char * argv[]) &#123;</div><div class="line">    /* @autoreleasepool */ &#123; __AtAutoreleasePool __autoreleasepool; </div><div class="line">    </div><div class="line">        __attribute__((__blocks__(byref))) __Block_byref_age_0 age = &#123;(void*)0,(__Block_byref_age_0 *)&amp;age, 0, sizeof(__Block_byref_age_0), 10&#125;;</div><div class="line">        </div><div class="line">        void(*myBlock)(void) = ((void (*)())&amp;__main_block_impl_0((void *)__main_block_func_0, &amp;__main_block_desc_0_DATA, (__Block_byref_age_0 *)&amp;age, 570425344));</div><div class="line">        ((void (*)(__block_impl *))((__block_impl *)myBlock)-&gt;FuncPtr)((__block_impl *)myBlock);</div><div class="line"></div><div class="line">    &#125;</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">struct __Block_byref_age_0 &#123;</div><div class="line">  void *__isa;</div><div class="line">__Block_byref_age_0 *__forwarding;</div><div class="line"> int __flags;</div><div class="line"> int __size;</div><div class="line"> int age;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">struct __main_block_impl_0 &#123;</div><div class="line">  struct __block_impl impl;</div><div class="line">  struct __main_block_desc_0* Desc;</div><div class="line">  __Block_byref_age_0 *age; // by ref</div><div class="line">  __main_block_impl_0(void *fp, struct __main_block_desc_0 *desc, __Block_byref_age_0 *_age, int flags=0) : age(_age-&gt;__forwarding) &#123;</div><div class="line">    impl.isa = &amp;_NSConcreteStackBlock;</div><div class="line">    impl.Flags = flags;</div><div class="line">    impl.FuncPtr = fp;</div><div class="line">    Desc = desc;</div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<p>__Block_byref_age_0结构体存储着isa和age, 在block中修改的age的值,存储在__Block_byref_age_0的结构体中, __size代表了他这个结构体占用的内存大小,</p>
-<p>我们看下这个结构体如何赋值的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">__attribute__((__blocks__(byref))) __Block_byref_age_0 age = &#123;(void*)0,(__Block_byref_age_0 *)&amp;age, 0, sizeof(__Block_byref_age_0), 10&#125;;</div></pre></td></tr></table></figure></p>
-<p>相当于把 &amp;age这个结构体赋值给第二个成员变量,也就是 <strong>Block_byref_age_0 *</strong>forwarding存储的地址, 指向这个<strong>Block_byref_age_0结构体他自己,也就是指向结构体自己的</strong>isa。 </p>
-<p>把变量age的值赋值给结构体的第五个成员变量,保存起来</p>
-<p>block实现的时候也会把上面的age结构体 &amp;age传给这个结构体, 也就是会把上面的age的结构体地址传递给__main_block_impl_0函数的第三个参数。</p>
-<p>我们看下执行代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">static void __main_block_func_0(struct __main_block_impl_0 *__cself) &#123;</div><div class="line">  __Block_byref_age_0 *age = __cself-&gt;age; // bound by ref</div><div class="line"></div><div class="line">            (age-&gt;__forwarding-&gt;age) = 20;</div><div class="line">            NSLog((NSString *)&amp;__NSConstantStringImpl__var_folders_cg_39bx6n8912b59t0sp6dr_rlm0000gn_T_main_4795a0_mi_0, (age-&gt;__forwarding-&gt;age));</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
-<p>取出这个结构体</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">__Block_byref_age_0 *age = __cself-&gt;age</div></pre></td></tr></table></figure>
-<p>对结构体age的__forwarding指向的age成员进行赋值,结构体存储了这个值。NSLog函数也是这样取值的</p>
-<p>使用__block修饰的age被block捕获, 再block内部或者外部访问age,访问的是block中捕获的结构体中的成员变量的age</p>
-<h1 id="block的内存管理-基本数据类型"><a href="#block的内存管理-基本数据类型" class="headerlink" title="__block的内存管理 (基本数据类型)"></a>__block的内存管理 (基本数据类型)</h1><p>当block在栈上的时候,并不会对__block变量产生强引用</p>
-<p>当block被拷贝到堆上时,会调用block内部的copy函数。copy函数内部会调用__Block_object_assgin函数,__Block_object_assgin函数会对__block形成强引用(retain),也就是会对block内部的<figure class="highlight plain"><figcaption><span>*age;```形成强引用</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"> </div><div class="line"> </div><div class="line">**block经过系统的copy放到了堆区,同时也会将block使用的__block变量也拷贝到堆上,并且block对__block变量是个强引用。**</div><div class="line"> </div><div class="line">多个block访问同一个__block变量,只会copy一次这个变量到堆上, 不会重复copy。第一次访问的时候会copy,但是这几个block都会对block进行强引用。</div><div class="line"> </div><div class="line"> </div><div class="line">当block从堆上移除的时候,对调用block内部的dispose函数。dispose函数内部会调用\_Block\_object\_dispose函数,此函数会自动释放引用的__block变量。</div><div class="line"> </div><div class="line"> </div><div class="line">如果是访问的 NSObject *object = [[NSObject alloc] init];</div><div class="line">由于系统会copy,把block升级为堆块,堆上的block会根据object是__strong修饰的还是__weak修饰的,来判断是否对这个对象进行强引用(因为alloc出来的对象就是在堆区的)</div><div class="line"></div><div class="line"></div><div class="line">_\_Block\_object\_assgin函数入参会根据不同类型变量做区分(例如__block修饰的int 类型传入的是8, NSObject类型传入的是 3)</div></pre></td></tr></table></figure></p>
-<p>(age-&gt;__forwarding-&gt;age) = 20;</p>
-<p>```<br>赋值的时候为什么是找到结构体后,再找__forwading指针,根据这个指针找到结构体,在给结构体中的成员变量赋值呢。</p>
-<p>系统想要赋值给堆上的这个结构体。</p>
-<p>如果block未copy, 栈上的结构体的__forwading指针指向的是本身栈上这个结构体</p>
-<p>如果block进行copy后,栈上结构体的<strong>forwading指向的是拷贝到堆区的结构体。这样就能保证赋值的肯定是堆上的结构体。堆上的</strong>forwarding指针指向的是他自己</p>
-<p>所以无论是栈上的__block结构体还是堆上的, 在赋值的时候都是堆上这个结构体。<br><img src="http://ww1.sinaimg.cn/large/8af26a6dly1fxw0c0mk9xj20j30e0q36.jpg" alt=""></p>
-<p>问题: 将__block修饰的变量拷贝到堆区的话, block本身的变量指针指向的是栈区的还是堆区的呢?</p>
-<p>发生变化了, 指向堆上的变量结构体了。</p>
-<h1 id="被-block修饰对象类型"><a href="#被-block修饰对象类型" class="headerlink" title="被__block修饰对象类型"></a>被__block修饰对象类型</h1><p>也会将这个对象包装成为一个结构体,将对象的指针包装在结构体中, 这个指针指向malloc的对象的内存地址</p>
-<p>不伦对象是<strong>strong修饰的还是</strong>weak修饰的,block指向的包装好的结构体是强指针(copy决定的),这里不存在弱引用。<strong>包装好的结构体拷贝到堆上,同时这个包装好的结构体也会调用自身的copy方法(非对象类型的包装成的结构体没有这个方法)。,会调用包装好结构体中的assign函数,</strong> 进行判断,包装好的结构体里面的person指针对这个对象的强弱引用是根据对象如果是<strong>strong修饰,结构体里面的person指针对这个对象就是强引用;如果是</strong>weak修饰,结构体里面的person指针对这个对象就是弱引用。</p>
-<p>等到block销毁的时候,调用block的dispose函数, 解除对包装好的结构体的强引用,此时包装好的结构体也要进行销毁,调用自己的dispose函数,解除对该对象的引用(无论是强引用,还是弱引用)</p>
-<p>assign函数会根据所指向对象的修饰符,做出相应的操作,形成强引用或者弱引用(注意:这里ARC下会retain操作,MRC下则不会retain)</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/01/18.iOS Block详解(二)/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1352,7 +1301,6 @@
 <li>Block的使用分为声明、实现、执行</li>
 <li>Block是封装了函数调用以及函数调用环境的OC对象。函数调用就是block{}中的函数(存储了函数的调用地址),所谓的函数调用环境,就是内部函数调用需要的外界的变量</li>
 </ul>
-<h4 id="二、-Block的定义和使用"><a href="#二、-Block的定义和使用" class="headerlink" title="二、 Block的定义和使用"></a>二、 Block的定义和使用</h4>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/04/23/17.iOS Block详解(一)/#more" rel="contents">

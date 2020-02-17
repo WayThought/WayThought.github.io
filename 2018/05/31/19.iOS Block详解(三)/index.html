@@ -91,23 +91,20 @@
 
 <meta name="description" content="block的循环引用问题什么是block的循环引用,简单来说对象持有block, block持有这个对象
 注意: block访问带下划线的属性,也会造成循环引用,因为block肯定是取到对象本身才能拿到属性。
-ARC-解决循环引用问题由于我们需要对象持有block,来控制block的声明周期,所以解决循环引用我们一般设置block对对象的引用是弱引用即可。
-使用__weak修饰对象我们需要使用__">
+ARC-解决循环引用问题由于我们需要对象持有block,来控制block的声明周期,所以解决循环引用我们一般设置block对对象的引用是弱引用即可。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="19.iOS Block详解(三)">
 <meta property="og:url" content="http://waythought.duoshuo.com/2018/05/31/19.iOS Block详解(三)/index.html">
 <meta property="og:site_name" content="钱多多的博客">
 <meta property="og:description" content="block的循环引用问题什么是block的循环引用,简单来说对象持有block, block持有这个对象
 注意: block访问带下划线的属性,也会造成循环引用,因为block肯定是取到对象本身才能拿到属性。
-ARC-解决循环引用问题由于我们需要对象持有block,来控制block的声明周期,所以解决循环引用我们一般设置block对对象的引用是弱引用即可。
-使用__weak修饰对象我们需要使用__">
-<meta property="og:updated_time" content="2019-11-13T06:03:59.337Z">
+ARC-解决循环引用问题由于我们需要对象持有block,来控制block的声明周期,所以解决循环引用我们一般设置block对对象的引用是弱引用即可。">
+<meta property="og:updated_time" content="2020-02-17T02:34:44.210Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="19.iOS Block详解(三)">
 <meta name="twitter:description" content="block的循环引用问题什么是block的循环引用,简单来说对象持有block, block持有这个对象
 注意: block访问带下划线的属性,也会造成循环引用,因为block肯定是取到对象本身才能拿到属性。
-ARC-解决循环引用问题由于我们需要对象持有block,来控制block的声明周期,所以解决循环引用我们一般设置block对对象的引用是弱引用即可。
-使用__weak修饰对象我们需要使用__">
+ARC-解决循环引用问题由于我们需要对象持有block,来控制block的声明周期,所以解决循环引用我们一般设置block对对象的引用是弱引用即可。">
 
 
 
@@ -418,6 +415,7 @@ ARC-解决循环引用问题由于我们需要对象持有block,来控制block�
         <h1 id="block的循环引用问题"><a href="#block的循环引用问题" class="headerlink" title="block的循环引用问题"></a>block的循环引用问题</h1><p>什么是block的循环引用,简单来说对象持有block, block持有这个对象</p>
 <p>注意: block访问带下划线的属性,也会造成循环引用,因为block肯定是取到对象本身才能拿到属性。</p>
 <h1 id="ARC-解决循环引用问题"><a href="#ARC-解决循环引用问题" class="headerlink" title="ARC-解决循环引用问题"></a>ARC-解决循环引用问题</h1><p>由于我们需要对象持有block,来控制block的声明周期,所以解决循环引用我们一般设置block对对象的引用是弱引用即可。</p>
+<a id="more"></a>
 <h2 id="使用-weak修饰对象"><a href="#使用-weak修饰对象" class="headerlink" title="使用__weak修饰对象"></a>使用__weak修饰对象</h2><p>我们需要使用__weak去修饰这个对象, block中的进行copy操作后,会调用block内部的copy函数,copy函数会调用_Block_object_assign函数,该函数会对根据对象的修饰符(__strong、__weak、__unsafe_unretained),做出相应的操作,形成强引用(retain)或者弱引用</p>
 <p>在block中直接使用weakSelf有没有风险,如果不使用__strong修饰一遍的话?</p>
 <p>有风险, 使用__strong修饰保证在block执行的时候self不会释放掉。 </p>
