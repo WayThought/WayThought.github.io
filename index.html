@@ -314,7 +314,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://waythought.duoshuo.com/2019/08/02/22.KVO底层实现原理/">
+    <link itemprop="mainEntityOfPage" href="http://waythought.duoshuo.com/2020/02/25/docs/15826116286297/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Qian.G.j">
@@ -336,8 +336,325 @@
             
               
                 
-                <a class="post-title-link" href="/2019/08/02/22.KVO底层实现原理/" itemprop="url">
-                  22.探讨KVO底层原理、存在的缺陷以及解决方法
+                <a class="post-title-link" href="/2020/02/25/docs/15826116286297/" itemprop="url">
+                  未命名
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-25T14:20:28+08:00">
+                2020-02-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/02/25/docs/15826116286297/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/02/25/docs/15826116286297/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2020/02/25/docs/15826116286297/" class="leancloud_visitors" data-flag-title="">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="欢迎使用-MWeb"><a href="#欢迎使用-MWeb" class="headerlink" title="欢迎使用 MWeb"></a>欢迎使用 MWeb</h1><p>MWeb 是专业的 Markdown 写作、记笔记、静态博客生成软件，目前已支持 Mac，iPad 和 iPhone。MWeb 有以下特色：</p>
+<h2 id="软件本身："><a href="#软件本身：" class="headerlink" title="软件本身："></a>软件本身：</h2><ul>
+<li>使用原生的 macOS 技术打造，追求与系统的完美结合。</li>
+<li>原则上，首先是追求界面简洁和高性能，然后才是强大易用，功能全面。</li>
+</ul>
+<h2 id="Markdown-语法："><a href="#Markdown-语法：" class="headerlink" title="Markdown 语法："></a>Markdown 语法：</h2><ul>
+<li>使用 Github Flavored Markdown 语法，简称 GFM 语法。</li>
+<li>支持表格、TOC、LaTeX、代码块、任务列表、脚注等。</li>
+<li>画图库支持 mermaid, viz, echarts, plantuml, sequence, flow。</li>
+</ul>
+<h2 id="Markdown-辅助："><a href="#Markdown-辅助：" class="headerlink" title="Markdown 辅助："></a>Markdown 辅助：</h2><ul>
+<li>支持截图并粘贴、复制并粘贴、拖拽等方式插入图片并直接显示在编辑器内。</li>
+<li>在兼容 Markdown 语法的情况下支持设置图片宽度。</li>
+<li>好用的表格插入和 LaTeX 书写辅助。</li>
+</ul>
+<h2 id="Markdown-输出："><a href="#Markdown-输出：" class="headerlink" title="Markdown 输出："></a>Markdown 输出：</h2><ul>
+<li>支持导出为图片、HTML、Epub、PDF、RTF、Docx。</li>
+<li>支持发布到 Wordrpess、支持 Metaweblog API 协议的服务、Wordpress.com、印象笔记（Evernote）、Blogger、Medium、Tumblr。</li>
+<li>图片上传服务（图床）支持 Google Photos、Imgur、七牛云、又拍云和自定义的图床服务。</li>
+</ul>
+<h2 id="Markdown-笔记："><a href="#Markdown-笔记：" class="headerlink" title="Markdown 笔记："></a>Markdown 笔记：</h2><ul>
+<li>强大的文档库支持分类树和标签管理文档，文档可归类于多个分类，可以把分类整个导出为 Epub、PDF 和生成静态网站。非常合适用于笔记、个人知识收集、管理和输出。</li>
+<li>快速笔记：随意增加笔记及图片等素材，支持以天为单位把增加的素材组合在一个文档内，方便整理及记录历史收集情况。</li>
+<li>快速搜索：目前已支持全局快捷键调出搜索。</li>
+</ul>
+<h2 id="外部-Markdown-文档："><a href="#外部-Markdown-文档：" class="headerlink" title="外部 Markdown 文档："></a>外部 Markdown 文档：</h2><ul>
+<li>外部 Markdown 文档使用外部模式管理。外部模式使用目录树的方式编辑和管理你的 markdown 文档，还能很好的支持 gitbook、JekyII、hexo 等等编辑和图片插入。</li>
+</ul>
+<h2 id="MWeb-文档："><a href="#MWeb-文档：" class="headerlink" title="MWeb 文档："></a>MWeb 文档：</h2><p>如果要更详细了解 MWeb，建议你一定要去看一下官网的帮助文档，网址为：<a href="https://zh.mweb.im/help.html" target="_blank" rel="external">https://zh.mweb.im/help.html</a>。我们建议在使用文档库之前，一定要阅读一下  <a href="https://zh.mweb.im/mweb-library.html" target="_blank" rel="external">MWeb 文档库详细介绍</a> 这篇文章，以便更好的使用文档库。</p>
+<h2 id="帮助我们改进-MWeb"><a href="#帮助我们改进-MWeb" class="headerlink" title="帮助我们改进 MWeb"></a>帮助我们改进 MWeb</h2><p>如果你喜欢 MWeb，想让它变得更好，你可以：</p>
+<ol>
+<li>推荐 MWeb，让更多的人知道。</li>
+<li>给我们发反馈和建议：<a href="&#x6d;&#97;&#x69;&#x6c;&#116;&#x6f;&#x3a;&#x63;&#x6f;&#100;&#101;&#x72;&#102;&#x6f;&#x72;&#x61;&#114;&#x74;&#43;&#x32;&#51;&#51;&#51;&#64;&#x67;&#109;&#x61;&#x69;&#x6c;&#46;&#x63;&#x6f;&#109;">&#x63;&#x6f;&#100;&#101;&#x72;&#102;&#x6f;&#x72;&#x61;&#114;&#x74;&#43;&#x32;&#51;&#51;&#51;&#64;&#x67;&#109;&#x61;&#x69;&#x6c;&#46;&#x63;&#x6f;&#109;</a></li>
+<li>在 Mac App Store 上评价 （如果是在 MAS 上购买的话）。</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://waythought.duoshuo.com/2020/01/02/23.KVO底层实现原理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qian.G.j">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="钱多多的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2020/01/02/23.KVO底层实现原理/" itemprop="url">
+                  23.探讨KVO底层原理、存在的缺陷以及解决方法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-02T12:12:24+08:00">
+                2020-01-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/01/02/23.KVO底层实现原理/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/01/02/23.KVO底层实现原理/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2020/01/02/23.KVO底层实现原理/" class="leancloud_visitors" data-flag-title="23.探讨KVO底层原理、存在的缺陷以及解决方法">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="KVO"><a href="#KVO" class="headerlink" title="KVO"></a>KVO</h3><p><strong>KVO的全称是Key-Value Observing，俗称“键值监听”，可以用于监听某个对象属性值的改变</strong></p>
+<p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1g5r4ueu2m0j212g084wew.jpg" alt=""></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/01/02/23.KVO底层实现原理/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://waythought.duoshuo.com/2019/08/02/22.app瘦身/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qian.G.j">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="钱多多的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2019/08/02/22.app瘦身/" itemprop="url">
+                  22.app瘦身
                 </a>
               
             
@@ -372,8 +689,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/08/02/22.KVO底层实现原理/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/08/02/22.KVO底层实现原理/" itemprop="commentCount"></span>
+                <a href="/2019/08/02/22.app瘦身/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/08/02/22.app瘦身/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -381,7 +698,7 @@
 
           
           
-             <span id="/2019/08/02/22.KVO底层实现原理/" class="leancloud_visitors" data-flag-title="22.探讨KVO底层原理、存在的缺陷以及解决方法">
+             <span id="/2019/08/02/22.app瘦身/" class="leancloud_visitors" data-flag-title="22.app瘦身">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -411,15 +728,34 @@
 
       
         
-          <h3 id="KVO"><a href="#KVO" class="headerlink" title="KVO"></a>KVO</h3><p><strong>KVO的全称是Key-Value Observing，俗称“键值监听”，可以用于监听某个对象属性值的改变</strong></p>
-<p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1g5r4ueu2m0j212g084wew.jpg" alt=""></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/08/02/22.KVO底层实现原理/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
+            <h2 id="安装包（IPA）主要由可执行文件、资源组成"><a href="#安装包（IPA）主要由可执行文件、资源组成" class="headerlink" title="安装包（IPA）主要由可执行文件、资源组成"></a>安装包（IPA）主要由可执行文件、资源组成</h2><h3 id="一、资源优化（图片、音频、视频等）"><a href="#一、资源优化（图片、音频、视频等）" class="headerlink" title="一、资源优化（图片、音频、视频等）"></a>一、资源优化（图片、音频、视频等）</h3><ol>
+<li>图片采取无损压缩(压缩大小但是不压缩质量)</li>
+<li>去除没有用到的资源工具： <a href="https://github.com/tinymind/LSUnusedResources" target="_blank" rel="external">工具</a></li>
+<li>png与jpg图片替换成使用NSBundle加载webp格式图片,已验证瘦身效果明显</li>
+</ol>
+<h4 id="删除无用图片的过程-可以概括为下面这个6大步。"><a href="#删除无用图片的过程-可以概括为下面这个6大步。" class="headerlink" title="删除无用图片的过程,可以概括为下面这个6大步。"></a>删除无用图片的过程,可以概括为下面这个6大步。</h4><ul>
+<li>通过find命令获取App安装包中的所有资源文件</li>
+<li>设置用到的资源的类型,比如jpg、gif、png、webp</li>
+<li>使用正则匹配在源码中找出使用到的资源名,比如pattern = @”@(.+?)”</li>
+<li>使用find命令找到的所有的资源文件,再去掉代码使用到的资源文件,剩下的就是无用资源了。</li>
+<li>对于按照规则设置的资源名,我们需要再匹配使用资源的正则表达式里添加相应的规则,比如@”image_%d”。</li>
+<li>确认无用资源后,就可以对这些无用资源执行删除操作了。这个删除操作,你可以使用nsfilemanager</li>
+</ul>
+<h3 id="二、可执行文件的瘦身"><a href="#二、可执行文件的瘦身" class="headerlink" title="二、可执行文件的瘦身"></a>二、可执行文件的瘦身</h3><p>1.编译选项优化 </p>
+<ul>
+<li>Strip Linked Product、Make Strings Read-Only、Symbols Hidden by Default设置为YES (高版本xcode已默认设置为YES)</li>
+<li>去掉异常支持，Enable C++ Exceptions、Enable Objective-C Exceptions设置为NO， Other C Flags添加-fno-exceptions</li>
+</ul>
+<p>2.未使用代码检测</p>
+<p>利用AppCode <a href="https://www.jetbrains.com/objc/" target="_blank" rel="external">下载地址</a><br>检测未使用的代码流程：菜单栏 -&gt; Code -&gt; Inspect Code</p>
+<p>补充:<br>App Thining是由苹果公司推出的一项可以改善App下载进程的新技术,主要是为了解决用户下载App 耗费过高流量的问题。同时还可以节省用户iOS设备的存储空间。</p>
+<p>现在的iOS设备屏幕尺寸、分辨率越来越多样化,这样也就需要更多的资源来匹配不同的尺寸和分辨率。同时,App也会有32位、64位不同芯片架构的优化版本,如果这些都是在一个包里,那么用户下载包的大小势必就会变大。</p>
+<p>App Thinning会专门针对不同的设备来选择只使用当前设备的内容以供下载。比如,iPhone 6只会下载2x分辨率的图片资源,iPhone 6Plus则只会下载3x分辨率的图片资源。<br>App Thining有三种方式,包括: App Slicing、Bitcode、On-Demand Resource。</p>
+<p>App Slicing,会在你向iTunes Connect上传App后,对App做切割,创建不同的变体,这样就可以使用到不同的设备。<br>On-Demand Resources,主要是为了游戏多关卡场景服务的。它会根据用户的关卡进度下载随后几个关卡的资源,并且已经过关的资源也会被删掉,这样就可以减少初装app的包的大小。</p>
+<p>Bitcode,是针对特定设备进行包大小优化,优化不明显。</p>
+
+          
         
       
     </div>
@@ -1055,150 +1391,6 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://waythought.duoshuo.com/2018/04/26/01.在Mac系统下配置PHP运行环境/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qian.G.j">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="钱多多的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2018/04/26/01.在Mac系统下配置PHP运行环境/" itemprop="url">
-                  01.在Mac系统下配置PHP运行环境
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-26T14:12:14+08:00">
-                2018-04-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/04/26/01.在Mac系统下配置PHP运行环境/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/04/26/01.在Mac系统下配置PHP运行环境/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2018/04/26/01.在Mac系统下配置PHP运行环境/" class="leancloud_visitors" data-flag-title="01.在Mac系统下配置PHP运行环境">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h4 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h4><p>近期项目中需要将UIWebView替换成WKWebView,查询到前端口原js调用的方法不在起作用,需要调用新方法window.webkit.messageHandlers.<name>.postMessage(<messageBody>),所以本地新建Html测试下,需要设置Apache相关配置</messageBody></name></p>
-<p>Mac系统对于Php运行非常友好,我们只需要进行简单的配置便可以开始进行使用。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/04/26/01.在Mac系统下配置PHP运行环境/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://waythought.duoshuo.com/2018/04/23/17.iOS Block详解(一)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1634,149 +1826,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://waythought.duoshuo.com/2017/10/02/14.友盟 crash log 错误分析工具/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Qian.G.j">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="钱多多的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/10/02/14.友盟 crash log 错误分析工具/" itemprop="url">
-                  14.友盟 crash log 错误分析工具
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-02T09:34:14+08:00">
-                2017-10-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/10/02/14.友盟 crash log 错误分析工具/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/10/02/14.友盟 crash log 错误分析工具/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2017/10/02/14.友盟 crash log 错误分析工具/" class="leancloud_visitors" data-flag-title="14.友盟 crash log 错误分析工具">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>开发完成,闲置时间对已上线版本进行crash log错误分析,crash展示文件除了帧调用就是内存地址,的确不好看明白 <img src="http://ww1.sinaimg.cn/large/8af26a6dly1fxvzq8sq7lj21f413in9b.jpg" alt=""></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/10/02/14.友盟 crash log 错误分析工具/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1826,7 +1875,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-count">24</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
