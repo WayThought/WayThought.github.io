@@ -555,10 +555,9 @@
 
       
         
-          
-            <h2 id="安装包（IPA）主要由可执行文件、资源组成"><a href="#安装包（IPA）主要由可执行文件、资源组成" class="headerlink" title="安装包（IPA）主要由可执行文件、资源组成"></a>安装包（IPA）主要由可执行文件、资源组成</h2><h3 id="一、资源优化（图片、音频、视频等）"><a href="#一、资源优化（图片、音频、视频等）" class="headerlink" title="一、资源优化（图片、音频、视频等）"></a>一、资源优化（图片、音频、视频等）</h3><ol>
+          <h2 id="安装包（IPA）主要由可执行文件、资源组成"><a href="#安装包（IPA）主要由可执行文件、资源组成" class="headerlink" title="安装包（IPA）主要由可执行文件、资源组成"></a>安装包（IPA）主要由可执行文件、资源组成</h2><h3 id="一、资源优化（图片、音频、视频等）"><a href="#一、资源优化（图片、音频、视频等）" class="headerlink" title="一、资源优化（图片、音频、视频等）"></a>一、资源优化（图片、音频、视频等）</h3><ol>
 <li>图片采取无损压缩(压缩大小但是不压缩质量)</li>
-<li>去除没有用到的资源工具： <a href="https://github.com/tinymind/LSUnusedResources" target="_blank" rel="external">工具</a></li>
+<li>去除没有用到的资源工具： <a href="https://github.com/tinymind/LSUnusedResources">工具</a></li>
 <li>png与jpg图片替换成使用NSBundle加载webp格式图片,已验证瘦身效果明显</li>
 </ol>
 <h4 id="删除无用图片的过程-可以概括为下面这个6大步。"><a href="#删除无用图片的过程-可以概括为下面这个6大步。" class="headerlink" title="删除无用图片的过程,可以概括为下面这个6大步。"></a>删除无用图片的过程,可以概括为下面这个6大步。</h4><ul>
@@ -567,22 +566,14 @@
 <li>使用正则匹配在源码中找出使用到的资源名,比如pattern = @”@(.+?)”</li>
 <li>使用find命令找到的所有的资源文件,再去掉代码使用到的资源文件,剩下的就是无用资源了。</li>
 <li>对于按照规则设置的资源名,我们需要再匹配使用资源的正则表达式里添加相应的规则,比如@”image_%d”。</li>
-<li>确认无用资源后,就可以对这些无用资源执行删除操作了。这个删除操作,你可以使用nsfilemanager</li>
-</ul>
-<h3 id="二、可执行文件的瘦身"><a href="#二、可执行文件的瘦身" class="headerlink" title="二、可执行文件的瘦身"></a>二、可执行文件的瘦身</h3><p>1.编译选项优化 </p>
-<ul>
-<li>Strip Linked Product、Make Strings Read-Only、Symbols Hidden by Default设置为YES (高版本xcode已默认设置为YES)</li>
-<li>去掉异常支持，Enable C++ Exceptions、Enable Objective-C Exceptions设置为NO， Other C Flags添加-fno-exceptions</li>
-</ul>
-<p>2.未使用代码检测</p>
-<p>利用AppCode <a href="https://www.jetbrains.com/objc/" target="_blank" rel="external">下载地址</a><br>检测未使用的代码流程：菜单栏 -&gt; Code -&gt; Inspect Code</p>
-<p>补充:<br>App Thining是由苹果公司推出的一项可以改善App下载进程的新技术,主要是为了解决用户下载App 耗费过高流量的问题。同时还可以节省用户iOS设备的存储空间。</p>
-<p>现在的iOS设备屏幕尺寸、分辨率越来越多样化,这样也就需要更多的资源来匹配不同的尺寸和分辨率。同时,App也会有32位、64位不同芯片架构的优化版本,如果这些都是在一个包里,那么用户下载包的大小势必就会变大。</p>
-<p>App Thinning会专门针对不同的设备来选择只使用当前设备的内容以供下载。比如,iPhone 6只会下载2x分辨率的图片资源,iPhone 6Plus则只会下载3x分辨率的图片资源。<br>App Thining有三种方式,包括: App Slicing、Bitcode、On-Demand Resource。</p>
-<p>App Slicing,会在你向iTunes Connect上传App后,对App做切割,创建不同的变体,这样就可以使用到不同的设备。<br>On-Demand Resources,主要是为了游戏多关卡场景服务的。它会根据用户的关卡进度下载随后几个关卡的资源,并且已经过关的资源也会被删掉,这样就可以减少初装app的包的大小。</p>
-<p>Bitcode,是针对特定设备进行包大小优化,优化不明显。</p>
-
-          
+<li>确认无用资源后,就可以对这些无用资源执行删除操作了。这个删除操作,你可以使用nsfilemanager</li></ul>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/08/02/22.app瘦身/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
