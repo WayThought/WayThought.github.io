@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://waythought.duoshuo.com/"/>
-  <updated>2020-02-26T06:47:12.544Z</updated>
+  <updated>2020-02-27T15:58:53.627Z</updated>
   <id>http://waythought.duoshuo.com/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>23.探讨KVO底层原理、存在的缺陷以及解决方法</title>
-    <link href="http://waythought.duoshuo.com/2020/01/02/23.KVO%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/"/>
-    <id>http://waythought.duoshuo.com/2020/01/02/23.KVO底层实现原理/</id>
+    <title>24.探讨KVO底层原理、存在的缺陷以及解决方法</title>
+    <link href="http://waythought.duoshuo.com/2020/01/02/24.KVO%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/"/>
+    <id>http://waythought.duoshuo.com/2020/01/02/24.KVO底层实现原理/</id>
     <published>2020-01-02T04:12:24.000Z</published>
-    <updated>2020-02-26T06:47:12.544Z</updated>
+    <updated>2020-02-27T15:58:53.627Z</updated>
     
     <content type="html"><![CDATA[<h3 id="KVO"><a href="#KVO" class="headerlink" title="KVO"></a>KVO</h3><p><strong>KVO的全称是Key-Value Observing，俗称“键值监听”，可以用于监听某个对象属性值的改变</strong></p><p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1g5r4ueu2m0j212g084wew.jpg" alt=""></p><a id="more"></a><h3 id="KVO底层实现原理分析与验证"><a href="#KVO底层实现原理分析与验证" class="headerlink" title="KVO底层实现原理分析与验证"></a>KVO底层实现原理分析与验证</h3><h4 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h4><p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1g5r4vim911j21j613e7e0.jpg" alt=""></p><p>打印结果<br><img src="http://ww1.sinaimg.cn/large/8af26a6dly1g5r5jz1s2zj21x409sgn7.jpg" alt=""></p><p>那么给person1和person2赋值的时候,为什么只是添加了监听者对象的属性变化会调用呢? </p><p>我们看到person1与person2的区别就是person2添加了监听者。所以猜测是person2实例对象发生了变化。</p><p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1g5r5l6q7d8j21x4130tjg.jpg" alt=""></p><p>打印结果显示person1与person2实例对象的isa指向的类对象是不同的,也就是添加了KVO监听的实例对象的isa指向的类对象是NSKVONotifying_BYPerson,未添加监听者的实例对象的isa指向的还是原来的类对象。</p><p>我们都知道实例对象调用方法是给这个对象发送消息,根据实例对象的isa,找到类对象,优先在这个类对象中去寻找对象方法,找不到的话会根据superClass指针找父类的类对象,再去父类的类对象中查询对象方法。</p><p><strong>person1的isa</strong><br><img src="http://ww1.sinaimg.cn/large/8af26a6dly1g5r69kvuqoj20xe0fw0tx.jpg" alt=""></p><p><strong>person2的isa</strong></p><p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1g5r69votxbj21a00ogdix.jpg" alt=""></p><p><strong>备注:  NSKVONotifying_BYPerson这个派生的子类,是runtime动态生成的, NSKVONotifying_BYPerson这个类对象的isa指针指向这个派生类的元类对象</strong></p><p>我们来验证下NSKVONotifying_BYPerson类中有哪些对象方法</p><pre><code>// 打印类中的方法- (void)printMethodNamesOfClass:(Class)cls{    unsigned int count;    // 获得方法数组    Method *methodList = class_copyMethodList(cls, &amp;count);    // 存储方法名    NSMutableString *methodNames = [NSMutableString string];    // 遍历所有的方法    for (int i = 0; i &lt; count; i++) {        // 获得方法        Method method = methodList[i];        // 获得方法名        NSString *methodName = NSStringFromSelector(method_getName(method));        // 拼接方法名        [methodNames appendString:methodName];        [methodNames appendString:@&quot;, &quot;];    }    // 释放    free(methodList);    // 打印方法名    NSLog(@&quot;%@ %@&quot;, cls, methodNames);}</code></pre><hr><p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1g5r6whglpej21w80oaqay.jpg" alt=""></p><p>NSKVONotifying_BYPerson类中有setAge:, class, dealloc, _isKVOA方法</p><h4 id="派生的子类中的-setAge-方法"><a href="#派生的子类中的-setAge-方法" class="headerlink" title="派生的子类中的 setAge: 方法"></a>派生的子类中的 setAge: 方法</h4><p><strong>根据结果来看person2会优先调用NSKVONotifying_BYPerson这个类对象中的setAge:方法</strong></p><p>我们来看下NSKVONotifying_BYPerson对象方法的setAge:方法的实现:</p><p><strong>methodForSelector:</strong>方法是返回实例对象对应的对象方法的实现<br><img src="http://ww1.sinaimg.cn/large/8af26a6dly1g5r70l2asuj21x6176tnl.jpg" alt=""></p><p>我们看到person1的”setAge:”方法实现没有发生变化,person2在添加监听者之前和之后是不同的</p><pre><code>p (IMP) 地址</code></pre><p>会打印出该方法的实现</p><p>person1是正常调用的BYPerson类的setAge:方法,而person2的”setAge:”方法的实现是函数<strong>_NSSetIntValueAndNotify</strong>这个函数</p><h4 id="NSSetIntValueAndNotify内部实现"><a href="#NSSetIntValueAndNotify内部实现" class="headerlink" title="_NSSetIntValueAndNotify内部实现"></a>_NSSetIntValueAndNotify内部实现</h4><p><img src="http://ww1.sinaimg.cn/large/8af26a6dly1g73y0sr4duj20dg04f0tr.jpg" alt=""></p><ol><li>调用willChangeValueForKey,记录旧的值</li><li>调用原来的setter方法</li><li>调用didChangeValueForKey (该方法内部会调用observer的observeValueForKeyPath:ofObject:change:context方法)</li></ol><h4 id="派生的子类中的-class-方法"><a href="#派生的子类中的-class-方法" class="headerlink" title="派生的子类中的 class 方法"></a>派生的子类中的 class 方法</h4><pre><code>- (Class)class {return [BYPerson class];}</code></pre><p>派生的子类中重写了class方法,返回的是父类的class方法。苹果为什么要这么做呢?</p><p>我认为是苹果不想公开NSKVONotifying_BYPerson这个类,屏蔽内部实现,隐藏派生子类的实现,让开发者更注重业务的开发。<br>即使开发者调用class方法,告诉开发者的也是BYPerson,是父类,也是正确的。</p><h3 id="KVOController源码讨论"><a href="#KVOController源码讨论" class="headerlink" title="KVOController源码讨论"></a>KVOController源码讨论</h3><h4 id="KVO现状"><a href="#KVO现状" class="headerlink" title="KVO现状"></a>KVO现状</h4><ul><li>addObserver和removeObserver必须配对出现,仅支持以下用法</li></ul><pre><code>[observe addObserver...];// do something[observe removeObserver...];</code></pre><ul><li>很多时候明明代码已经做到了配对出现且按次序调用,由于<strong>多线程导致软件运行时环境复杂化</strong> 或者 <strong>观察者意外地过早释放掉</strong>还是发现有相关的crash。</li><li>对同一个实例对象的属性添加多次监听,在属性发生变化的时候,observeValueForKeyPath:ofObject:change:context的方法会调用多次</li></ul><h4 id="KVOController的优势"><a href="#KVOController的优势" class="headerlink" title="KVOController的优势"></a>KVOController的优势</h4><ul><li>提供更易用的的接口</li></ul><p>提供对block回调和自定义selector的支持,保持了灵活性和强大</p><ul><li>提供更加安全的接口</li></ul><p>通过解决addObserver 和 removeObserver必须配对且按次序调用的问题,提供了一套更加安全的接口。</p><p>使用单例主动监听,保证在程序声明周期不会释放掉。</p><ul><li>消息过滤<br>通过_FBKVOInfo *existingInfo = [infos member:info], 首先判断是否已经包含对应观察者消息,如果包含则直接返回,不会再重复注册。</li></ul><h4 id="KVOController-流程"><a href="#KVOController-流程" class="headerlink" title="KVOController 流程"></a>KVOController 流程</h4><p><strong>关键类</strong></p><pre><code>_FBKVOInfo:{    @public      // 对FBKVOController的弱引用      __weak FBKVOController *_controller;      // 被监听者的keyPath      NSString *_keyPath;      NSKeyValueObservingOptions _options;      SEL _action;      void *_context;      // 被监听到的实例变量发生变化之后的回调      FBKVONotificationBlock _block;      // 本对象的状态      _FBKVOInfoState _state;}</code></pre><hr><pre><code>FBKVOController:    // 用来记录监听的table    NSMapTable&lt;id, NSMutableSet&lt;_FBKVOInfo *&gt; *&gt; *_objectInfosMap;    // 弱引用一个被监听的对象    @property (nullable, nonatomic, weak, readonly) id observer;</code></pre><hr><pre><code>_FBKVOSharedController:// 记录监听的集合NSHashTable&lt;_FBKVOInfo *&gt; *_infos;</code></pre><p>第一步、(基本使用)</p><pre><code>// Arrange 1: Create a controller to observe changes to a circle.id&lt;FBKVOTestObserving&gt; observer = mockProtocol(@protocol(FBKVOTestObserving));FBKVOController *controller = [FBKVOController controllerWithObserver:observer];// Arrange 2: Observe the key paths &quot;radius&quot; and &quot;borderWidth&quot; on the circle.//            Aggregate the new values in an array.NSMutableArray *newValues = [NSMutableArray array];FBKVOTestCircle *circle = [FBKVOTestCircle circle];// 将被监听者、keyPath、传到FBKVOController内部[controller observe:circle keyPaths:@[radius, borderWidth] options:NSKeyValueObservingOptionNew block:^(id observer, FBKVOTestCircle *circle, NSDictionary *change) {  [newValues addObject:change[NSKeyValueChangeNewKey]];}];</code></pre><p>第二步、(在FBKVOController的操作)</p><ol><li><p>根据FBKVOController、keyPath等创建_FBKVOInfo对象,并把被监听者作为key,创建对应NSMutableSet作为value,将_FBKVOInfo对象添加到这个NSMutableSet中。将key与value的对应关系存储到FBKVOController的的objectInfosMap(NSMapTable类型)成员变量中</p></li><li><p>等下次添加的时候,根据被监听者(key)判断是否创建了这个NSMutableSet(value),未创建则重新创建;如果判断已经创建了,取出对应的NSMutableSet, 再判断这个NSMutableSet是否包含了该keypath创建_FBKVOInfo对象,如果包含则直接return,未创建则重新创建。过滤掉重复监听同一个被监听者的同一个属性。</p></li><li>将被监听者和生成的_FBKVOInfo对象传给_FBKVOSharedController这个单例</li></ol><p>第三步、(在_FBKVOSharedController中的操作)</p><ol><li>让_FBKVOSharedController这个单例对被监听者进行监听,因为监听者是单例,所以监听者在程序的运行声明周期不会释放掉。</li><li><p>在监听回调方法<strong>observeValueForKeyPath</strong>中做了以下判断</p><p> 2.1. 取出对应的info,判断info持有的_controller是否释放掉了,如果释放掉了直接return <br></p><p> 2.2. 判断_controller持有的被监听者是否释放掉了,如果释放掉了直接return</p></li><li>走完上述两步,进行block的回调。保证在回调过程中被监听者、监听者和KVOController都是存在的</li></ol>]]></content>
     
@@ -29,6 +29,25 @@
     
       &lt;h3 id=&quot;KVO&quot;&gt;&lt;a href=&quot;#KVO&quot; class=&quot;headerlink&quot; title=&quot;KVO&quot;&gt;&lt;/a&gt;KVO&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;KVO的全称是Key-Value Observing，俗称“键值监听”，可以用于监听某个对象属性值的改变&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;http://ww1.sinaimg.cn/large/8af26a6dly1g5r4ueu2m0j212g084wew.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>23.app启动优化</title>
+    <link href="http://waythought.duoshuo.com/2019/11/12/23.app%E5%90%AF%E5%8A%A8%E4%BC%98%E5%8C%96/"/>
+    <id>http://waythought.duoshuo.com/2019/11/12/23.app启动优化/</id>
+    <published>2019-11-12T04:10:13.000Z</published>
+    <updated>2020-02-27T16:02:44.222Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><strong>冷启动:（Cold Launch）</strong>: 从零开始启动APP<br><strong>热启动:Warm Launch）</strong>:APP已经在内存中，在后台存活着，再次点击图标启动APP</p><p>APP启动时间的优化，主要是针对冷启动进行优化,冷启动的时间在400ms内是正常的, 如果超过的话, 需要做优化的。<br><a id="more"></a><br>APP的冷启动可以概括为3大阶段<br>dyld -&gt; runtime -&gt; main</p><p><strong>第一阶段:dyld</strong><br>dyld（dynamic link editor），Apple的动态链接器，可以用来装载Mach-O文件（可执行文件、动态库等）</p><p>启动APP时，dyld所做的事情有</p><ol><li>装载APP的可执行文件，同时会递归加载所有依赖的动态库到内存中</li><li>当dyld把可执行文件、动态库都装载完毕后，会通知Runtime进行下一步的处理</li></ol><p><strong>装载过程说明:</strong><br>项目中的Product里面:<br>编译完成之后 -&gt; 我们的app包里面有一个可执行文件(里面包括我们写的代码和有依赖哪些动态库库的说明,但是里面不包含我们依赖的例如UIKit等库,) </p><p><strong>dyld负责装载这个可执行文件, 同时检查这个可执行文件依赖哪些动态库(依赖库有依赖其他的会递归查找),最终将这个可执行文件和依赖的动态库加载到我们的内存中</strong></p><p><strong>第二阶段: Runtime</strong><br>启动APP时，runtime所做的事情有</p><ol><li>调用map_images进行可执行文件内容的解析和处理</li><li>在load_images中调用call_load_methods，调用所有Class和Category的+load方法</li><li>进行各种objc结构的初始化（注册Objc类 、初始化类对象等等）</li><li>调用C++静态初始化器和<strong>attribute</strong>((constructor))修饰的函数</li></ol><p>到此为止，可执行文件和动态库中所有的符号(Class，Protocol，Selector，IMP，…)都已经按格式成功加载到内存中，被runtime 所管理</p><p><strong>第三阶段: main函数</strong><br>进入main函数</p><p><strong>总结:</strong></p><ol><li>APP的启动由dyld主导，将可执行文件加载到内存，顺便加载所有依赖的动态库</li><li>并由runtime负责加载成objc定义的结构</li><li>所有初始化工作结束后，dyld就会调用main函数</li><li>接下来就是UIApplicationMain函数，AppDelegate的application:didFinishLaunchingWithOptions:方法</li></ol><h3 id="App的启动优化"><a href="#App的启动优化" class="headerlink" title="App的启动优化:"></a>App的启动优化:</h3><p>按照不同的阶段<br><strong>dyld阶段</strong></p><ol><li>减少动态库、合并一些动态库（定期清理不必要的动态库）</li><li>减少Objc类、分类的数量、减少Selector数量（定期清理不必要的类、分类）</li><li>减少C++虚函数数量</li><li>Swift尽量使用struct</li></ol><p><strong>runtime阶段</strong></p><ol><li>用+initialize方法和dispatch_once取代所有的<strong>attribute</strong>((constructor))、C++静态构造器、ObjC的+load</li></ol><p><strong>main函数阶段</strong></p><ol><li>在不影响用户体验的前提下，尽可能将一些操作延迟，不要全部都放在finishLaunching方法中</li><li>按需加载</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;冷启动:（Cold Launch）&lt;/strong&gt;: 从零开始启动APP&lt;br&gt;&lt;strong&gt;热启动:Warm Launch）&lt;/strong&gt;:APP已经在内存中，在后台存活着，再次点击图标启动APP&lt;/p&gt;
+&lt;p&gt;APP启动时间的优化，主要是针对冷启动进行优化,冷启动的时间在400ms内是正常的, 如果超过的话, 需要做优化的。&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
@@ -446,36 +465,6 @@ git有机器强大的分支管理,把SVN等远远抛在了后面
 &lt;pre&gt;&lt;code&gt;git需要在GitHup,OsChina,GitLabel中添加自己的公钥
 由于你的本地Git仓库和GitHub仓库之间的传输是通过SSH加密的,GitHub只要知道了你的公钥,就可以在每台电脑上往GitHub推送了.
 &lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;&lt;/ul&gt;
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>04-Code Review</title>
-    <link href="http://waythought.duoshuo.com/2016/10/23/04-%E4%BB%A3%E7%A0%81%E5%AE%A1%E6%9F%A5%E6%B8%85%E5%8D%95/"/>
-    <id>http://waythought.duoshuo.com/2016/10/23/04-代码审查清单/</id>
-    <published>2016-10-23T11:35:16.000Z</published>
-    <updated>2018-08-25T03:16:05.667Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="Code-Review"><a href="#Code-Review" class="headerlink" title="Code Review"></a>Code Review</h2><h4 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h4><ul><li>1.在项目早起就能发现代码中的bug</li><li>2.项目统一代码风格,项目代码更容易维护</li><li>3.避免开发人员犯一些很常见,很普通的错误(可预测性检查)</li></ul><h4 id="常规项"><a href="#常规项" class="headerlink" title="常规项"></a>常规项</h4><ul><li>1.代码能够工作吗？它有没有实现预期的功能，逻辑是否正确等。</li><li>2.代码符合你遵循的编程规范吗？通常包括大括号的位置，变量名和函数名，行的长度，缩进，格式和注释等风格是否保持一致。</li><li>3.是否存在多余的或是重复的代码？</li><li>4.代码是否尽可能的模块化了？</li><li>5.是否有可以被替换的全局变量？</li><li>6.是否有被注释掉的代码？所有的注释是否是准确的?</li><li>7.健壮性：是否考虑线程安全；边界处理是否完整；数据的越界处理；被零除,有没有内存泄漏；逻辑是否健壮；循环引用（block中的self和weakSelf）<a id="more"></a></li></ul><h4 id="安全"><a href="#安全" class="headerlink" title="安全"></a>安全</h4><ul><li>1.所有的数据输入是否都进行了检查（检测正确的类型，长度，格式和范围）并且进行了编码？</li><li>2.在哪里使用了第三方工具，返回的错误是否被捕获？</li><li>3.输入的值是够进行了检查和编码？</li><li>4.无效的参数值是否能够处理？</li></ul><h4 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h4><p>把使用清单作为你的起点，针对特定的使用案例，需要对其进行优化。一个比较棒的方式就是记录下那些在代码审查过程中临时发现的问题，有了这些数据，能够明确常犯的错误，然后可以量身定制一个审查清单。确保删除了那些没有出现过的错误。</p><h4 id="代码审查清单"><a href="#代码审查清单" class="headerlink" title="代码审查清单"></a>代码审查清单</h4><ul><li>1.基础: iOS规范指南</li><li>2.控件的创建尽量放到Setter和Getter中进行懒加载,不要写在viewDidLoad中</li><li>3.block中的self需要替换成weakSelf防止循环引用,形成好的习惯。</li><li>4.多余控件和控制器的删除。被注释掉的代码是否有必要保留？所有的注释是否是准确的?</li><li>5.base类中已经存在满足需求控件和方法不需要再重新定义(例如UITableView及其分页、刷新)</li><li>6.手动开启线程要谨慎。</li></ul><h4 id="获取认可并且保持更新"><a href="#获取认可并且保持更新" class="headerlink" title="获取认可并且保持更新"></a>获取认可并且保持更新</h4><p>基本规则是，清单上的人和条目都必须明确，而且，如果可能的话，对于一些条目你可以对其进行二元判断。这样可以防止判断的不一致。定期检查你的清单，以确保各条目仍然是有意义的。</p><h4 id="责任："><a href="#责任：" class="headerlink" title="责任："></a>责任：</h4><p>代码编写者，代码审核者共同对代码的质量承担责任。这样才能保证Code Review不是走过场.</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;Code-Review&quot;&gt;&lt;a href=&quot;#Code-Review&quot; class=&quot;headerlink&quot; title=&quot;Code Review&quot;&gt;&lt;/a&gt;Code Review&lt;/h2&gt;&lt;h4 id=&quot;目的&quot;&gt;&lt;a href=&quot;#目的&quot; class=&quot;headerlink&quot; title=&quot;目的&quot;&gt;&lt;/a&gt;目的&lt;/h4&gt;&lt;ul&gt;
-&lt;li&gt;1.在项目早起就能发现代码中的bug&lt;/li&gt;
-&lt;li&gt;2.项目统一代码风格,项目代码更容易维护&lt;/li&gt;
-&lt;li&gt;3.避免开发人员犯一些很常见,很普通的错误(可预测性检查)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&quot;常规项&quot;&gt;&lt;a href=&quot;#常规项&quot; class=&quot;headerlink&quot; title=&quot;常规项&quot;&gt;&lt;/a&gt;常规项&lt;/h4&gt;&lt;ul&gt;
-&lt;li&gt;1.代码能够工作吗？它有没有实现预期的功能，逻辑是否正确等。&lt;/li&gt;
-&lt;li&gt;2.代码符合你遵循的编程规范吗？通常包括大括号的位置，变量名和函数名，行的长度，缩进，格式和注释等风格是否保持一致。&lt;/li&gt;
-&lt;li&gt;3.是否存在多余的或是重复的代码？&lt;/li&gt;
-&lt;li&gt;4.代码是否尽可能的模块化了？&lt;/li&gt;
-&lt;li&gt;5.是否有可以被替换的全局变量？&lt;/li&gt;
-&lt;li&gt;6.是否有被注释掉的代码？所有的注释是否是准确的?&lt;/li&gt;
-&lt;li&gt;7.健壮性：是否考虑线程安全；边界处理是否完整；数据的越界处理；被零除,有没有内存泄漏；逻辑是否健壮；循环引用（block中的self和weakSelf）&lt;/li&gt;&lt;/ul&gt;
     
     </summary>
     
